@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">TEAM_OLIVE</string>
+    <string-array name="names">
+        <item>CAR</item>
+        <item>CYCLES</item>
+        <item>MOBILES</item>
+        <item>BIKES</item>
+        <item>ELECTRONICITEMS</item>
+        <item>TV</item>
+        <item>LAPTOP</item>
+        <item>FURNITURE</item>
+        <item>BOOK</item>
+        <item>CLOTHES</item>
+        <item>OTHERS</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
