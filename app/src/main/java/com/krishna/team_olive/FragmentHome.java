@@ -46,7 +46,7 @@ public class FragmentHome extends Fragment {
         postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList);
         recyclerView_posts.setAdapter(postAdapter);
 
-        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isNGO").child("isNGO").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("isNGO").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
