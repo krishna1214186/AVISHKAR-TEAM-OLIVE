@@ -1,12 +1,16 @@
 package com.krishna.team_olive;
 
-public class AddedItemDescriptionModel {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class AddedItemDescriptionModel implements Parcelable {
     String cateogary;
     String name;
     String ageOfProduct;
     String description;
     String adress1;
-    String adress2;
+    String adress2;//landmark
+
     String imageurl;
     String pincode;
     public AddedItemDescriptionModel()
@@ -22,6 +26,29 @@ public class AddedItemDescriptionModel {
         this.imageurl = imageurl;
         this.pincode = pincode;
     }
+
+    protected AddedItemDescriptionModel(Parcel in) {
+        cateogary = in.readString();
+        name = in.readString();
+        ageOfProduct = in.readString();
+        description = in.readString();
+        adress1 = in.readString();
+        adress2 = in.readString();
+        imageurl = in.readString();
+        pincode = in.readString();
+    }
+
+    public static final Creator<AddedItemDescriptionModel> CREATOR = new Creator<AddedItemDescriptionModel>() {
+        @Override
+        public AddedItemDescriptionModel createFromParcel(Parcel in) {
+            return new AddedItemDescriptionModel(in);
+        }
+
+        @Override
+        public AddedItemDescriptionModel[] newArray(int size) {
+            return new AddedItemDescriptionModel[size];
+        }
+    };
 
     public String getCateogary() {
         return cateogary;
@@ -85,5 +112,22 @@ public class AddedItemDescriptionModel {
 
     public void setPincode(String pincode) {
         this.pincode = pincode;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(cateogary);
+        dest.writeString(name);
+        dest.writeString(ageOfProduct);
+        dest.writeString(description);
+        dest.writeString(adress1);
+        dest.writeString(adress2);
+        dest.writeString(imageurl);
+        dest.writeString(pincode);
     }
 }
