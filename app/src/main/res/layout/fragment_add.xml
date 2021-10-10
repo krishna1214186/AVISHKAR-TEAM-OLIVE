@@ -15,12 +15,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/car"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -36,7 +36,7 @@
 
                 android:layout_width="150dp"
                 android:layout_height="80dp"
-
+                android:src="@drawable/img_car"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -45,6 +45,8 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="CAR"
+                android:textSize="20dp"
+                android:textColor="@color/black"
                 android:padding="8dp" />
         </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -52,12 +54,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/mobiles"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -73,7 +75,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/mobiles_png"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -82,6 +84,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="MOBILES"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:padding="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -89,12 +93,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/CYCLES"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -110,7 +114,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/cycles_png"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -119,6 +123,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="CYCLES"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:padding="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -126,12 +132,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/BIKES"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -147,7 +153,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/bike_img"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -156,6 +162,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="BIKES"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:padding="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -163,12 +171,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/ELECTRONIC_ITEMS"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -184,7 +192,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/electronic"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -192,6 +200,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:text="ELECTRONIC ITEMS"
                     android:padding="8dp" />
             </LinearLayout>
@@ -200,12 +210,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/TV"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -221,7 +231,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/tv_img"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -230,6 +240,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="TV"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:padding="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -237,12 +249,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/LAPTOP"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -258,7 +270,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/laptop_img"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -267,6 +279,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="LAPTOP"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:padding="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -274,12 +288,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/FURNITURE"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -295,7 +309,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/furniture_img"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -303,6 +317,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:text="FURNITURE"
                     android:padding="8dp" />
             </LinearLayout>
@@ -311,12 +327,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/BOOKS"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -332,7 +348,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/book_img"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -340,6 +356,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:text="BOOKS"
                     android:padding="8dp" />
             </LinearLayout>
@@ -348,12 +366,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/CLOTHES"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -369,7 +387,7 @@
 
                     android:layout_width="150dp"
                     android:layout_height="80dp"
-
+                    android:src="@drawable/clothes"
                     android:scaleType="centerCrop" />
 
                 <TextView
@@ -377,6 +395,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:text="CLOTHES"
                     android:padding="8dp" />
             </LinearLayout>
@@ -385,12 +405,12 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="0dp"
+
             android:id="@+id/OTHERS"
             android:clickable="true"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="4dp"
             android:layout_marginRight="4dp"
             android:layout_marginBottom="4dp"
@@ -415,6 +435,8 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="OTHERS"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
                     android:padding="8dp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

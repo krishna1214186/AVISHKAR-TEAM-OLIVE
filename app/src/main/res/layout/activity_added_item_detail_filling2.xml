@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AddedItemDetailFilling_2">
+    <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="upload photo"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:padding="8dp" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"

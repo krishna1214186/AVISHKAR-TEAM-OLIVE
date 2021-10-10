@@ -13,10 +13,14 @@ public class AddedItemDescriptionModel implements Parcelable {
 
     String imageurl;
     String pincode;
+    String typeOfExchange;
+    String exchangeCateogary;
+    String ratings;
+    String extension;
     public AddedItemDescriptionModel()
     {}
 
-    public AddedItemDescriptionModel(String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode) {
+    public AddedItemDescriptionModel(String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode,String typeOfExchange,String exchangeCateogary,String ratings,String extension) {
         this.cateogary = cateogary;
         this.name = name;
         this.ageOfProduct = ageOfProduct;
@@ -25,6 +29,10 @@ public class AddedItemDescriptionModel implements Parcelable {
         this.adress2 = adress2;
         this.imageurl = imageurl;
         this.pincode = pincode;
+        this.typeOfExchange=typeOfExchange;
+        this.exchangeCateogary=exchangeCateogary;
+        this.ratings=ratings;
+        this.extension=extension;
     }
 
     protected AddedItemDescriptionModel(Parcel in) {
@@ -36,6 +44,10 @@ public class AddedItemDescriptionModel implements Parcelable {
         adress2 = in.readString();
         imageurl = in.readString();
         pincode = in.readString();
+        typeOfExchange=in.readString();
+        exchangeCateogary=in.readString();
+        ratings=in.readString();
+        extension=in.readString();
     }
 
     public static final Creator<AddedItemDescriptionModel> CREATOR = new Creator<AddedItemDescriptionModel>() {
@@ -114,6 +126,38 @@ public class AddedItemDescriptionModel implements Parcelable {
         this.pincode = pincode;
     }
 
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getTypeOfExchange() {
+        return typeOfExchange;
+    }
+
+    public void setTypeOfExchange(String typeOfExchange) {
+        this.typeOfExchange = typeOfExchange;
+    }
+
+    public String getExchangeCateogary() {
+        return exchangeCateogary;
+    }
+
+    public void setExchangeCateogary(String exchangeCateogary) {
+        this.exchangeCateogary = exchangeCateogary;
+    }
+
+    public String getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(String ratings) {
+        this.ratings = ratings;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -129,5 +173,9 @@ public class AddedItemDescriptionModel implements Parcelable {
         dest.writeString(adress2);
         dest.writeString(imageurl);
         dest.writeString(pincode);
+        dest.writeString(typeOfExchange);
+        dest.writeString(exchangeCateogary);
+        dest.writeString(ratings);
+        dest.writeString(extension);
     }
 }
