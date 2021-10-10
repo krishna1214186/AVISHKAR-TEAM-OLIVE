@@ -1,64 +1,141 @@
 package com.krishna.team_olive;
 
+import android.app.ListFragment;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentAdd#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Arrays;
+
+
 public class FragmentAdd extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+CardView cars,mobiles,cycles,bikes,electronicItems,tv,laptop,furniture,books,clothes,others;
+ItemSelected activity;
+public interface ItemSelected
+{
+    void onItemSelected(String str);
+}
 
     public FragmentAdd() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentAdd.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentAdd newInstance(String param1, String param2) {
-        FragmentAdd fragment = new FragmentAdd();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        activity=(ItemSelected) context;
+
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add, container, false);
+        View v= inflater.inflate(R.layout.fragment_add, container, false);
+        cars=v.findViewById(R.id.car);
+        cars.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+activity.onItemSelected("CARS");
+            }
+        });
+        cycles=v.findViewById(R.id.CYCLES);
+        cycles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("CYCLES");
+            }
+        });
+       mobiles =v.findViewById(R.id.mobiles);
+        mobiles.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("MOBILES");
+            }
+        });
+        bikes=v.findViewById(R.id.BIKES);
+        bikes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("BIKES");
+            }
+        });
+        electronicItems=v.findViewById(R.id.ELECTRONIC_ITEMS);
+        electronicItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("ELECTRONICITEMS");
+            }
+        });
+        tv=v.findViewById(R.id.TV);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("TV");
+            }
+        });
+        laptop=v.findViewById(R.id.LAPTOP);
+        laptop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("LAPTOP");
+            }
+        });
+        furniture=v.findViewById(R.id.FURNITURE);
+        furniture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("FURNITURE");
+            }
+        });
+        books=v.findViewById(R.id.BOOKS);
+        books.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("BOOKS");
+            }
+        });
+        clothes=v.findViewById(R.id.CLOTHES);
+        clothes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("CLOTHES");
+            }
+        });
+        others=v.findViewById(R.id.OTHERS);
+        others.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.onItemSelected("OTHERS");
+            }
+        });
+
+
+        return v;
     }
+
+
+
 }

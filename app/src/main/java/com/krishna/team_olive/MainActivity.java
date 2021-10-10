@@ -3,13 +3,14 @@ package com.krishna.team_olive;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FragmentAdd.ItemSelected {
     MeowBottomNavigation meowBottomNavigation;
 
     @Override
@@ -68,4 +69,10 @@ loadFragment(fragment);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,fragment).commit();
     }
 
+    @Override
+    public void onItemSelected(String str) {
+        Intent intent=new Intent(this,AddedItemDetailFilling_1.class);
+        intent.putExtra("cateogary_name",str);
+        startActivity(intent);
+    }
 }
