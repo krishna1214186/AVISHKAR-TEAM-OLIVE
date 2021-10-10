@@ -4,12 +4,30 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/drawable/button_design.xml" value="0.18703703703703703" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/drawable/edittext_shape.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_added_item_detail_filling1.xml" value="0.1537037037037037" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_added_item_detail_filling2.xml" value="0.1796875" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_added_item_detail_filling3.xml" value="0.1796875" />
+>>>>>>> bc8050539bdb00e93c18669437a62225e6afb59b
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_main.xml" value="0.12962962962962962" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/cateogary_recyclerview_particularelement.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_add.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_chat.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_home.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_notification.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_profile.xml" value="0.12962962962962962" />
+<<<<<<< HEAD
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/card_view_categories.xml" value="0.23796296296296296" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/card_view_rating.xml" value="0.23796296296296296" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_star.xml" value="0.23796296296296296" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/post_item.xml" value="0.2" />
+=======
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/xml/file_paths.xml" value="0.16354166666666667" />
+>>>>>>> branch_krishna
       </map>
     </option>
   </component>
