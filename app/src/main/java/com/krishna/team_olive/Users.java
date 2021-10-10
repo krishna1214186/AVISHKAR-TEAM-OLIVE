@@ -1,9 +1,9 @@
 package com.krishna.team_olive;
 
-public class users {
+public class Users {
     private String email,name,phone,uid,profileimg,isNGO;
 
-    public users(String email, String name, String phone, String uid, String profileimg, String isNGO) {
+    public Users(String email, String name, String phone, String uid, String profileimg, String isNGO) {
         this.email = email;
         this.name = name;
         this.phone = phone;
@@ -12,7 +12,7 @@ public class users {
         this.isNGO = isNGO;
     }
 
-    public users() {
+    public Users() {
     }
 
     public String getEmail() {
