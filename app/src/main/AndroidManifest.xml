@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
         <activity
+            android:name=".SearchBar"
+            android:exported="true" />
+        <activity
             android:name=".AddedItemDetailFilling_3"
             android:exported="true" />
         <activity
