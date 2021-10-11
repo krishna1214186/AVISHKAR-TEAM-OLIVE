@@ -64,6 +64,8 @@ loadFragment(fragment);
             }
         });
 
+
+
     }
 
     private void loadFragment(Fragment fragment) {
@@ -81,5 +83,11 @@ loadFragment(fragment);
     public void onsearchselected() {
         Intent intent = new Intent(this,SearchBar.class);
         startActivityForResult(intent,SEARCH_RETURN);
+
+
+
+
     }
+
+
 }

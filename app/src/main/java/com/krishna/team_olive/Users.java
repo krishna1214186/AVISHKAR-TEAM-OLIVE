@@ -1,19 +1,18 @@
 package com.krishna.team_olive;
 
 public class Users {
-    private String email,name,phone,uid,profileimg,isNGO;
+    private String email,name,location,phone,uid,profileimg,isNGO;
 
-    public Users(String email, String name, String phone, String uid, String profileimg, String isNGO) {
+    public Users(String email,String isNGO, String location, String name,  String phone,  String profileimg,String uid ) {
         this.email = email;
         this.name = name;
+        this.location = location;
         this.phone = phone;
         this.uid = uid;
         this.profileimg = profileimg;
         this.isNGO = isNGO;
     }
 
-    public Users() {
-    }
 
     public String getEmail() {
         return email;
@@ -29,6 +28,14 @@ public class Users {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getPhone() {
@@ -55,11 +62,11 @@ public class Users {
         this.profileimg = profileimg;
     }
 
-    public String isNGO() {
+    public String getIsNGO() {
         return isNGO;
     }
 
-    public void setNGO(String NGO) {
-        isNGO = NGO;
+    public void setIsNGO(String isNGO) {
+        this.isNGO = isNGO;
     }
 }

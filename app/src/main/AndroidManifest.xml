@@ -14,6 +14,27 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
         <activity
+            android:name=".SignUpNGO2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".SignUpNGO1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".SignUp2Activity"
+            android:exported="true" />
+        <activity
+            android:name=".SignUp1Activity"
+            android:exported="true" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".SearchBar"
             android:exported="true" />
         <activity
@@ -28,11 +49,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider
