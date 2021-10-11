@@ -18,11 +18,21 @@ public class AddedItemDescriptionModel implements Parcelable {
     private String exchangeCateogary;
     private String ratings;
     String extension;
+    String postid;
     public AddedItemDescriptionModel()
     {}
 
-    public AddedItemDescriptionModel(String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode,String typeOfExchange,String exchangeCateogary,String ratings,String extension) {
+    public String getPostid() {
+        return postid;
+    }
 
+    public void setPostid(String postid) {
+        this.postid = postid;
+    }
+
+    public AddedItemDescriptionModel(String postid, String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode, String typeOfExchange, String exchangeCateogary, String ratings, String extension) {
+
+        this.postid = postid;
         this.cateogary = cateogary;
         this.name = name;
         this.ageOfProduct = ageOfProduct;

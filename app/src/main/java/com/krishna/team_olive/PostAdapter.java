@@ -43,32 +43,22 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         AddedItemDescriptionModel postsData = list.get(position);
+
         Picasso.get().load(postsData.getImageurl()).into(holder.iv_postimage);
         holder.tv_rating.setText(postsData.getRatings());
         holder.tv_itemname.setText(postsData.getName());
         holder.tv_exchange02.setText(postsData.getExchangeCateogary());
         holder.tv_exchange01.setText(postsData.getCateogary());
-
+/*
         holder.iv_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("Likes");
-            }
-        });
-/*
-        FirebaseDatabase.getInstance().getReference().child("Users").child(postsData.getUid()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                users user = snapshot.getValue(users.class);
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                FirebaseDatabase.getInstance().getReference().child("Likes").child(postsData.getPostid()).child(firebaseUser.getUid()).setValue(true);
 
             }
         });
-        */
+
+ */
     }
 
     @Override
