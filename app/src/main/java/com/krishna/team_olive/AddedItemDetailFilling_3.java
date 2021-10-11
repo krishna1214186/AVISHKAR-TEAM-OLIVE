@@ -124,10 +124,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                 Toast.makeText(AddedItemDetailFilling_3.this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
-
     }
 
 }

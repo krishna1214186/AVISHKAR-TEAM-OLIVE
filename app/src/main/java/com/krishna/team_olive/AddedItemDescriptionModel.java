@@ -11,7 +11,6 @@ public class AddedItemDescriptionModel implements Parcelable {
     private String description;
     private String adress1;
     private String adress2;//landmark
-
     private String imageurl;
     private String pincode;
     private String typeOfExchange;
@@ -22,31 +21,22 @@ public class AddedItemDescriptionModel implements Parcelable {
     public AddedItemDescriptionModel()
     {}
 
-    public String getPostid() {
-        return postid;
-    }
 
-    public void setPostid(String postid) {
-        this.postid = postid;
-    }
 
-    public AddedItemDescriptionModel(String postid, String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode, String typeOfExchange, String exchangeCateogary, String ratings, String extension) {
-
-        this.postid = postid;
-        this.cateogary = cateogary;
-        this.name = name;
-        this.ageOfProduct = ageOfProduct;
-        this.description = description;
+    public AddedItemDescriptionModel(String adress1,String adress2,String ageOfProduct,String cateogary,String description, String exchangeCateogary, String extension, String imageurl,String pincode,String postid,String name,String ratings , String typeOfExchange) {
         this.adress1 = adress1;
         this.adress2 = adress2;
+        this.ageOfProduct = ageOfProduct;
+        this.cateogary = cateogary;
+        this.description = description;
+        this.exchangeCateogary=exchangeCateogary;
+        this.extension=extension;
         this.imageurl = imageurl;
         this.pincode = pincode;
-        this.typeOfExchange=typeOfExchange;
-        this.exchangeCateogary=exchangeCateogary;
-
+        this.postid = postid;
+        this.name = name;
         this.ratings=ratings;
-        this.extension=extension;
-
+        this.typeOfExchange=typeOfExchange;
     }
 
     protected AddedItemDescriptionModel(Parcel in) {
@@ -62,6 +52,7 @@ public class AddedItemDescriptionModel implements Parcelable {
         exchangeCateogary=in.readString();
         ratings = in.readString();
         extension=in.readString();
+        postid=in.readString();
     }
 
     public static final Creator<AddedItemDescriptionModel> CREATOR = new Creator<AddedItemDescriptionModel>() {
@@ -76,7 +67,13 @@ public class AddedItemDescriptionModel implements Parcelable {
         }
     };
 
+    public String getPostid() {
+        return postid;
+    }
 
+    public void setPostid(String postid) {
+        this.postid = postid;
+    }
     public String getTypeOfExchange() {
         return typeOfExchange;
     }
@@ -182,7 +179,6 @@ public class AddedItemDescriptionModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(ratings);
-
         dest.writeString(cateogary);
         dest.writeString(name);
         dest.writeString(ageOfProduct);
@@ -193,7 +189,8 @@ public class AddedItemDescriptionModel implements Parcelable {
         dest.writeString(pincode);
         dest.writeString(typeOfExchange);
         dest.writeString(exchangeCateogary);
-
+        dest.writeString(postid);
+        dest.writeString(extension);
     }
 }
 

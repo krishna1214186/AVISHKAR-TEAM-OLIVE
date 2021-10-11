@@ -63,9 +63,7 @@ public class FragmentHome extends Fragment {
 
         recyclerView_posts.setLayoutManager(linearLayoutManager);
         addedItemDescriptionModelArrayList = new ArrayList<>();
-        postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList);
-        postAdapter_search = new PostAdapter(getContext(),addedItemDescriptionModelArrayList_search);
-        recyclerView_posts.setAdapter(postAdapter);
+
 
         search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
 
@@ -87,6 +85,10 @@ public class FragmentHome extends Fragment {
         }else{
             showNormalPosts();
         }
+        
+        postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList);
+        postAdapter_search = new PostAdapter(getContext(),addedItemDescriptionModelArrayList_search);
+        recyclerView_posts.setAdapter(postAdapter);
 
         search_bar.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -41,7 +41,7 @@ Button btn_next;
                 }
                 else {
                     Intent intent = new Intent(AddedItemDetailFilling_1.this, AddedItemDetailFilling_2.class);
-                    AddedItemDescriptionModel model = new AddedItemDescriptionModel(null,cateogary, name, age, description, adress, landmark, null, pincode,null,null,null,null);
+                    AddedItemDescriptionModel model = new AddedItemDescriptionModel(adress,landmark,age,cateogary,description,null,null,null,pincode,null,name,null,null);
                     intent.putExtra("model", model);
                     startActivity(intent);
                 }
