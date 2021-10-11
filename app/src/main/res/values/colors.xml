@@ -10,5 +10,9 @@
     <color name="gold">#FFD700</color>
 
     <color name="edittext_colour">#030303</color>
+    <color name="theme_color">#2176FF</color>
+    <color name="theme_color_8">#142176FF</color>
+    <color name="theme_color_80">#CC2176FF</color>
+    <color name="light_8">#14000000</color>
 
 </resources>

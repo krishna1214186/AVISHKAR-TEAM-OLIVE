@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
         <activity
+            android:name=".chat.Chat"
+            android:exported="true" />
+        <activity
             android:name=".SignUpNGO2Activity"
             android:exported="true" />
         <activity
@@ -27,7 +30,7 @@
             android:exported="true" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,9 +51,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
