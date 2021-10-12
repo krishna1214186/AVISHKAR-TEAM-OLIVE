@@ -4,7 +4,7 @@ public class MessagesList {
     private String name, uid, lastMessage, chatKey;
     private int unseenMessages;
 
-    public MessagesList(String name, String uid, String lastMessage, String profilePic, int unseenMessages, String chatKey) {
+    public MessagesList(String name, String uid, String lastMessage,  int unseenMessages, String chatKey) {
         this.name = name;
         this.uid = uid;
         this.lastMessage = lastMessage;
