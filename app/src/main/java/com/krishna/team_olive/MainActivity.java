@@ -84,9 +84,6 @@ loadFragment(fragment);
         Intent intent = new Intent(this,SearchBar.class);
         startActivityForResult(intent,SEARCH_RETURN);
 
-
-
-
     }
 
 

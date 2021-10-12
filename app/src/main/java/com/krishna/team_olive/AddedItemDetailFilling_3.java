@@ -26,7 +26,7 @@ import com.google.firebase.storage.UploadTask;
 public class AddedItemDetailFilling_3 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     Button btn_yes,btn_no,btn_ok;
     TextView tv;
-    String text;
+    String text="";
     private StorageReference strRefrence;
     private DatabaseReference dataRefrence;
     private StorageTask st;
@@ -47,8 +47,16 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         btn_ok.setVisibility(View.GONE);
         tv=findViewById(R.id.tv_cateogary);
         tv.setVisibility(View.GONE);
+        String name=getIntent().getStringExtra("name");
+        String cateogary=getIntent().getStringExtra("cateogary");
+        String description=getIntent().getStringExtra("description");
+        String adress=getIntent().getStringExtra("adress");
+        String landmark=getIntent().getStringExtra("landmark");
+        String pincode=getIntent().getStringExtra("pincode");
+        String extension=getIntent().getStringExtra("extension");
+        String age=getIntent().getStringExtra("age");
+        model=new AddedItemDescriptionModel("",cateogary,name,age,description,adress,landmark,"",pincode,"","","4",extension);
 
-        model =getIntent().getParcelableExtra("model");
         uri =getIntent().getParcelableExtra("uriImage");
         strRefrence= FirebaseStorage.getInstance().getReference("uploads");//storing data to a folder uploads
         dataRefrence= FirebaseDatabase.getInstance().getReference();
@@ -62,7 +70,7 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mySpinner.setAdapter(myAdapter);
                 mySpinner.setOnItemSelectedListener(AddedItemDetailFilling_3.this);
-                model.setExchangeCateogary(text);
+
                 model.setTypeOfExchange("N");
                 uploadData(model);
 
@@ -93,6 +101,8 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         text=parent.getItemAtPosition(position).toString();
+        model.setExchangeCateogary(text);
+        // Toast.makeText(AddedItemDetailFilling_3.this, text, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -127,5 +137,3 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     }
 
 }
-
-

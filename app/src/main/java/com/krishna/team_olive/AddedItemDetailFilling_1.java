@@ -11,8 +11,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddedItemDetailFilling_1 extends AppCompatActivity {
-EditText et_name,et_age,et_description,et_adress,et_landmark,et_pincode;
-Button btn_next;
+    EditText et_name,et_age,et_description,et_adress,et_landmark,et_pincode;
+    Button btn_next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,15 +35,24 @@ Button btn_next;
                 String landmark=et_landmark.getText().toString();
                 String pincode=et_pincode.getText().toString();
                 if(TextUtils.isEmpty(name)||TextUtils.isEmpty(age)||TextUtils.isEmpty(description)||TextUtils.isEmpty(adress)
-                ||TextUtils.isEmpty(landmark)||TextUtils.isEmpty(pincode))
+                        ||TextUtils.isEmpty(landmark)||TextUtils.isEmpty(pincode))
                 {
                     Toast.makeText(AddedItemDetailFilling_1.this, "PLease enter all fiels!!", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     Intent intent = new Intent(AddedItemDetailFilling_1.this, AddedItemDetailFilling_2.class);
-                    AddedItemDescriptionModel model = new AddedItemDescriptionModel(adress,landmark,age,cateogary,description,null,null,null,pincode,null,name,null,null);
-                    intent.putExtra("model", model);
+                    AddedItemDescriptionModel model = new AddedItemDescriptionModel(null,cateogary, name, age, description, adress, landmark, null, pincode,null,null,null,null);
+                    intent.putExtra("name",name);
+                    intent.putExtra("age",age);
+                    intent.putExtra("description",description);
+                    intent.putExtra("adress",adress);
+                    intent.putExtra("landmark",landmark);
+                    intent.putExtra("pincode",pincode);
+                    intent.putExtra("cateogary",cateogary);
                     startActivity(intent);
+
+
+
                 }
 
             }

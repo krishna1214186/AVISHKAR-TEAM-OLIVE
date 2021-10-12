@@ -13,6 +13,8 @@ public class Users {
         this.isNGO = isNGO;
     }
 
+    public Users() {
+    }
 
     public String getEmail() {
         return email;

@@ -33,8 +33,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class AddedItemDetailFilling_2 extends AppCompatActivity {
-ImageView iv_imageselected;
-Button btn_camera,btn_device,btn_next;
+    ImageView iv_imageselected;
+    Button btn_camera,btn_device,btn_next;
     String currentPhotoPath;
     String extension=null;
     Uri imageUri;
@@ -60,7 +60,7 @@ Button btn_camera,btn_device,btn_next;
             {
                 if(result.getData()!=null)
                 {
-                imageUri=result.getData().getData();
+                    imageUri=result.getData().getData();
 
                     Picasso.get().load(imageUri).into(iv_imageselected);
 
@@ -74,7 +74,8 @@ Button btn_camera,btn_device,btn_next;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_item_detail_filling2);
-        AddedItemDescriptionModel model=getIntent().getParcelableExtra("model");
+        // AddedItemDescriptionModel model=getIntent().getParcelableExtra("model");
+
         iv_imageselected=findViewById(R.id.iv_imageselected);
         btn_camera=findViewById(R.id.btn_camera);
         btn_device=findViewById(R.id.btn_select_folder);
@@ -107,18 +108,28 @@ Button btn_camera,btn_device,btn_next;
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-if(extension==null)
-{
-    Toast.makeText(AddedItemDetailFilling_2.this, "please first select a image!!", Toast.LENGTH_SHORT).show();
-}
-else
-{
-    model.setExtension(extension);
-    Intent intent=new Intent(AddedItemDetailFilling_2.this,AddedItemDetailFilling_3.class);
-    intent.putExtra("model",model);
-    intent.putExtra("uriImage",new UriContainer(imageUri));
-    startActivity(intent);
-}
+                if(extension==null)
+                {
+                    Toast.makeText(AddedItemDetailFilling_2.this, "please first select a image!!", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Intent intent=new Intent(AddedItemDetailFilling_2.this,AddedItemDetailFilling_3.class);
+                    intent.putExtra("name",getIntent().getStringExtra("name"));
+                    intent.putExtra("age",getIntent().getStringExtra("age"));
+                    intent.putExtra("description",getIntent().getStringExtra("description"));
+                    intent.putExtra("adress",getIntent().getStringExtra("adress"));
+                    intent.putExtra("landmark",getIntent().getStringExtra("landmark"));
+                    intent.putExtra("pincode",getIntent().getStringExtra("pincode"));
+                    intent.putExtra("cateogary",getIntent().getStringExtra("cateogary"));
+
+                    intent.putExtra("extension",extension);
+
+
+                    //startActivity(intent);
+                    intent.putExtra("uriImage",new UriContainer(imageUri));
+                    startActivity(intent);
+                }
             }
         });
 
@@ -173,7 +184,7 @@ else
         }
         else
         {
-           return MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
+            return MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
         }
     }
 }

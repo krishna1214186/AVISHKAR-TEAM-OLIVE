@@ -2,16 +2,22 @@ package com.krishna.team_olive;
 
 import static android.app.Activity.RESULT_OK;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +43,9 @@ public class FragmentHome extends Fragment {
     public ArrayList<String> arrayListString;
     FirebaseDatabase firebaseDatabase ;
     RelativeLayout search_bar;
-    String isNGO;
+    String isNGO ;
     searchselected activity;
+    FirebaseAuth auth;
 
     public interface searchselected{
         void onsearchselected();
@@ -47,7 +54,6 @@ public class FragmentHome extends Fragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         activity=(FragmentHome.searchselected) context;
-
     }
 
     @Override
@@ -66,12 +72,16 @@ public class FragmentHome extends Fragment {
 
 
         search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
+        auth = FirebaseAuth.getInstance();
+        FirebaseDatabase fd;
 
-        FirebaseDatabase.getInstance().getReference().child("users").child("isNGO").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    isNGO = snapshot.getKey();
+                    if(snapshot.getKey() == "isNGO"){
+                        isNGO = snapshot.getValue().toString();
+                    }
                 }
             }
             @Override
@@ -85,22 +95,31 @@ public class FragmentHome extends Fragment {
         }else{
             showNormalPosts();
         }
-        
+
         postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList);
-        postAdapter_search = new PostAdapter(getContext(),addedItemDescriptionModelArrayList_search);
         recyclerView_posts.setAdapter(postAdapter);
 
-        search_bar.setOnClickListener(new View.OnClickListener() {
+        return view;
+    }
+
+    private void showNormalPosts(){
+        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                activity.onsearchselected();
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                addedItemDescriptionModelArrayList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    AddedItemDescriptionModel object ;
+                    object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    addedItemDescriptionModelArrayList.add(object);
+                }
+               postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
-        for(int i=0;i<addedItemDescriptionModelArrayList.size();i++){
-            arrayListString.add(addedItemDescriptionModelArrayList.get(i).getName());
-        }
-
-        return view;
     }
 
     private void showNGOposts() {
@@ -121,36 +140,18 @@ public class FragmentHome extends Fragment {
             }
         });
     }
-    private void showNormalPosts(){
-        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                addedItemDescriptionModelArrayList.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    AddedItemDescriptionModel object = snapshot.getValue(AddedItemDescriptionModel.class);
-                    addedItemDescriptionModelArrayList.add(object);
+/*
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // There are no request codes
+                        Intent data = result.getData();
+                    }
                 }
-                postAdapter.notifyDataSetChanged();
-            }
+            });
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == RESULT_OK && requestCode == SEARCH_RETURN && data != null){
-            addedItemDescriptionModelArrayList_search.clear();
-            for(int i=0;i<addedItemDescriptionModelArrayList.size();i++){
-                if(data.getStringExtra("postname")==addedItemDescriptionModelArrayList.get(i).getName()){
-                    addedItemDescriptionModelArrayList_search.add(addedItemDescriptionModelArrayList.get(i));
-                }
-            }
-            recyclerView_posts.setAdapter(postAdapter_search);
-        }
-    }
+ */
 }

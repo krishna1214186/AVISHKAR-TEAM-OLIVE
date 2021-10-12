@@ -20,10 +20,11 @@
             android:layout_height="30dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="125dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="exchange 1"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:id="@+id/tv_exchange01"/>
@@ -32,18 +33,26 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/iccompare_arrows"/>
             <TextView
-                android:layout_width="125dp"
+                android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:textStyle="bold"
                 android:text="exchange 2"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:id="@+id/tv_exchange02"/>
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_no_of_likes"
+                android:gravity="center"
+                android:textColor="@color/black"/>
+
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/iv_like"
-                android:src="@drawable/ic_like_foreground"/>
+                android:src="@drawable/ic_like"/>
 
         </LinearLayout>
         <LinearLayout
@@ -51,13 +60,12 @@
             android:layout_height="30dp"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="300dp"
+                android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:id="@+id/tv_postitemname"
                 android:textColor="@color/black"
-                android:gravity="center_vertical"
-                android:text="item name"
-                android:layout_marginLeft="10dp"/>
+                android:gravity="center"
+                android:text="item name"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -67,14 +75,18 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/card_view_rating">
+
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:id="@+id/tv_rating"
+                        android:layout_width="30dp"
+                        android:gravity="center"
+                        android:layout_height="match_parent"
                         android:textColor="@color/black"
-                        android:id="@+id/tv_rating"/>
+                        android:textStyle="bold"
+                        android:textSize="12sp"/>
 
                     <ImageView
-                        android:layout_width="10dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_toRightOf="@id/tv_rating"
                         android:src="@drawable/ic_star"></ImageView>
