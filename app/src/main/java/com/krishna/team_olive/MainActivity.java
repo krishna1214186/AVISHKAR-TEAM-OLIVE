@@ -50,17 +50,15 @@ loadFragment(fragment);
 
                 }
            });
-        meowBottomNavigation.show(3,true);
+        meowBottomNavigation.show(1,true);
         meowBottomNavigation.setOnClickMenuListener(new MeowBottomNavigation.ClickListener() {
             @Override
             public void onClickItem(MeowBottomNavigation.Model item) {
-                Toast.makeText(getApplicationContext(),"you clicked"+item.getId(),Toast.LENGTH_SHORT).show();
             }
         });
        meowBottomNavigation .setOnReselectListener(new MeowBottomNavigation.ReselectListener() {
             @Override
             public void onReselectItem(MeowBottomNavigation.Model item) {
-                Toast.makeText(getApplicationContext(),"you reselected"+item.getId(),Toast.LENGTH_SHORT).show();
             }
         });
 
