@@ -19,12 +19,16 @@
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_liked_foreground.xml" value="0.24074074074074073" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_person.xml" value="0.22870370370370371" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_star.xml" value="0.23796296296296296" />
-        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_search.xml" value="0.2375" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_search_bar.xml" value="0.2" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_home.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_notification.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_profile.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_search.xml" value="0.2" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/post_item.xml" value="0.2" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/search_autocomplete_element.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/search_item.xml" value="0.2" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/temporary.xml" value="0.2" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_like.xml" value="0.1421875" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_liked.xml" value="0.24074074074074073" />

@@ -36,25 +36,12 @@ import java.util.List;
 
 public class FragmentHome extends Fragment {
 
-    int SEARCH_RETURN = 01;
     private RecyclerView recyclerView_posts;
-    private PostAdapter postAdapter, postAdapter_search;
-    public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList, addedItemDescriptionModelArrayList_search;
-    public ArrayList<String> arrayListString;
-    FirebaseDatabase firebaseDatabase ;
+    private PostAdapter postAdapter;
+    public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList;
     RelativeLayout search_bar;
     String isNGO ;
-    searchselected activity;
     FirebaseAuth auth;
-
-    public interface searchselected{
-        void onsearchselected();
-    }
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        activity=(FragmentHome.searchselected) context;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +60,6 @@ public class FragmentHome extends Fragment {
 
         search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
         auth = FirebaseAuth.getInstance();
-        FirebaseDatabase fd;
 
         FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,6 +84,14 @@ public class FragmentHome extends Fragment {
 
         postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList);
         recyclerView_posts.setAdapter(postAdapter);
+
+        search_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -140,18 +134,4 @@ public class FragmentHome extends Fragment {
             }
         });
     }
-/*
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
-                        Intent data = result.getData();
-                    }
-                }
-            });
-
- */
 }

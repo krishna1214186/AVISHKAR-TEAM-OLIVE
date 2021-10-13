@@ -55,8 +55,10 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         String pincode=getIntent().getStringExtra("pincode");
         String extension=getIntent().getStringExtra("extension");
         String age=getIntent().getStringExtra("age");
-        model=new AddedItemDescriptionModel("",cateogary,name,age,description,adress,landmark,"",pincode,"","","4",extension);
-
+        model=new AddedItemDescriptionModel("",cateogary,name,age,description,adress,landmark,"",pincode,"","","",extension);
+        if(model.getRatings().equals("")){
+            model.setRatings("0");
+        }
         uri =getIntent().getParcelableExtra("uriImage");
         strRefrence= FirebaseStorage.getInstance().getReference("uploads");//storing data to a folder uploads
         dataRefrence= FirebaseDatabase.getInstance().getReference();
@@ -82,8 +84,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                 btn_ok.setVisibility(View.VISIBLE);
                 model.setTypeOfExchange("Y");
                 uploadData(model);
-
-
             }
         });
 

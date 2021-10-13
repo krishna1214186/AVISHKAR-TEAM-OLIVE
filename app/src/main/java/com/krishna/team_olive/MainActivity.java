@@ -10,9 +10,10 @@ import android.widget.Toast;
 
 import com.etebarian.meowbottomnavigation.MeowBottomNavigation;
 
-public class MainActivity extends AppCompatActivity implements FragmentAdd.ItemSelected, FragmentHome.searchselected {
+public class MainActivity extends AppCompatActivity implements FragmentAdd.ItemSelected {
     MeowBottomNavigation meowBottomNavigation;
     int SEARCH_RETURN = 01;
+    Fragment fragment=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements FragmentAdd.ItemS
        meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
-                Fragment fragment=null;
                 switch(item.getId()) {
                     case 1:
                         fragment = new FragmentHome();
@@ -76,13 +76,5 @@ loadFragment(fragment);
         intent.putExtra("cateogary_name",str);
         startActivity(intent);
     }
-
-    @Override
-    public void onsearchselected() {
-        Intent intent = new Intent(this,SearchBar.class);
-        startActivityForResult(intent,SEARCH_RETURN);
-
-    }
-
 
 }

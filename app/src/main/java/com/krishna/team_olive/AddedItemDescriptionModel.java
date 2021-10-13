@@ -45,7 +45,6 @@ public class AddedItemDescriptionModel implements Serializable {
         this.pincode = pincode;
         this.typeOfExchange=typeOfExchange;
         this.exchangeCateogary=exchangeCateogary;
-
         this.ratings=ratings;
         this.extension=extension;
 
