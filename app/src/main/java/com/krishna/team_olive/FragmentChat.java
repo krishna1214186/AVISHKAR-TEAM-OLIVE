@@ -24,123 +24,74 @@ import com.krishna.team_olive.messages.MessagesAdapter;
 import com.krishna.team_olive.messages.MessagesList;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 
 public class FragmentChat extends Fragment {
     FirebaseAuth auth;
-RecyclerView rvMessageList;
-    DatabaseReference refrence,refrence_2;
-   public String name,uid,lastmessage,chatkey;
-  public  int unseenMessage;
+    RecyclerView rvMessageList;
+    DatabaseReference refrence, refrence_2;
+    public String name, uid,  chatkey;
+    public int unseenMessage;
+    public  String lastmessage;
     ArrayList<MessagesList> listOfPersons;
     ArrayList<String> UIDS;
     MessagesAdapter messageAdapter;
-TextView tv;
+    TextView tv;
+
+
+
+
     public FragmentChat() {
+
         // Required empty public constructor
     }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v= inflater.inflate(R.layout.fragment_chat, container, false);
+        View v = inflater.inflate(R.layout.fragment_chat, container, false);
         // Inflate the layout for this fragment
-        auth=FirebaseAuth.getInstance();
-        listOfPersons=new ArrayList<MessagesList>();
-        UIDS=new ArrayList<String>();
+        auth = FirebaseAuth.getInstance();
+        listOfPersons = new ArrayList<MessagesList>();
+        UIDS = new ArrayList<String>();
         listOfPersons.clear();
-        rvMessageList=v.findViewById(R.id.messagesRecyclerView);
+        rvMessageList = v.findViewById(R.id.messagesRecyclerView);
         rvMessageList.setHasFixedSize(true);
         rvMessageList.setLayoutManager(new LinearLayoutManager(getContext()));
-        messageAdapter=new MessagesAdapter(listOfPersons);
+        messageAdapter = new MessagesAdapter(listOfPersons, getContext());
         rvMessageList.setAdapter(messageAdapter);
-        refrence= FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).child("persons for chatting");
-        refrence_2=FirebaseDatabase.getInstance().getReference().child("users");
-tv=v.findViewById(R.id.tv_try);
-       refrence.addValueEventListener(new ValueEventListener() {
-           @Override
-           public void onDataChange(@NonNull DataSnapshot snapshot) {
-               for(DataSnapshot dataSnapshot : snapshot.getChildren())
-               {
+        refrence=FirebaseDatabase.getInstance().getReference().child("users");
+        refrence.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                listOfPersons.clear();
+                for(DataSnapshot dataSnapshot: snapshot.getChildren())
+                {
+                  name=dataSnapshot.child("name").getValue(String.class);
+                  uid=dataSnapshot.child("uid").getValue(String.class);
 
-                   uid=dataSnapshot.child("uid").getValue(String.class);
-                  // UIDS.add(uid);
-                 //  if(uid.equals("w4HosIHFauOBFn35J7ZtlsZ3my73"))
-                     //  Toast.makeText(getContext(), "Anuj", Toast.LENGTH_SHORT).show();
+                  MessagesList ml=new MessagesList(name,uid,"",0);
+                  listOfPersons.add(ml);
+                }
+                messageAdapter.notifyDataSetChanged();
+            }
 
-                   refrence_2.addValueEventListener(new ValueEventListener() {
-                       @Override
-                       public void onDataChange(@NonNull DataSnapshot snapshot2) {
-                           for(DataSnapshot dataSnapshot2 : snapshot2.getChildren())
-                           {
-                               if(uid.equals(dataSnapshot2.child("uid").getValue(String.class)))
-                               {
-                                  name=dataSnapshot2.child("name").getValue(String.class);
-                                  // if(name.equals("Anuj"))
-                                        //Toast.makeText(getContext(), "yash", Toast.LENGTH_SHORT).show();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                                  lastmessage="";
-                                  unseenMessage=0;
-                                  MessagesList ml=new MessagesList(name,uid,lastmessage,0,"1");
+            }
+        });
 
-                                  listOfPersons.add(ml);
-                                  //tv.setText(listOfPersons.get(0).getName());
-                                   messageAdapter.updateData(listOfPersons);
-                                   break;
-                               }
-                           }
-                       }
-
-                       @Override
-                       public void onCancelled(@NonNull DatabaseError error) {
-
-                       }
-                   });
-
-               }
-           }
-
-           @Override
-           public void onCancelled(@NonNull DatabaseError error) {
-
-           }
-
-       });
-      /* for(int i=0;i<UIDS.size();i++) {
-           uid=UIDS.get(i);
-           refrence_2.addValueEventListener(new ValueEventListener() {
-               @Override
-               public void onDataChange(@NonNull DataSnapshot snapshot) {
-                   for (DataSnapshot dataSnapshot2 : snapshot.getChildren()) {
-                       if (uid.equals(dataSnapshot2.child("uid").getValue(String.class))) {
-                           name = dataSnapshot2.child("name").getValue(String.class);
-                          // if (name.equals("Anuj"))
-                               //Toast.makeText(getContext(), "yash", Toast.LENGTH_SHORT).show();
-
-                           lastmessage = "";
-                           unseenMessage = 0;
-                           MessagesList ml = new MessagesList(name, uid, lastmessage, 0, "1");
-
-                           listOfPersons.add(ml);
-                           //tv.setText(listOfPersons.get(0).getName());
-                           messageAdapter.updateData(listOfPersons);
-                           break;
-                       }
-                   }
-               }
-
-               @Override
-               public void onCancelled(@NonNull DatabaseError error) {
-
-               }
-           });
-       }*/
-
-
-
-
-
-
+        /*HashMap<String,Object> State=new HashMap<>();
+        Long timeTamp=new Date().getTime();
+        State.put("timestamp",timeTamp);
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                child("lastconnected")
+                .updateChildren(State);*/
         return v;
-
     }
+
 }

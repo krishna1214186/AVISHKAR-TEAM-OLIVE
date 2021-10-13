@@ -1,16 +1,16 @@
 package com.krishna.team_olive.messages;
 
 public class MessagesList {
-    private String name, uid, lastMessage, chatKey;
+    private String name, uid, lastMessage;
     private int unseenMessages;
 
-    public MessagesList(String name, String uid, String lastMessage,  int unseenMessages, String chatKey) {
+    public MessagesList(String name, String uid, String lastMessage,  int unseenMessages) {
         this.name = name;
         this.uid = uid;
         this.lastMessage = lastMessage;
 
         this.unseenMessages = unseenMessages;
-        this.chatKey = chatKey;
+
     }
 
     public String getName() {
@@ -31,7 +31,5 @@ public class MessagesList {
         return unseenMessages;
     }
 
-    public String getChatKey() {
-        return chatKey;
-    }
+
 }
