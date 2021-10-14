@@ -70,12 +70,12 @@ message=findViewById(R.id.messageEditTxt);
 bk_btn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-       /* HashMap<String,Object> State=new HashMap<>();
+       HashMap<String,Object> State=new HashMap<>();
         Long timeTamp=new Date().getTime();
         State.put("timestamp",timeTamp);
         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
                 child("lastconnected")
-                .updateChildren(State);*/
+                .updateChildren(State);
         finish();
     }
 });
@@ -135,6 +135,17 @@ btn_send.setOnClickListener(new View.OnClickListener() {
     @Override
     protected void onStop() {
         super.onStop();
+        HashMap<String,Object> State=new HashMap<>();
+        Long timeTamp=new Date().getTime();
+        State.put("timestamp",timeTamp);
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
+                child("lastconnected")
+                .updateChildren(State);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         HashMap<String,Object> State=new HashMap<>();
         Long timeTamp=new Date().getTime();
         State.put("timestamp",timeTamp);

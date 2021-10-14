@@ -67,6 +67,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 timestp=   snapshot.child("lastconnected").child("timestamp").getValue(Long.class);
+                Toast.makeText(context, ""+timestp, Toast.LENGTH_SHORT).show();
                // Toast.makeText(context, timestp+"", Toast.LENGTH_SHORT).show();
 
             }

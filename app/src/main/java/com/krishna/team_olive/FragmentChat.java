@@ -63,7 +63,7 @@ public class FragmentChat extends Fragment {
         rvMessageList.setLayoutManager(new LinearLayoutManager(getContext()));
         messageAdapter = new MessagesAdapter(listOfPersons, getContext());
         rvMessageList.setAdapter(messageAdapter);
-        refrence=FirebaseDatabase.getInstance().getReference().child("users");
+        refrence=FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(FirebaseAuth.getInstance().getUid());
         refrence.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
