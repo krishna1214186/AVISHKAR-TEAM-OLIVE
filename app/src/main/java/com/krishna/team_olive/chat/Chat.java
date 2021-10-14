@@ -128,8 +128,6 @@ btn_send.setOnClickListener(new View.OnClickListener() {
         });
     }
 });
-
-
     }
 
     @Override

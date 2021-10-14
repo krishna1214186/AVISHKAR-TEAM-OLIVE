@@ -64,12 +64,12 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/iv_arrow_search"
         android:layout_width="60dp"
         android:layout_height="50dp"
         android:layout_alignParentEnd="true"
         android:clickable="true"
         android:foregroundGravity="center"
-        android:id="@+id/iv_arrow_search"
         android:src="@drawable/ic__arrow_right" />
 
 </RelativeLayout>

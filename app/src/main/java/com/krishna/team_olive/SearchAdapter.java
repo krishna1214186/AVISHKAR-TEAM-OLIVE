@@ -1,6 +1,7 @@
 package com.krishna.team_olive;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,15 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         holder.tv_category_search.setText(object_search.getCateogary());
         holder.search_ratings.setText(object_search.getRatings());
         Picasso.get().load(object_search.getImageurl()).placeholder(R.mipmap.ic_launcher).into(holder.iv_search);
+
+        holder.iv_arrow_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ItemDetailActivity.class);
+                intent.putExtra("postid", object_search.getPostid());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -67,6 +77,8 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             tv_item_name_search = itemView.findViewById(R.id.tv_item_name_search);
             iv_arrow_search = itemView.findViewById(R.id.iv_arrow_search);
             search_ratings = itemView.findViewById(R.id.search_rating);
+
+
         }
     }
 

@@ -75,10 +75,8 @@ public class FragmentChat extends Fragment {
 
                     MessagesList ml=new MessagesList(name,uid,lastmessage,0);
                     listOfPersons.add(ml);
-                    messageAdapter.notifyDataSetChanged();
-
-
                 }
+                messageAdapter.notifyDataSetChanged();
 
             }
 
