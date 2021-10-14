@@ -2,7 +2,9 @@ package com.krishna.team_olive;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.util.Log;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_postimage = itemView.findViewById(R.id.iv_postimage);
+            iv_postimage = itemView.findViewById(R.id.iv_postimg);
             iv_like = itemView.findViewById(R.id.iv_like);
             tv_exchange01 = itemView.findViewById(R.id.tv_exchange01);
             tv_exchange02 = itemView.findViewById(R.id.tv_exchange02);
@@ -70,7 +72,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         
         AddedItemDescriptionModel postsData = list.get(position);
 
-        Picasso.get().load(postsData.getImageurl()).into(holder.iv_postimage);
+        //Picasso.get().placeload(postsData.getImageurl()).into(holder.iv_postimage);
         if(postsData.getRatings() == ""){
             postsData.setRatings("0");
         }
@@ -78,6 +80,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         holder.tv_itemname.setText(postsData.getName());
         holder.tv_exchange02.setText(postsData.getExchangeCateogary());
         holder.tv_exchange01.setText(postsData.getCateogary());
+
+        holder.tv_itemname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ItemDetailActivity.class);
+                intent.putExtra("postid", postsData.getPostid());
+                context.startActivity(intent);
+            }
+        });
 
         isliked(postsData.getPostid(),holder.iv_like);
         nooflikes(postsData.getPostid(),holder.tv_no_of_likes);

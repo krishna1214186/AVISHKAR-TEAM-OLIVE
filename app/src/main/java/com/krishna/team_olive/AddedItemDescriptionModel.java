@@ -21,6 +21,7 @@ public class AddedItemDescriptionModel implements Serializable {
     private String ratings;
     String extension;
     String postid;
+    String uid;
     public AddedItemDescriptionModel()
     {}
 
@@ -32,7 +33,7 @@ public class AddedItemDescriptionModel implements Serializable {
         this.postid = postid;
     }
 
-    public AddedItemDescriptionModel(String postid, String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode, String typeOfExchange, String exchangeCateogary, String ratings, String extension) {
+    public AddedItemDescriptionModel(String postid, String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode, String typeOfExchange, String exchangeCateogary, String ratings, String extension,String uid) {
 
         this.postid = postid;
         this.cateogary = cateogary;
@@ -47,6 +48,7 @@ public class AddedItemDescriptionModel implements Serializable {
         this.exchangeCateogary=exchangeCateogary;
         this.ratings=ratings;
         this.extension=extension;
+        this.uid = uid;
 
     }
 

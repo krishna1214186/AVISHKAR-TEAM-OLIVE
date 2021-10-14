@@ -47,4 +47,8 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.MyViewHold
             iv_postimg = itemView.findViewById(R.id.iv_postimg);
         }
     }
+
 }
+
+
+

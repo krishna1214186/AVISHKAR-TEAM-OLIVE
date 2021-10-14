@@ -25,6 +25,7 @@
             android:value="AIzaSyAbhJe3--EpG-PayE4C9KzX1zHbirrrnuY" />
 
         <activity
+
             android:name=".chat.Chat"
             android:exported="true" />
 

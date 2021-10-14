@@ -24,45 +24,37 @@ import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 public class AddedItemDetailFilling_3 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    Button btn_yes,btn_no,btn_ok;
+    Button btn_yes, btn_no, btn_ok;
     TextView tv;
-    String text="";
-    private StorageReference strRefrence;
+    String text = "";
+    FirebaseDatabase database;
     private DatabaseReference dataRefrence;
     private StorageTask st;
     String postid2;
     FirebaseAuth auth;
     UriContainer uri;
+    int taskfinished = 1;
     AddedItemDescriptionModel model;
-    int taskfinished=1;//variable to check button is clicked or not
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_item_detail_filling3);
-        Spinner mySpinner=findViewById(R.id.spinner_1);
-        btn_yes=findViewById(R.id.btn_yes);
-        btn_no=findViewById(R.id.btn_no);
-        btn_ok=findViewById(R.id.btn_ok);
+        Spinner mySpinner = findViewById(R.id.spinner_1);
+        btn_yes = findViewById(R.id.btn_yes);
+        btn_no = findViewById(R.id.btn_no);
+        btn_ok = findViewById(R.id.btn_ok);
         btn_ok.setVisibility(View.GONE);
-        tv=findViewById(R.id.tv_cateogary);
+        tv = findViewById(R.id.tv_cateogary);
         tv.setVisibility(View.GONE);
-        String name=getIntent().getStringExtra("name");
-        String cateogary=getIntent().getStringExtra("cateogary");
-        String description=getIntent().getStringExtra("description");
-        String adress=getIntent().getStringExtra("adress");
-        String landmark=getIntent().getStringExtra("landmark");
-        String pincode=getIntent().getStringExtra("pincode");
-        String extension=getIntent().getStringExtra("extension");
-        String age=getIntent().getStringExtra("age");
-        model=new AddedItemDescriptionModel("",cateogary,name,age,description,adress,landmark,"",pincode,"","","",extension);
-        if(model.getRatings().equals("")){
-            model.setRatings("0");
-        }
-        uri =getIntent().getParcelableExtra("uriImage");
-        strRefrence= FirebaseStorage.getInstance().getReference("uploads");//storing data to a folder uploads
-        dataRefrence= FirebaseDatabase.getInstance().getReference();
+
+        postid2 = getIntent().getStringExtra("postid");
+        model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
+
+        database = FirebaseDatabase.getInstance();
+        dataRefrence = database.getReference();
         auth=FirebaseAuth.getInstance();
+
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,6 +76,8 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                 btn_ok.setVisibility(View.VISIBLE);
                 model.setTypeOfExchange("Y");
                 uploadData(model);
+
+
             }
         });
 
@@ -93,6 +87,7 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
                 Intent intent=new Intent(AddedItemDetailFilling_3.this,MainActivity.class);
                 startActivity(intent);
+                finish();
 
             }
         });
@@ -102,7 +97,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         text=parent.getItemAtPosition(position).toString();
         model.setExchangeCateogary(text);
-        // Toast.makeText(AddedItemDetailFilling_3.this, text, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -110,36 +104,17 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
     public void uploadData(AddedItemDescriptionModel m)
     {
-        StorageReference fileRefrence=strRefrence.child(System.currentTimeMillis()+"."+m.getExtension());
-        st=fileRefrence.putFile(uri.getUri()).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                taskfinished++;
-                Toast.makeText(AddedItemDetailFilling_3.this, "Item Added!!", Toast.LENGTH_SHORT).show();
-                model.setImageurl(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString().trim());
-                //             postid2 = dataRefrence.child("allpostswithoutuser").push().getKey();
+        dataRefrence.child("allpostswithoutuser").child(postid2).setValue(m);
+        dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(m);
 
-                model.setPostid("");
-                DatabaseReference dataRefrence2 = dataRefrence.child("allpostswithoutuser").push();
-                dataRefrence2.setValue(model);
-                postid2 = dataRefrence2.getKey().toString();
-                dataRefrence2.child("postid").setValue(postid2);
-                model.setPostid(postid2);
-
-                dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).push().setValue(model);
-                if(model.getTypeOfExchange().equals("Y"))
-                    dataRefrence.child("NGOposts").child(postid2).setValue(model);
-                else
-                    dataRefrence.child("nonNGOposts").child(postid2).setValue(model);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AddedItemDetailFilling_3.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        if(model.getTypeOfExchange().equals("Y"))
+            dataRefrence.child("NGOposts").child(postid2).setValue(model);
+        else
+            dataRefrence.child("nonNGOposts").child(postid2).setValue(model);
     }
+
 
 }

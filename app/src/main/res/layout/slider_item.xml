@@ -9,6 +9,4 @@
         android:id="@+id/iv_postimg"
         android:scaleType="centerCrop" />
 
-
-
 </RelativeLayout>
