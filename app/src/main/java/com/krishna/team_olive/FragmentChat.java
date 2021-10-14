@@ -73,10 +73,13 @@ public class FragmentChat extends Fragment {
                   name=dataSnapshot.child("name").getValue(String.class);
                   uid=dataSnapshot.child("uid").getValue(String.class);
 
-                  MessagesList ml=new MessagesList(name,uid,"",0);
-                  listOfPersons.add(ml);
+                    MessagesList ml=new MessagesList(name,uid,lastmessage,0);
+                    listOfPersons.add(ml);
+                    messageAdapter.notifyDataSetChanged();
+
+
                 }
-                messageAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -93,5 +96,7 @@ public class FragmentChat extends Fragment {
                 .updateChildren(State);*/
         return v;
     }
+
+
 
 }

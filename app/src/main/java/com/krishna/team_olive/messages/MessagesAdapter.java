@@ -59,6 +59,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
         MessagesList list2 = messagesLists.get(position);
 
 
+
         holder.name.setText(list2.getName());
 
 
@@ -95,11 +96,13 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
                 if(unseenmessage == 0){
                     holder.unseenMessages.setVisibility(View.GONE);
                     holder.lastMessage.setTextColor(Color.parseColor("#959595"));
+
                 }
                 else{
                     holder.unseenMessages.setVisibility(View.VISIBLE);
                     holder.unseenMessages.setText(unseenmessage+"");
-                    // holder.lastMessage.setTextColor(context.getResources().getColor(R.color.theme_color_80));
+                    holder.lastMessage.setTextColor(context.getResources().getColor(R.color.theme_color_80));
+
                 }
             }
 
@@ -112,7 +115,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
         ;
 
-
+        holder.lastMessage.setText(list2.getLastMessage());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,7 +129,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
             }
         });
-        FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+
+       FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+
                 messagesLists.get(position).getUid()).orderByChild("timestamp").limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -155,6 +158,18 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
             }
         });
+       /* FirebaseDatabase.getInstance().getReference().child("lastMessage").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+               holder.lastMessage.setText( snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()+list2.getUid()).child("lastmessage").getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
     }
 
 

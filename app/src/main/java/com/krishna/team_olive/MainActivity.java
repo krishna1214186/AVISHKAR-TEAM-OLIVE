@@ -39,15 +39,15 @@ FirebaseDatabase db;
 db=FirebaseDatabase.getInstance();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         meowBottomNavigation=findViewById(R.id.bottom_navigation);
-       // manageConnections();
+        manageConnections();
        // manageConnections2();
-        HashMap<String,Object> State=new HashMap<>();
+       /* HashMap<String,Object> State=new HashMap<>();
         Long timeTamp=new Date().getTime();
         State.put("timestamp",timeTamp);
 
         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
                 child("lastconnected").onDisconnect()
-                .updateChildren(State);
+                .updateChildren(State);*/
 
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.drawable_home));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.drawable_chat));
@@ -179,23 +179,28 @@ loadFragment(fragment);
 
 
     }
-/*public void manageConnections()
+public void manageConnections()
 {
     DatabaseReference connectionRefrence=db.getReference().child("connections");
-    DatabaseReference lastConnected=db.getReference().child("lastConnected").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("time");
+  //  DatabaseReference lastConnected=db.getReference().child("lastConnected").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("time");
     DatabaseReference infoLconnected=db.getReference(".info/lastconnected");
     DatabaseReference infoConnected=db.getReference(".info/connected");
     infoConnected.addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
-            boolean connected=snapshot.getValue(Boolean.class);
-            if(connected)
-            {
+           // boolean connected=snapshot.getValue(Boolean.class);
+
+
           DatabaseReference con=connectionRefrence.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-          con.setValue(ServerValue.TIMESTAMP);
+         // con.setValue(ServerValue.TIMESTAMP);
+            con.setValue(true);
           con.onDisconnect().setValue(false);
-          lastConnected.onDisconnect().setValue(ServerValue.TIMESTAMP);
-            }
+
+
+
+
+         // lastConnected.onDisconnect().setValue(ServerValue.TIMESTAMP);
+
         }
 
         @Override
@@ -204,7 +209,7 @@ loadFragment(fragment);
         }
     });
 
-}*/
+}
 
 private void updateUserStatus(String state)
 {
@@ -227,16 +232,16 @@ private void updateUserStatus(String state)
 
 }
 
-   @Override
+  /* @Override
     protected void onStart() {
         super.onStart();
         if(FirebaseAuth.getInstance().getCurrentUser()!=null)
         {
             updateUserStatus("online");
         }
-    }
+    }*/
 
-    @Override
+   /* @Override
     protected void onStop() {
         super.onStop();
         if(FirebaseAuth.getInstance().getCurrentUser()!=null)
@@ -245,7 +250,7 @@ private void updateUserStatus(String state)
 
         }
 
-    }
+    }*/
 
    /* @Override
     protected void onPause() {
@@ -257,11 +262,11 @@ private void updateUserStatus(String state)
         }
     }*/
 
-    @Override
+   /* @Override
     protected void onDestroy() {
         super.onDestroy();
         updateUserStatus("offline");
 
 
-    }
+    }*/
 }

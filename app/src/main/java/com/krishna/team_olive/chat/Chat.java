@@ -48,20 +48,16 @@ TextView tv_status;
         rvChat=findViewById(R.id.chattingRecyclerView);
         tv_name.setText(username);
         tv_status=findViewById(R.id.tv_status);
-        FirebaseDatabase.getInstance().getReference().child("users").child(receiveId).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("connections").child(receiveId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String status = snapshot.child("userstate").child("state").getValue(String.class);
-                String date = snapshot.child("userstate").child("date").getValue(String.class);
-                String time = snapshot.child("userstate").child("time").getValue(String.class);
-                if (status != null) {
-                    if (status.equals("online"))
-                        tv_status.setText(status);
-                    else {
-                        tv_status.setText("Last Seen: " + "\n" + date + " " + time);
-                    }
+                boolean connected=snapshot.getValue(Boolean.class);
+                if(connected)
+                    tv_status.setText("online");
+                else
+                    tv_status.setText("offline");
                 }
-            }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -74,12 +70,12 @@ message=findViewById(R.id.messageEditTxt);
 bk_btn.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        HashMap<String,Object> State=new HashMap<>();
+       /* HashMap<String,Object> State=new HashMap<>();
         Long timeTamp=new Date().getTime();
         State.put("timestamp",timeTamp);
         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).
                 child("lastconnected")
-                .updateChildren(State);
+                .updateChildren(State);*/
         finish();
     }
 });
@@ -90,6 +86,7 @@ rvChat.setAdapter(chatAdapter);
         rvChat.setLayoutManager(layoutManager);
         final String SenderRoom=senderId+receiveId;
         final String ReceiverRoom=receiveId+senderId;
+
         database.getReference().child("chats").child(SenderRoom).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -115,8 +112,9 @@ btn_send.setOnClickListener(new View.OnClickListener() {
         String messageToSend=message.getText().toString();
         final ChatList cl=new ChatList(senderId,messageToSend);
         cl.setTimeStamp(new Date().getTime());
-
         message.setText("");
+
+
         database.getReference().child("chats").child(SenderRoom).push().setValue(cl).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
