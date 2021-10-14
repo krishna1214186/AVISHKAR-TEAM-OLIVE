@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <RelativeLayout
+        android:id="@+id/alertContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/custom_alert_bg">
+
+        <LinearLayout
+            android:id="@+id/rowOne"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_camera_upload"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="0.33"
+                android:background="#F3E2E2"
+                android:src="@drawable/ic_camera" />
+
+            <ImageView
+                android:id="@+id/iv_gallery_uploado"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="0.33"
+                android:background="#F3E2E2"
+                android:src="@drawable/ic_gallery" />
+
+            <ImageView
+                android:id="@+id/iv_vdo_upload"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="0.33"
+                android:background="#F3E2E2"
+                android:src="@drawable/ic_video_library" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="0.33"
+        android:src="@drawable/ic_close" />
+
+
+</RelativeLayout>

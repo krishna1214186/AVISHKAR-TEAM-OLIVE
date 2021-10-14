@@ -21,5 +21,20 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="RatingBar_yellow" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/grayish</item>
+        <item name="colorControlActivated">@color/gold</item>
+    </style>
+
+    <style name="RatingBar_green" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/grayish</item>
+        <item name="colorControlActivated">@color/green</item>
+    </style>
+
+    <style name="RatingBar_red" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/grayish</item>
+        <item name="colorControlActivated">@color/red</item>
+    </style>
+
 
 </resources>

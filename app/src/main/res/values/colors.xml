@@ -9,7 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#FFD700</color>
     <color name="red">#FF0000</color>
-
+    <color name="grayish">#CDC0C0</color>
+    <color name="green">#57CD3C</color>
     <color name="edittext_colour">#030303</color>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.krishna.team_olive;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,9 +11,21 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 public class AddedItemDetailFilling_1 extends AppCompatActivity {
     EditText et_name,et_age,et_description,et_adress,et_landmark,et_pincode;
     Button btn_next;
+    DatabaseReference dataRefrence;
+    FirebaseAuth auth;
+    String postid2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +37,13 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
         et_landmark=findViewById(R.id.et_landmark);
         et_pincode=findViewById(R.id.et_pincode);
         btn_next=findViewById(R.id.btn_next);
+
+        auth = FirebaseAuth.getInstance();
+        dataRefrence= FirebaseDatabase.getInstance().getReference();
+
+
         String cateogary=getIntent().getStringExtra("cateogary_name");
+
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,22 +56,19 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
                 if(TextUtils.isEmpty(name)||TextUtils.isEmpty(age)||TextUtils.isEmpty(description)||TextUtils.isEmpty(adress)
                         ||TextUtils.isEmpty(landmark)||TextUtils.isEmpty(pincode))
                 {
-                    Toast.makeText(AddedItemDetailFilling_1.this, "PLease enter all fiels!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddedItemDetailFilling_1.this, "Please enter all fields!!", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    AddedItemDescriptionModel model = new AddedItemDescriptionModel("",cateogary, name, age, description, adress, landmark, "", pincode,
+                            "","","","",auth.getCurrentUser().getUid());
+
+                    uploadData(model);
+
                     Intent intent = new Intent(AddedItemDetailFilling_1.this, AddedItemDetailFilling_2.class);
-                    AddedItemDescriptionModel model = new AddedItemDescriptionModel(null,cateogary, name, age, description, adress, landmark, null, pincode,null,null,null,null);
-                    intent.putExtra("name",name);
-                    intent.putExtra("age",age);
-                    intent.putExtra("description",description);
-                    intent.putExtra("adress",adress);
-                    intent.putExtra("landmark",landmark);
-                    intent.putExtra("pincode",pincode);
-                    intent.putExtra("cateogary",cateogary);
+                    intent.putExtra("postid",postid2);
+                    intent.putExtra("model", model);
                     startActivity(intent);
-
-
-
+                    finish();
                 }
 
             }
@@ -60,4 +76,22 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
 
 
     }
+
+    public void uploadData(AddedItemDescriptionModel m)
+    {
+        DatabaseReference dataRefrence2 = dataRefrence.child("allpostswithoutuser").push();
+        dataRefrence2.setValue(m);
+        postid2 = dataRefrence2.getKey().toString();
+        dataRefrence2.child("postid").setValue(postid2);
+        m.setPostid(postid2);
+
+        dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).push().setValue(m);
+//        if(m.getTypeOfExchange().equals("Y"))
+//            dataRefrence.child("NGOposts").child(postid2).setValue(m);
+//        else
+//            dataRefrence.child("nonNGOposts").child(postid2).setValue(m);
+
+    }
+
+
 }

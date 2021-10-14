@@ -140,6 +140,7 @@ public class FragmentHome extends Fragment {
             }
         });
     }
+
 /*
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
