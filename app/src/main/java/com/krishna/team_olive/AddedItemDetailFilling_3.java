@@ -119,14 +119,20 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                 taskfinished++;
                 Toast.makeText(AddedItemDetailFilling_3.this, "Item Added!!", Toast.LENGTH_SHORT).show();
                 model.setImageurl(taskSnapshot.getMetadata().getReference().getDownloadUrl().toString().trim());
-                postid2 = dataRefrence.child("allpostswithoutuser").push().getKey();
+                //             postid2 = dataRefrence.child("allpostswithoutuser").push().getKey();
+
+                model.setPostid("");
+                DatabaseReference dataRefrence2 = dataRefrence.child("allpostswithoutuser").push();
+                dataRefrence2.setValue(model);
+                postid2 = dataRefrence2.getKey().toString();
+                dataRefrence2.child("postid").setValue(postid2);
                 model.setPostid(postid2);
-                dataRefrence.child("allpostswithoutuser").push().setValue(model);
+
                 dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).push().setValue(model);
                 if(model.getTypeOfExchange().equals("Y"))
-                    dataRefrence.child("NGOposts").push().setValue(model);
+                    dataRefrence.child("NGOposts").child(postid2).setValue(model);
                 else
-                    dataRefrence.child("nonNGOposts").push().setValue(model);
+                    dataRefrence.child("nonNGOposts").child(postid2).setValue(model);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

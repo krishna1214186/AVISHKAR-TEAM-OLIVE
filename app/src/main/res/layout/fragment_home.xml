@@ -55,7 +55,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        `       <LinearLayout
+        <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -87,22 +87,25 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_car"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
+                                android:backgroundTint="@color/rose"
                                 android:elevation="5dp">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:src="@drawable/ic_car"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="CAR"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:layout_marginTop="5dp"
@@ -111,22 +114,28 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_mobile"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
+                                android:backgroundTint="@color/gold"
                                 android:elevation="5dp">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="4dp"
+                                    android:src="@drawable/ic_mobile">
+                                </ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="MOBILES"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -135,22 +144,27 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_cycle"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
-                                android:elevation="5dp">
+                                android:elevation="5dp"
+                                android:backgroundTint="@color/light_green">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_marginRight="4dp"
+                                    android:layout_marginLeft="4dp"
+                                    android:src="@drawable/ic_baseline_pedal_bike_24"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="CYCLES"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:layout_marginTop="5dp"
@@ -159,22 +173,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_bike"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
+                                android:backgroundTint="@color/blue"
                                 android:elevation="5dp">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:src="@drawable/ic_bike"
+                                    android:layout_margin="4dp"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="BIKES"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -183,22 +201,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_eleitems"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
-                                android:elevation="5dp">
+                                android:elevation="5dp"
+                                android:backgroundTint="@color/light_orange">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_electronic"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="ELECTRONIC ITEMS"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -207,22 +229,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:id="@+id/cat_tv"
+                            android:clickable="true"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
-                                android:elevation="5dp">
+                                android:elevation="5dp"
+                                android:backgroundTint="@color/rose">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_tv"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="TV"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -231,22 +257,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_laptop"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
+                                android:backgroundTint="@color/gold"
                                 android:background="@drawable/card_view_categories"
                                 android:elevation="5dp">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_baseline_laptop_mac_24"/>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="LAPTOP"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -255,22 +285,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:id="@+id/cat_furniture"
+                            android:clickable="true"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
+                                android:backgroundTint="@color/light_green"
                                 android:background="@drawable/card_view_categories"
                                 android:elevation="5dp">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_furniture"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="FURNITURE"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -279,22 +313,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_books"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
+                                android:backgroundTint="@color/gold"
                                 android:elevation="5dp">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_books"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="BOOKS"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -303,22 +341,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_accecories"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
-                                android:elevation="5dp">
+                                android:elevation="5dp"
+                                android:backgroundTint="@color/blue">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_accesories"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="ASSESORIES"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
@@ -327,22 +369,26 @@
                         <LinearLayout
                             android:layout_width="100dp"
                             android:layout_height="100dp"
+                            android:clickable="true"
+                            android:id="@+id/cat_others"
                             android:orientation="vertical">
                             <RelativeLayout
                                 android:layout_width="70dp"
                                 android:layout_height="70dp"
                                 android:layout_marginLeft="15dp"
                                 android:background="@drawable/card_view_categories"
+                                android:backgroundTint="@color/light_orange"
                                 android:elevation="5dp">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:src="@drawable/ic_search"></ImageView>
+                                    android:layout_margin="4dp"
+                                    android:src="@drawable/ic_others"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:text="Category 1"
+                                android:text="OTHERS"
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"

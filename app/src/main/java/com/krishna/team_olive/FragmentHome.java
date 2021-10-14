@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -41,12 +42,28 @@ public class FragmentHome extends Fragment {
     public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList;
     RelativeLayout search_bar;
     String isNGO ;
+    LinearLayout post_click;
     FirebaseAuth auth;
+    LinearLayout cat_car, cat_mobile, cat_cycle, cat_bike, cat_eleitems, cat_tv, cat_laptop, cat_furniture, cat_books, cat_clothes, cat_others;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        post_click = view.findViewById(R.id.post_click);
+
+        cat_car = view.findViewById(R.id.cat_car);
+        cat_mobile = view.findViewById(R.id.cat_mobile);
+        cat_cycle = view.findViewById(R.id.cat_cycle);
+        cat_bike = view.findViewById(R.id.cat_bike);
+        cat_eleitems= view.findViewById(R.id.cat_eleitems);
+        cat_tv = view.findViewById(R.id.cat_tv);
+        cat_laptop = view.findViewById(R.id.cat_laptop);
+        cat_furniture = view.findViewById(R.id.cat_furniture);
+        cat_books = view.findViewById(R.id.cat_books);
+        cat_clothes = view.findViewById(R.id.cat_accecories);
+        cat_others = view.findViewById(R.id.cat_others);
 
         recyclerView_posts = view.findViewById(R.id.recyclerview_posts);
         recyclerView_posts.setHasFixedSize(true);
@@ -93,7 +110,191 @@ public class FragmentHome extends Fragment {
             }
         });
 
+        cat_others.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("OTHERS");
+                }else{
+                    showcatlistnonNGO("OTHERS");
+                }
+            }
+        });
+
+        cat_car.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("CAR");
+                }else{
+                    showcatlistnonNGO("CAR");
+                }
+            }
+        });
+
+        cat_clothes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("CLOTHES");
+                }else{
+                    showcatlistnonNGO("CLOTHES");
+                }
+            }
+        });
+
+        cat_cycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("CYCLES");
+                }else{
+                    showcatlistnonNGO("CYCLES");
+                }
+            }
+        });
+
+        cat_books.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("BOOKS");
+                }else{
+                    showcatlistnonNGO("BOOKS");
+                }
+            }
+        });
+
+        cat_furniture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("FURNITURE");
+                }else{
+                    showcatlistnonNGO("FURNITURE");
+                }
+            }
+        });
+
+        cat_eleitems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("ELECTRONIC ITEMS");
+                }else{
+                    showcatlistnonNGO("ELECTRONIC ITEMS");
+                };
+            }
+        });
+
+        cat_mobile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("MOBILES");
+                }else{
+                    showcatlistnonNGO("MOBILES");
+                }
+            }
+        });
+
+        cat_cycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("CYCLES");
+                }else{
+                    showcatlistnonNGO("CYCLES");
+                }
+            }
+        });
+
+        cat_bike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("BIKES");
+                }else{
+                    showcatlistnonNGO("BIKES");
+                }
+            }
+        });
+
+        cat_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("TV");
+                }else{
+                    showcatlistnonNGO("TV");
+                }
+            }
+        });
+
+        cat_laptop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isNGO == "Y"){
+                    showcatlistNGO("LAPTOP");
+                }else{
+                    showcatlistnonNGO("LAPTOP");
+                }
+            }
+        });
+
         return view;
+    }
+
+    private void showcatlistnonNGO(String cate){
+        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                addedItemDescriptionModelArrayList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    AddedItemDescriptionModel object ;
+
+                    object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    if(object.getCateogary().equals(cate)){
+                        addedItemDescriptionModelArrayList.add(object);
+                        if(addedItemDescriptionModelArrayList.size()==0){
+                            Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void showcatlistNGO(String cate){
+        FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                addedItemDescriptionModelArrayList.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    AddedItemDescriptionModel object ;
+
+                    object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    if(object.getCateogary().equals(cate)){
+                        addedItemDescriptionModelArrayList.add(object);
+                        if(addedItemDescriptionModelArrayList.size()==0){
+                            Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+                postAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void showNormalPosts(){
