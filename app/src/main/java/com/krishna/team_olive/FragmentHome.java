@@ -85,13 +85,16 @@ public class FragmentHome extends Fragment {
         search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
         auth = FirebaseAuth.getInstance();
 
-        FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(snapshot.getKey() == "isNGO"){
-                        isNGO = snapshot.getValue().toString();
-                    }
+                Users users = snapshot.getValue(Users.class);
+
+                if(users.getIsNGO().equals("Y")){
+                    showNGOposts();
+                }
+                if(users.getIsNGO().equals("No")){
+                    showNormalPosts();
                 }
             }
             @Override
@@ -99,12 +102,6 @@ public class FragmentHome extends Fragment {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        if(isNGO == "Y"){
-            showNGOposts();
-        }else{
-            showNormalPosts();
-        }
 
         postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList2);
         recyclerView_posts.setAdapter(postAdapter);
