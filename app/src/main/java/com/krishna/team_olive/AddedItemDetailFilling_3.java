@@ -118,3 +118,20 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
 
 }
+/*
+ DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ExchangeCategory").child(model.getExchangeCateogary());
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            String user_id = dataSnapshot.toString();
+                            //NotificationsModel notificationsModel = new NotificationsModel(user_id,"has same item as yours",);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+ */

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:id="@+id/rl_exchange_req">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:id="@+id/tv_custumer_name"
+            android:textColor="@color/black"
+            android:text="Mr. x"
+            android:gravity="center_vertical"
+            android:textSize="25sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textColor="@color/black"
+            android:text="wants to exchange your -"
+            android:gravity="center_vertical"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textColor="@color/black"
+            android:text="Item name"
+            android:id="@+id/tv_item_name_exchange_req"
+            android:gravity="center_vertical"
+            android:textSize="20sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_accept_exchange_req"
+                android:layout_weight="1"
+                android:text="Accept"
+                android:layout_marginRight="10dp"
+                android:background="@color/button_background"/>
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_height="match_parent"
+                android:id="@+id/btn_decline_exchange_req"
+                android:layout_weight="1"
+                android:text="Decline"
+                android:background="@color/button_background"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

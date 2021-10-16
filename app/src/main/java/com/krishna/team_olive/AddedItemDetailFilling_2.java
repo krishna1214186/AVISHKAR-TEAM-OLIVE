@@ -59,7 +59,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
     AddedItemDescriptionModel model;
     Button btn_next;
 
-    Uri vdo_uri;
+    Uri vdo_uri = null;
     String postid;
 
     private List<Uri> list;
@@ -69,6 +69,8 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
     private ImageUploadAdapter imageUploadAdapter;
     Uri imguri1;
     int i = 0,j=0;
+
+    ArrayList<Uri> vdo_uri_remaining = new ArrayList<>();
 
 
     @Override
@@ -107,6 +109,11 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if(i==0){
+                    Toast.makeText(AddedItemDetailFilling_2.this, "Upload atleast 1 image in your post", Toast.LENGTH_LONG).show();
+                }
+
                 Intent intent = new Intent(AddedItemDetailFilling_2.this, AddedItemDetailFilling_3.class);
                 intent.putExtra("model",model);
                 intent.putExtra("postid",postid);
@@ -139,6 +146,10 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
                 if(j>0)
                     iv_vdo_upload.setVisibility(View.GONE);
+
+                if(i==0)
+                    iv_vdo_upload.setVisibility(View.GONE);
+
 
                 iv_gallery_upload.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -181,6 +192,11 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
             }
         });
 
+        if(vdo_uri_remaining.size()!=0){
+            vv_upload.setVideoURI(vdo_uri_remaining.get(0));
+            vv_upload.seekTo(1);
+        }
+
 //        fac_img.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -220,7 +236,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
             if (data.getData() != null) {
 
                 imguri1 = data.getData();
-
+                i++;
                 list.add(imguri1);
                 imageUploadAdapter.notifyDataSetChanged();
 
@@ -231,8 +247,8 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                i++;
-                                database.getReference().child("post_files").child(postid).child("images").push().setValue(uri.toString());
+
+                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
                                 Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
 
                             }
@@ -252,7 +268,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
             if (data.getData() != null) {
 
                 vdo_uri = data.getData();
-//                video_list.add(vdo_uri);
+                vdo_uri_remaining.add(vdo_uri);
                 vv_upload.setVideoURI(vdo_uri);
                 vv_upload.seekTo(1);
                 j++;
@@ -265,7 +281,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
 
-                                database.getReference().child("post_files").child(postid).child("videos").push().setValue(uri.toString());
+                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
                                 Toast.makeText(AddedItemDetailFilling_2.this, "VIDEO SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
 
                             }
@@ -286,7 +302,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
                 Uri uri = data.getData();
                 Toast.makeText(AddedItemDetailFilling_2.this, uri.toString(), Toast.LENGTH_LONG).show();
-
+                i++;
                 list.add(uri);
                 imageUploadAdapter.notifyDataSetChanged();
 
@@ -298,7 +314,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                             @Override
                             public void onSuccess(Uri uri) {
                                 i++;
-                                database.getReference().child("post_files").child(postid).child("images").push().setValue(uri.toString());
+                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
                                 Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
 
                             }

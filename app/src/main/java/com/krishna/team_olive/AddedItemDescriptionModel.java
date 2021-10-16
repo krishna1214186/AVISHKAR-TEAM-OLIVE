@@ -21,7 +21,7 @@ public class AddedItemDescriptionModel implements Serializable {
     private String ratings;
     String extension;
     String postid;
-    String uid;
+    private String uid;
     public AddedItemDescriptionModel()
     {}
 
@@ -67,10 +67,13 @@ public class AddedItemDescriptionModel implements Serializable {
         extension=in.readString();
     }
 
+    public String getUid() {
+        return uid;
+    }
 
-
-
-
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
 
     public String getTypeOfExchange() {
         return typeOfExchange;

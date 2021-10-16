@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
@@ -44,7 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        
+
         public ImageView iv_postimage;
         public ImageView iv_like;
         public TextView tv_exchange01, tv_exchange02, tv_itemname, tv_rating, tv_no_of_likes;
@@ -69,12 +70,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        
+
         AddedItemDescriptionModel postsData = list.get(position);
 
         //Picasso.get().placeload(postsData.getImageurl()).into(holder.iv_postimage);
+
+        ArrayList<String> post_img_list = new ArrayList<>();
+
+        FirebaseDatabase.getInstance().getReference().child("post_files").child(postsData.postid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    String post_img_link = dataSnapshot.getValue(String.class);
+                    post_img_list.add(post_img_link);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        if(post_img_list.size()!=0){
+            Picasso.get().load(post_img_list.get(0)).placeholder(R.drawable.search_icon).into(holder.iv_postimage);
+            Toast.makeText(context, post_img_list.size()+" ", Toast.LENGTH_SHORT).show();
+        }
+
         if(postsData.getRatings() == ""){
-            postsData.setRatings("0");
+            postsData.setRatings("2");
         }
         holder.tv_rating.setText(postsData.getRatings());
         holder.tv_itemname.setText(postsData.getName());
@@ -112,7 +137,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
                 context.startActivity(intent);
             }
         });
-            //startforresult.launch(intent);
+        //startforresult.launch(intent);
     }
     private void isliked(String postid, ImageView iv){
         FirebaseDatabase.getInstance().getReference().child("Likes").child(postid).addValueEventListener(new ValueEventListener() {

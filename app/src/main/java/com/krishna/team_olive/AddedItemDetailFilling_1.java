@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Map;
+
 public class AddedItemDetailFilling_1 extends AppCompatActivity {
     EditText et_name,et_age,et_description,et_adress,et_landmark,et_pincode;
     Button btn_next;
@@ -66,6 +68,10 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
 
                     uploadData(model);
 
+                    DatabaseReference databaseReference3 = FirebaseDatabase.getInstance().getReference().child("ExchangeCategory").child(model.getCateogary());
+                    NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    databaseReference3.push().setValue(notifExchangeModel);
+
                     Intent intent = new Intent(AddedItemDetailFilling_1.this, AddedItemDetailFilling_2.class);
                     intent.putExtra("postid",postid2);
                     intent.putExtra("model", model);
@@ -88,6 +94,10 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
         m.setPostid(postid2);
 
         dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).push().setValue(m);
+
+        dataRefrence.child("postidwirhuserid").child(m.getPostid()).push().setValue(auth.getCurrentUser().getUid());
+
+
 //        if(m.getTypeOfExchange().equals("Y"))
 //            dataRefrence.child("NGOposts").child(postid2).setValue(m);
 //        else

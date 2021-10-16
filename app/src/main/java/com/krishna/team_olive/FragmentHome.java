@@ -78,13 +78,16 @@ public class FragmentHome extends Fragment {
         search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
         auth = FirebaseAuth.getInstance();
 
-        FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(snapshot.getKey() == "isNGO"){
-                        isNGO = snapshot.getValue().toString();
-                    }
+                Users users = snapshot.getValue(Users.class);
+
+                if(users.getIsNGO().equals("Y")){
+                    showNGOposts();
+                }
+                if(users.getIsNGO().equals("No")){
+                    showNormalPosts();
                 }
             }
             @Override
@@ -92,12 +95,6 @@ public class FragmentHome extends Fragment {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        if(isNGO == "Y"){
-            showNGOposts();
-        }else{
-            showNormalPosts();
-        }
 
         postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList);
         recyclerView_posts.setAdapter(postAdapter);
@@ -107,6 +104,7 @@ public class FragmentHome extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),SearchActivity.class);
                 startActivity(intent);
+
             }
         });
 
@@ -307,7 +305,7 @@ public class FragmentHome extends Fragment {
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
                     addedItemDescriptionModelArrayList.add(object);
                 }
-               postAdapter.notifyDataSetChanged();
+                postAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -336,19 +334,7 @@ public class FragmentHome extends Fragment {
         });
     }
 
-
+}
 /*
-    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-                        // There are no request codes
-                        Intent data = result.getData();
-                    }
-                }
-            });
 
  */
-}

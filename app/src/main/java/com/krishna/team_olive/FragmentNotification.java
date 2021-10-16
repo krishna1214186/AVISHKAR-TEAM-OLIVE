@@ -1,64 +1,96 @@
 package com.krishna.team_olive;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FragmentNotification#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+
 public class FragmentNotification extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private ImageView iv_arrow_exchange, iv_arrow_fav;
+    private RecyclerView recyclerview_notification;
+    private NotificationAdapter notificationAdapter;
+    private List<NotificationsModel> notificationsModelList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public FragmentNotification() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentNotification.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentNotification newInstance(String param1, String param2) {
-        FragmentNotification fragment = new FragmentNotification();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+
+        View v = inflater.inflate(R.layout.fragment_notification, container, false);
+
+        iv_arrow_exchange = v.findViewById(R.id.iv_arrow_exchange_req);
+        iv_arrow_fav = v.findViewById(R.id.iv_arrow_myfav);
+
+        recyclerview_notification = v.findViewById(R.id.recyclerview_notifs);
+        recyclerview_notification.setHasFixedSize(true);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerview_notification.setLayoutManager(linearLayoutManager);
+        notificationsModelList = new ArrayList<>();
+        notificationAdapter = new NotificationAdapter(notificationsModelList, getContext());
+
+        iv_arrow_exchange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ExchangeRequest.class);
+                startActivity(intent);
+            }
+        });
+
+        iv_arrow_fav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), MyFavorite.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+        return v;
+    }
+
+    private void  readnotifs(){
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(firebaseUser.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    NotificationsModel notificationsModel = snapshot.getValue(NotificationsModel.class);
+                    notificationsModelList.add(notificationsModel);
+                }
+                Collections.reverse(notificationsModelList);
+                notificationAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

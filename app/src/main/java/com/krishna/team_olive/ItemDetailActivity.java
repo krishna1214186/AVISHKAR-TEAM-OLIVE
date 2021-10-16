@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -37,13 +39,15 @@ public class ItemDetailActivity extends AppCompatActivity {
     LinearLayout dotsLayout;
     SliderAdapter adapter;
     ViewPager2 pager2;
-    ArrayList<String> list;
+    ArrayList<String> uri_list;
     TextView[] dots;
 
     TextView tv_title, tv_age, tv_description, tv_location;
     Button btn_chat,btn_exchange;
     ImageView iv_category, iv_ex_category;
     RatingBar rb_post;
+
+    String user_name, client_name, user_uid, client_uid, item_name;
 
     SupportMapFragment fragmentmap;
     GoogleMap map;
@@ -83,14 +87,13 @@ public class ItemDetailActivity extends AppCompatActivity {
         postid = getIntent().getStringExtra("postid");
         AddedItemDescriptionModel model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 
-        list = new ArrayList<>();
-
 
         FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(postid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 AddedItemDescriptionModel object = snapshot.getValue(AddedItemDescriptionModel.class);
 
+                item_name = object.getName();
 
                 tv_age.setText(object.getAgeOfProduct());
                 tv_title.setText(object.getName());
@@ -104,17 +107,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 setImageforCategory(object.getCateogary(), iv_category);
                 setImageforCategory(object.getExchangeCateogary(), iv_ex_category);
 
-                list.add(object.getImageurl());
 
-
-                dots = new TextView[list.size()];
-
-                dotsIndicator();
-
-
-
-                adapter = new SliderAdapter(list);
-                pager2.setAdapter(adapter);
 
                 pager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
                     @Override
@@ -165,6 +158,79 @@ public class ItemDetailActivity extends AppCompatActivity {
 
             }
         });
+
+        uri_list = new ArrayList<>();
+
+        database.getReference().child("post_files").child(postid).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    String var = dataSnapshot.getValue(String.class);
+                    uri_list.add(var);
+                }
+                dots = new TextView[uri_list.size()];
+
+                dotsIndicator();
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        btn_exchange.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View v) {
+                                                client_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+                                                FirebaseDatabase.getInstance().getReference().child("users").child(client_uid).child("name").addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        client_name = snapshot.getValue().toString();
+                                                        FirebaseDatabase.getInstance().getReference().child("postidwirhuserid").child(postid).addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                                    user_uid = dataSnapshot.getValue().toString();
+                                                                    FirebaseDatabase.getInstance().getReference().child("users").child(user_uid).child("name").addValueEventListener(new ValueEventListener() {
+                                                                        @Override
+                                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                            user_name = snapshot.getValue().toString();
+                                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").push();
+                                                                            ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, postid);
+                                                                            databaseReference.setValue(exchangeModel);
+                                                                        }
+
+                                                                        @Override
+                                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                        }
+                                                                    });
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+                                            }
+                                        });
+
+
+
+
+        adapter = new SliderAdapter(uri_list,this);
+        pager2.setAdapter(adapter);
 
 //       if(rb_post.getRating()<1.6){
 //           rb_post.getProgressDrawable().setColorFilter(getResources().getColor(R.color.red), PorterDuff.Mode.SRC_ATOP);
@@ -226,7 +292,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         else if(s.equals("BOOKS")) {
             iv.setImageResource(R.drawable.bike_img);
         }
-        else if(s.equals("CLOTHERS")) {
+        else if(s.equals("CLOTHES")) {
             iv.setImageResource(R.drawable.clothes);
         }
         else{
@@ -234,3 +300,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         }
     }
 }
+
+
+
+
+
