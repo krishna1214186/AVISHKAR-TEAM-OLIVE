@@ -32,24 +32,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class FragmentHome extends Fragment {
 
+
     private RecyclerView recyclerView_posts;
     private PostAdapter postAdapter;
     public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList;
+    public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList2;
     RelativeLayout search_bar;
     String isNGO ;
     LinearLayout post_click;
     FirebaseAuth auth;
+    Context context;
     LinearLayout cat_car, cat_mobile, cat_cycle, cat_bike, cat_eleitems, cat_tv, cat_laptop, cat_furniture, cat_books, cat_clothes, cat_others;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        context=view.getContext();
 
         post_click = view.findViewById(R.id.post_click);
 
@@ -73,6 +78,8 @@ public class FragmentHome extends Fragment {
 
         recyclerView_posts.setLayoutManager(linearLayoutManager);
         addedItemDescriptionModelArrayList = new ArrayList<>();
+        addedItemDescriptionModelArrayList2= new ArrayList<>();
+
 
 
         search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
@@ -99,7 +106,7 @@ public class FragmentHome extends Fragment {
             showNormalPosts();
         }
 
-        postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList);
+        postAdapter = new PostAdapter(getContext(),addedItemDescriptionModelArrayList2);
         recyclerView_posts.setAdapter(postAdapter);
 
         search_bar.setOnClickListener(new View.OnClickListener() {
@@ -297,11 +304,57 @@ public class FragmentHome extends Fragment {
         });
     }
 
-    private void showNormalPosts(){
-        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+    private void showNormalPosts() {
+        FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                addedItemDescriptionModelArrayList.clear();
+                List<String> cat = new ArrayList<>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    cat.add(dataSnapshot.getKey());
+
+                }
+                // Toast.makeText(context, ""+cat.size(), Toast.LENGTH_SHORT).show();
+                FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                        addedItemDescriptionModelArrayList.clear();
+                        for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
+                            AddedItemDescriptionModel object;
+                            object = dataSnapshot2.getValue(AddedItemDescriptionModel.class);
+                            addedItemDescriptionModelArrayList.add(object);
+                        }
+                        addedItemDescriptionModelArrayList2.clear();
+                        for (int i = 0; i < cat.size(); i++) {
+                            String x = cat.get(i);
+                            // Toast.makeText(context, x, Toast.LENGTH_SHORT).show();
+                            //
+                            for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
+                                if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
+
+                                    addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
+                                }
+                            }
+                        }
+                        postAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+       /* FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     AddedItemDescriptionModel object ;
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
@@ -315,10 +368,64 @@ public class FragmentHome extends Fragment {
 
             }
         });
+    }*/
     }
+    private void showNGOposts()
+        {
+        FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> cat=new ArrayList<>();
 
-    private void showNGOposts() {
-        FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren())
+                {
+                    cat.add(dataSnapshot.getKey());
+
+                }
+
+                // Toast.makeText(context, ""+cat.size(), Toast.LENGTH_SHORT).show();
+                FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                        addedItemDescriptionModelArrayList.clear();
+                        for(DataSnapshot dataSnapshot2 : snapshot2.getChildren()){
+                            AddedItemDescriptionModel object ;
+                            object = dataSnapshot2.getValue(AddedItemDescriptionModel.class);
+                            addedItemDescriptionModelArrayList.add(object);
+                        }
+                        addedItemDescriptionModelArrayList2.clear();
+                        for(int i=0;i<cat.size();i++)
+                        {
+                            String x=cat.get(i);
+                            // Toast.makeText(context, x, Toast.LENGTH_SHORT).show();
+                            //
+                            for(int j=0;j<addedItemDescriptionModelArrayList.size();j++)
+                            {
+                                if(addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x))
+                                {
+
+                                    addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
+                                }
+                            }
+                        }
+                        postAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+       /* FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedItemDescriptionModelArrayList.clear();
@@ -333,6 +440,8 @@ public class FragmentHome extends Fragment {
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
-    }
+        });*/
+            }
+
+
 }

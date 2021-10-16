@@ -29,13 +29,13 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.ResolvableApiException;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
+//import com.google.android.gms.location.LocationCallback;
+//import com.google.android.gms.location.LocationRequest;
+//import com.google.android.gms.location.LocationResult;
+//import com.google.android.gms.location.LocationServices;
+//import com.google.android.gms.location.LocationSettingsRequest;
+//import com.google.android.gms.location.LocationSettingsResponse;
+//import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -60,7 +60,7 @@ public class SearchActivity extends AppCompatActivity {
     private SearchAdapter searchAdapter;
     private FirebaseAuth auth;
     private String isNGO;
-    private LocationRequest locationRequest;
+   // private LocationRequest locationRequest;
     private double latitude, longitude;
 
     CheckBox check_ratings, check_distance;
@@ -151,11 +151,11 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
-
-        locationRequest = LocationRequest.create();
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(5000);
-        locationRequest.setFastestInterval(2000);
+/*
+      //  locationRequest = LocationRequest.create();
+      //  locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+      //  locationRequest.setInterval(5000);
+      //  locationRequest.setFastestInterval(2000);
 
         check_distance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,11 +163,11 @@ public class SearchActivity extends AppCompatActivity {
                 getCurrentLocation();
             }
         });
-
+*/
     }
         //Extra Methods
 
-    @Override
+  /*  @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -292,7 +292,7 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-
+*/
 
 
         private void searchdetailnonNGO(String s){

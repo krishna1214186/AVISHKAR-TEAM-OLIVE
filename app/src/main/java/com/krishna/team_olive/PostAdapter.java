@@ -70,7 +70,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
         
         AddedItemDescriptionModel postsData = list.get(position);
 
-        Picasso.get().load(postsData.getImageurl()).into(holder.iv_postimage);
+       // Picasso.get().load(postsData.getImageurl()).into(holder.iv_postimage);
         if(postsData.getRatings() == ""){
             postsData.setRatings("0");
         }

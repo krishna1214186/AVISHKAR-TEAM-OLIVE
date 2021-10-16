@@ -25,6 +25,7 @@ import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import static com.google.firebase.auth.PhoneAuthProvider.getCredential;
@@ -70,6 +71,20 @@ public class SignUp2Activity extends AppCompatActivity {
                                         name, et_phone.getText().toString(),"",
                                         auth.getCurrentUser().getUid());
                                 database.getReference().child("users").child(auth.getCurrentUser().getUid()).setValue(users);
+                                HashMap<String,Object> hm=new HashMap<>();
+                                hm.put("CARS",0);
+                                hm.put("BOOKS",0);
+                                hm.put("CYCLES",0);
+                                hm.put("FURNITURE",0);
+                                hm.put("TV",0);
+                                hm.put("LAPTOP",0);
+                                hm.put("OTHERS",0);
+                                hm.put("MOBILES",0);
+                                hm.put("CLOTHES",0);
+                                hm.put("BIKES",0);
+                                hm.put("ELECTRONICITEMS",0);
+
+                                database.getReference().child("histo").child(auth.getCurrentUser().getUid()).setValue(hm);
 
                                 Intent i = new Intent(SignUp2Activity.this, MainActivity.class);
                                 startActivity(i);
