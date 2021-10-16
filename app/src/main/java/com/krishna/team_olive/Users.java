@@ -1,9 +1,14 @@
 package com.krishna.team_olive;
 
+import java.util.HashMap;
+
 public class Users {
     private String email,name,location,phone,uid,profileimg,isNGO;
+   // HashMap<String,Object> map;
 
     public Users(String email,String isNGO, String location, String name,  String phone,  String profileimg,String uid ) {
+//        HashMap<String,Object>
+
         this.email = email;
         this.name = name;
         this.location = location;

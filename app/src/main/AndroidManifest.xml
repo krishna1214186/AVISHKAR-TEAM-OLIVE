@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.krishna.team_olive">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -10,8 +9,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
+        <activity
+            android:name=".ExchangeRequest"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -27,14 +27,12 @@
         <activity
             android:name=".chat.Chat"
             android:exported="true" />
-
         <activity
             android:name=".ItemDetailActivity"
             android:exported="true" />
         <activity
             android:name=".SearchActivity"
             android:exported="true" />
-
         <activity
             android:name=".SignUpNGO2Activity"
             android:exported="true" />
@@ -70,9 +68,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -371,7 +371,7 @@ public class FragmentHome extends Fragment {
     }*/
     }
     private void showNGOposts()
-        {
+    {
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -441,7 +441,7 @@ public class FragmentHome extends Fragment {
 
             }
         });*/
-            }
+    }
 
 
 }

@@ -53,7 +53,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         holder.tv_item_name_search.setText(object_search.getName());
         holder.tv_category_search.setText(object_search.getCateogary());
         holder.search_ratings.setText(object_search.getRatings());
-       // Picasso.get().load(object_search.getImageurl()).placeholder(R.mipmap.ic_launcher).into(holder.iv_search);
+
 
         holder.iv_arrow_search.setOnClickListener(new View.OnClickListener() {
             @Override
