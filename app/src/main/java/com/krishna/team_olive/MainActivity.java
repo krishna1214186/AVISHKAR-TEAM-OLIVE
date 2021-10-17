@@ -40,7 +40,7 @@ FirebaseDatabase db;
 db=FirebaseDatabase.getInstance();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         meowBottomNavigation=findViewById(R.id.bottom_navigation);
-        manageConnections();
+        //manageConnections();
        // manageConnections2();
        /* HashMap<String,Object> State=new HashMap<>();
         Long timeTamp=new Date().getTime();
@@ -167,7 +167,7 @@ loadFragment(fragment);
         intent.putExtra("cateogary_name",str);
         startActivity(intent);
     }
-
+/*
 public void manageConnections()
 {
     DatabaseReference connectionRefrence=db.getReference().child("connections");
@@ -199,6 +199,8 @@ public void manageConnections()
     });
 
 }
+
+ */
 
 private void updateUserStatus(String state)
 {

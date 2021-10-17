@@ -16,8 +16,11 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -55,6 +58,11 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         dataRefrence = database.getReference();
         auth=FirebaseAuth.getInstance();
 
+        ////THIS IS FOR MY USE
+
+
+
+
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,10 +72,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                 myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 mySpinner.setAdapter(myAdapter);
                 mySpinner.setOnItemSelectedListener(AddedItemDetailFilling_3.this);
-
-                model.setTypeOfExchange("N");
-                uploadData(model);
-
             }
         });
         btn_yes.setOnClickListener(new View.OnClickListener() {
@@ -76,8 +80,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                 btn_ok.setVisibility(View.VISIBLE);
                 model.setTypeOfExchange("Y");
                 uploadData(model);
-
-
             }
         });
 
@@ -97,7 +99,37 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         text=parent.getItemAtPosition(position).toString();
         model.setExchangeCateogary(text);
+        model.setTypeOfExchange("N");
 
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("NeedInExchange").child(model.getExchangeCateogary());
+        NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
+        databaseReference.push().setValue(notifExchangeModel);
+
+        DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference().child("ExchangeCategory").child(model.getExchangeCateogary());
+        databaseReference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    NotifExchangeModel notifExchangeModel1 = dataSnapshot.getValue(NotifExchangeModel.class);
+                    NotificationsModel notificationsModel = new NotificationsModel(notifExchangeModel1.getUser_id(),"has same item",notifExchangeModel1.getPost_id(),3);
+                    DatabaseReference databaseReference2 = FirebaseDatabase.getInstance().getReference().child("Notifications").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push();
+                    databaseReference2.setValue(notificationsModel);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        dataRefrence.child("allpostswithoutuser").child(postid2).setValue(model);
+        dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(model);
+
+        if(model.getTypeOfExchange().equals("Y"))
+            dataRefrence.child("NGOposts").child(postid2).setValue(model);
+        else
+            dataRefrence.child("nonNGOposts").child(postid2).setValue(model);
     }
 
     @Override

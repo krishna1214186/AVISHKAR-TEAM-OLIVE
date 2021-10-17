@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,7 +25,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
     private List<NotificationsModel> mlist;
     private Context mcontext;
-    private int Type = 0;
 
     public NotificationAdapter(List<NotificationsModel> mlist, Context mcontext) {
         this.mlist = mlist;
@@ -41,7 +41,19 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @Override
     public void onBindViewHolder(@NonNull NotificationAdapter.ViewHolder holder, int position) {
         NotificationsModel notificationsModel = mlist.get(position);
-        getuserinfo(holder.iv_notif_profile, holder.tv_notif_name, notificationsModel.getUser_id());
+        FirebaseDatabase.getInstance().getReference().child("users").child(notificationsModel.getUser_id()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
+                holder.tv_notif_name.setText(users.getName());
+                //Picasso.get().load(users.getProfileimg()).placeholder(R.drawable.ic_launcher_background).into(holder.iv_notif_profile);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         //Like notif
         if(notificationsModel.getType() == 1){
@@ -55,13 +67,23 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             holder.iv_notif_arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // Yha se ab map wle fragment m jana h !!!!
+                    Intent intent = new Intent(mcontext, RouteAndRating.class);
+                    mcontext.startActivity(intent);
                 }
             });
         }
-        //
+        //same item available for exchange notif
         if(notificationsModel.getType() == 3){
-
+            holder.iv_notif_arrow.setImageResource(R.drawable.ic__arrow_right);
+            holder.tv_notif_detail.setText("has same item for exchange.");
+            holder.iv_notif_arrow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mcontext, ItemDetailActivity.class);
+                    intent.putExtra("postid", notificationsModel.getPost_id());
+                    mcontext.startActivity(intent);
+                }
+            });
         }
 
     }
@@ -92,6 +114,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Users users = snapshot.getValue(Users.class);
                     username.setText(users.getName());
+                Toast.makeText(mcontext, "Hello", Toast.LENGTH_SHORT).show();
                     Picasso.get().load(users.getProfileimg()).placeholder(R.drawable.ic_launcher_background).into(imageView);
             }
 
@@ -107,7 +130,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 AddedItemDescriptionModel addedItemDescriptionModel = snapshot.getValue(AddedItemDescriptionModel.class);
-                Picasso.get().load(addedItemDescriptionModel.getImageurl()).into(imageView);
+//                Picasso.get().load(addedItemDescriptionModel.getImageurl()).placeholder(R.drawable.ic_launcher_background).into(imageView);
             }
 
             @Override

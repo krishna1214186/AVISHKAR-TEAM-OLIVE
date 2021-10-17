@@ -1,5 +1,6 @@
 package com.krishna.team_olive;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -30,9 +31,12 @@ import java.util.List;
 public class FragmentNotification extends Fragment {
 
     private ImageView iv_arrow_exchange, iv_arrow_fav;
+
     private RecyclerView recyclerview_notification;
     private NotificationAdapter notificationAdapter;
-    private List<NotificationsModel> notificationsModelList;
+    private static List<NotificationsModel> notificationsModelList;
+
+    Context context;
 
 
     @Override
@@ -41,6 +45,8 @@ public class FragmentNotification extends Fragment {
 
         View v = inflater.inflate(R.layout.fragment_notification, container, false);
 
+        context = v.getContext();
+
         iv_arrow_exchange = v.findViewById(R.id.iv_arrow_exchange_req);
         iv_arrow_fav = v.findViewById(R.id.iv_arrow_myfav);
 
@@ -48,23 +54,29 @@ public class FragmentNotification extends Fragment {
         recyclerview_notification.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setStackFromEnd(true);
+        linearLayoutManager.setReverseLayout(true);
         recyclerview_notification.setLayoutManager(linearLayoutManager);
         notificationsModelList = new ArrayList<>();
+
         notificationAdapter = new NotificationAdapter(notificationsModelList, getContext());
+        recyclerview_notification.setAdapter(notificationAdapter);
+
+        readnotifs();
 
         iv_arrow_exchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ExchangeRequest.class);
-                startActivity(intent);
+                context.startActivity(intent);
             }
         });
 
         iv_arrow_fav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(), MyFavorite.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(getContext(), MyFavorite.class);
+                context.startActivity(intent2);
             }
         });
 
@@ -79,11 +91,12 @@ public class FragmentNotification extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                notificationsModelList.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    NotificationsModel notificationsModel = snapshot.getValue(NotificationsModel.class);
+                    NotificationsModel notificationsModel = dataSnapshot.getValue(NotificationsModel.class);
                     notificationsModelList.add(notificationsModel);
                 }
-                Collections.reverse(notificationsModelList);
+                //Collections.reverse(notificationsModelList);
                 notificationAdapter.notifyDataSetChanged();
             }
 
