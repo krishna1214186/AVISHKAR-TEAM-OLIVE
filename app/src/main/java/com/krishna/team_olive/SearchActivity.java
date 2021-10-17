@@ -1,5 +1,7 @@
 package com.krishna.team_olive;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +24,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +76,6 @@ import java.util.TreeMap;
 
 public class SearchActivity extends AppCompatActivity {
 
-
     private RecyclerView recyclerView_search;
     private EditText searchbar2;
     private List<AddedItemDescriptionModel> search_list;
@@ -82,8 +84,10 @@ public class SearchActivity extends AppCompatActivity {
     private String isNGO;
     private LocationRequest locationRequest;
     private double my_latitude, my_longitude, add_latitude, add_longitude;
+    String temp_add;
 
-    List<Address>[] addressList ;
+    Geocoder gc ;
+    List<Address> list ;
 
     CheckBox check_ratings, check_distance;
 
@@ -95,6 +99,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        gc = new Geocoder(SearchActivity.this);
+        list = null;
+        map = new TreeMap<>();
+
         auth = FirebaseAuth.getInstance();
 
         recyclerView_search = findViewById(R.id.recyclerview_search);
@@ -104,10 +112,6 @@ public class SearchActivity extends AppCompatActivity {
 
         recyclerView_search.setHasFixedSize(true);
         recyclerView_search.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
-
-        map = new TreeMap<>();
-
-        addressList = new List[]{new ArrayList<Address>()};
 
         search_list = new ArrayList<>();
         searchAdapter = new SearchAdapter(SearchActivity.this,search_list,true);
@@ -137,11 +141,21 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(isNGO.equals("Y")){
-                    searchdetailNGO(s.toString());
-                }else{
-                    searchdetailnonNGO(s.toString());
-                }
+                FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).child("isNGO").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        isNGO = snapshot.getValue().toString();
+                        if(isNGO.equals("Y")){
+                            searchdetailNGO(s.toString());
+                        }else{
+                            searchdetailnonNGO(s.toString());
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(SearchActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
 
@@ -196,23 +210,34 @@ public class SearchActivity extends AppCompatActivity {
                         for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                             AddedItemDescriptionModel objc = dataSnapshot.getValue(AddedItemDescriptionModel.class);
 
-                            String temp_add = objc.getAdress1() + ", " + objc.getAdress2();
+                            temp_add = objc.getAdress1() + ", " + objc.getAdress2();
 
-                            GeoCodingLocation locationAddress = new GeoCodingLocation();
-                            locationAddress.getAddressFromLocation(temp_add, getApplicationContext(), new GeoCoderHandler());
-                            double dist = distance(my_latitude, add_latitude, my_longitude, add_longitude);
+                            if(gc.isPresent()) {
+                                try {
+                                    list = gc.getFromLocationName(temp_add, 1);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                                if (!list.isEmpty()) {
+                                    Address address = list.get(0);
+                                    add_latitude = address.getLatitude();
+                                    add_longitude = address.getLongitude();
+                                    //Log.d(TAG, "Lat: " + String.valueOf(lat) + ", Lng: " + String.valueOf(lng));
+                                }
+                            }
+
+                            double dist = distance(my_latitude, add_latitude, my_longitude, add_longitude,0.0,0.0);
+                            Toast.makeText(SearchActivity.this, Double.toString(dist), Toast.LENGTH_SHORT).show();
                             map.put(dist,objc.getPostid());
                         }
-                        if(map.size() == 1){
-                            Toast.makeText(SearchActivity.this, "KLJKJK", Toast.LENGTH_SHORT).show();
-                        }
+
                         search_list.clear();
                         for (Map.Entry<Double, String> entry : map.entrySet()) {
                             FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(entry.getValue()).addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     AddedItemDescriptionModel add_list = snapshot.getValue(AddedItemDescriptionModel.class);
-                                    //Toast.makeText(SearchActivity.this, add_list.getName(), Toast.LENGTH_SHORT).show();
                                     search_list.add(add_list);
                                 }
 
@@ -221,12 +246,8 @@ public class SearchActivity extends AppCompatActivity {
 
                                 }
                             });
-                            //if(search_list.size() == 0)
-                            //Toast.makeText(SearchActivity.this, "KLJKJK", Toast.LENGTH_SHORT).show();
                         }
                         searchAdapter.notifyDataSetChanged();
-                        //if(search_list.size() == 0)
-                        //Toast.makeText(SearchActivity.this, "KLJKJK", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -236,99 +257,30 @@ public class SearchActivity extends AppCompatActivity {
                 });
             }
         });
+
     }
-        //Extra Methods
-        private class GeoCoderHandler extends Handler {
-            @Override
-            public void handleMessage(Message message) {
-                String locationAddress;
-                switch (message.what) {
-                    case 1:
-                        Bundle bundle = message.getData();
-                        add_latitude = bundle.getDouble("lati");
-                        add_longitude = bundle.getDouble("longi");
-                        //if(add_longitude != 0.0 && add_latitude != 0.0)
-                        //Toast.makeText(SearchActivity.this, "Helllllll", Toast.LENGTH_SHORT).show();
-                        break;
-                    default:
-                        locationAddress = null;
-                }
-                //textViewLatLong.setText(locationAddress);
-            }
-        }
+    ////////////////////////////////////////////////////////////     EXTRA METHODS   ///////////////////////////////////////////////////////////////////////////////////////
 
 
-/*
-      void getAddress(String loc_add){
-        Thread thread = new Thread(){
-            @Override
-            public  void run(){
-                Geocoder geocoder = new Geocoder(SearchActivity.this, Locale.getDefault());
-                String res = null;
-                try{
-                    List addressList = geocoder.getFromLocationName(loc_add,1);
-                    Toast.makeText(SearchActivity.this, "MINUGaaaaaaaaaaaa", Toast.LENGTH_SHORT).show();
-                    if(addressList != null && addressList.size() > 0){
-                        Address address = (Address)addressList.get(0);
-                        add_latitude = address.getLatitude();
-                        add_longitude = address.getLongitude();
-                        Toast.makeText(SearchActivity.this, "MINUGsssssss", Toast.LENGTH_SHORT).show();
-                    }
-                }catch(IOException e){
-                    e.printStackTrace();
-                }
-            }
-        };
-    }
 
- */
-/*
-    public GeoPoint getLocationFromAddress(String strAddress){
 
-        Geocoder coder = new Geocoder(this);
-        List<Address> address = new ArrayList<>() ;
-        GeoPoint p1 = null;
+    public static double distance(double lat1, double lat2, double lon1, double lon2, double el1, double el2) {
 
-        try {
-            address = coder.getFromLocationName(strAddress,1);
-            if (address==null) {
-                return null;
-            }
-            Address location=address.get(0);
-            add_latitude = location.getLatitude();
-            add_longitude = location.getLongitude();
+        final int R = 6371; // Radius of the earth
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return p1;
-    }
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
 
- */
+        double height = el1 - el2;
 
-    public static double distance(double lat1, double lat2, double lon1, double lon2) {
+        distance = Math.pow(distance, 2) + Math.pow(height, 2);
 
-        // The math module contains a function
-        // named toRadians which converts from
-        // degrees to radians.
-        lon1 = Math.toRadians(lon1);
-        lon2 = Math.toRadians(lon2);
-        lat1 = Math.toRadians(lat1);
-        lat2 = Math.toRadians(lat2);
-
-        // Haversine formula
-        double dlon = lon2 - lon1;
-        double dlat = lat2 - lat1;
-        double a = Math.pow(Math.sin(dlat / 2), 2) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2),2);
-
-        double c = 2 * Math.asin(Math.sqrt(a));
-
-        // Radius of earth in kilometers. Use 3956
-        // for miles
-        double r = 6371;
-
-        // calculate the result
-        return(c * r);
+        return Math.sqrt(distance);
     }
 
    @Override
