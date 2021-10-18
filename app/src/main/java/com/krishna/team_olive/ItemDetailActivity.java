@@ -250,8 +250,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                                                                         @Override
                                                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                                             user_name = snapshot.getValue().toString();
-                                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").push();
-                                                                            ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, postid);
+                                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).push();
+                                                                            ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, postid, "");
+                                                                            String req_id = databaseReference.getKey().toString();
+                                                                            exchangeModel.setRequest_uid(req_id);
                                                                             databaseReference.setValue(exchangeModel);
                                                                         }
 

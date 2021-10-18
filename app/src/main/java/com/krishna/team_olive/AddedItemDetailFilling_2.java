@@ -1,37 +1,23 @@
 package com.krishna.team_olive;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.MediaController;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -42,13 +28,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+import com.krishna.team_olive.ml.MobilenetV110224Quant;
 
-import java.io.File;
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.image.TensorImage;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
+import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AddedItemDetailFilling_2 extends AppCompatActivity {
@@ -62,6 +52,8 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
     Uri vdo_uri = null;
     String postid;
 
+    String ml_predict;
+    String category;
     private List<Uri> list;
 
     FirebaseDatabase database;
@@ -69,6 +61,9 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
     private ImageUploadAdapter imageUploadAdapter;
     Uri imguri1;
     int i = 0,j=0;
+
+    ArrayList<String> wordList = new ArrayList<>();
+    Bitmap bitmap;
 
     ArrayList<Uri> vdo_uri_remaining = new ArrayList<>();
 
@@ -80,6 +75,8 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
         model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
         postid = model.getPostid();
+        category = model.getCateogary();
+
 
         fac_img = findViewById(R.id.fac_add);
         rv_img = findViewById(R.id.rv_img);
@@ -90,10 +87,6 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
 
-
-
-
-
         rv_img = findViewById(R.id.rv_img);
         rv_img.setHasFixedSize(true);
 
@@ -102,7 +95,23 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
 //            vv_upload.setVideoURI(video_list.get(0));
 //            vv_upload.seekTo(1);
-//
+
+
+        String filename = "label.txt";
+
+        try {
+
+            BufferedReader br = new BufferedReader(new InputStreamReader(getApplicationContext().getAssets().open(filename)));
+
+            String line;
+
+            while ((line = br.readLine())!=null){
+                wordList.add(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         list = new ArrayList<>();
 
@@ -142,7 +151,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                 ImageView closeButton = (ImageView) alertView.findViewById(R.id.closeButton);
                 ImageView iv_gallery_upload = (ImageView) alertView.findViewById(R.id.iv_gallery_uploado);
                 ImageView iv_vdo_upload = (ImageView) alertView.findViewById(R.id.iv_vdo_upload);
-                ImageView iv_camera_upload = (ImageView) alertView.findViewById(R.id.iv_camera_upload);
+                ImageView iv_camera_upload = (ImageView) alertView.findViewById(R.id.iv_alert_ml_image);
 
                 if(j>0)
                     iv_vdo_upload.setVisibility(View.GONE);
@@ -172,7 +181,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                         alertDialog.dismiss();
                     }
                 });
-
+/*
                 iv_camera_upload.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -181,6 +190,8 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                         alertDialog.dismiss();
                     }
                 });
+
+ */
 
                 closeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -197,33 +208,6 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
             vv_upload.seekTo(1);
         }
 
-//        fac_img.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                Intent intent = new Intent();
-////                intent.setAction(Intent.ACTION_GET_CONTENT);
-////                intent.setType("image/*");
-////                startActivityForResult(intent, 30);
-//
-////
-//
-//
-//            }
-//        });
-
-//        vv_upload.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent();
-//                intent.setAction(Intent.ACTION_GET_CONTENT);
-//                intent.setType("video/*");
-//                startActivityForResult(intent, 32);
-//            }
-//        });
-
-//                FragmentFileUpload fragmentFileUpload = new FragmentFileUpload();
-//                fragmentFileUpload.show(getSupportFragmentManager(), fragmentFileUpload.getTag());
-
         imageUploadAdapter = new ImageUploadAdapter(this, list);
         rv_img.setAdapter(imageUploadAdapter);
 
@@ -236,30 +220,171 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
             if (data.getData() != null) {
 
                 imguri1 = data.getData();
-                i++;
-                list.add(imguri1);
-                imageUploadAdapter.notifyDataSetChanged();
 
-                final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
-                ref.putFile(imguri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+
+
+                Bitmap resized = Bitmap.createScaledBitmap(bitmap,224, 224,true );
+
+                try {
+                    MobilenetV110224Quant model = MobilenetV110224Quant.newInstance(AddedItemDetailFilling_2.this);
+
+                    TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.UINT8);
+
+                    TensorImage tbuffer =  TensorImage.fromBitmap(resized);
+                    ByteBuffer byteBuffer = tbuffer.getBuffer();
+
+                    inputFeature0.loadBuffer( byteBuffer);
+
+                    // Runs model inference and gets result.
+                    MobilenetV110224Quant.Outputs outputs = model.process(inputFeature0);
+                    TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+                    int idx = getMax(outputFeature0.getFloatArray());
+
+
+                    ml_predict = wordList.get(idx);
+
+                    if(ml_predict.equals(category)){
+                        Toast.makeText(AddedItemDetailFilling_2.this, ml_predict,Toast.LENGTH_SHORT).show();
+                        i++;
+                        list.add(imguri1);
+                        imageUploadAdapter.notifyDataSetChanged();
+
+                        final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
+                        ref.putFile(imguri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
-                            public void onSuccess(Uri uri) {
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                    @Override
+                                    public void onSuccess(Uri uri) {
 
-                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
-                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+                                        if(i==1){
+                                            database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
+                                        }
 
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
+                                        database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
+
+                                        Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                             }
                         });
+
                     }
-                });
+                    else{
+                        AlertDialog.Builder alert_isValid = new AlertDialog.Builder(AddedItemDetailFilling_2.this);
+                        View alertView = getLayoutInflater().inflate(R.layout.alert_image_validation_layout, null);
+
+
+
+                        //Set the view
+                        alert_isValid.setView(alertView);
+                        final AlertDialog alertDialog = alert_isValid.show();
+                        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                        ImageView iv_alert_ml = (ImageView) alertView.findViewById(R.id.iv_alert_ml_image);
+                        Button btn_select_anyway = alertView.findViewById(R.id.btn_select_anyway);
+                        Button btn_cancel = alertView.findViewById(R.id.btn_cancel);
+                        TextView tv_ml_predict = alertView.findViewById(R.id.tv_ml_predict);
+
+                        iv_alert_ml.setImageURI(imguri1);
+
+                        tv_ml_predict.setText("You have selected "+category+" but image is like "+ml_predict);
+                        iv_alert_ml.setImageURI(data.getData());
+
+                        btn_select_anyway.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                i++;
+                                list.add(imguri1);
+                                imageUploadAdapter.notifyDataSetChanged();
+                                alertDialog.dismiss();
+
+                                final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
+                                ref.putFile(imguri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                            @Override
+                                            public void onSuccess(Uri uri) {
+
+                                                if(i==1){
+                                                    database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
+                                                }
+
+                                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
+                                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                    }
+                                });
+
+                            }
+
+                        });
+
+
+                        btn_cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                alertDialog.dismiss();
+                            }
+                        });
+
+                    }
+
+                    // Releases model resources if no longer used.
+                    model.close();
+                } catch (IOException e) {
+                    // TODO Handle the exception
+                }
+
+
+
+
+
+//                i++;
+//                list.add(imguri1);
+//                imageUploadAdapter.notifyDataSetChanged();
+//
+//                final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
+//                ref.putFile(imguri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                            @Override
+//                            public void onSuccess(Uri uri) {
+//
+//                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
+//                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+//                });
 
             }
         }
@@ -313,7 +438,9 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                         ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
                             public void onSuccess(Uri uri) {
-                                i++;
+                                if(i==1){
+                                    database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
+                                }
                                 database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
                                 Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
 
@@ -332,6 +459,45 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
 
     }
+
+//    public boolean isValid(Uri uri){
+//        AlertDialog.Builder alert_isValid = new AlertDialog.Builder(AddedItemDetailFilling_2.this);
+//        View alertView = getLayoutInflater().inflate(R.layout.alert_image_validation_layout, null);
+//
+//
+//
+//        //Set the view
+//        alert_isValid.setView(alertView);
+//        final AlertDialog alertDialog = alert_isValid.show();
+//        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//
+//        ImageView iv_alert_ml = (ImageView) alertView.findViewById(R.id.iv_alert_ml_image);
+//        Button btn_select_anyway = alertView.findViewById(R.id.btn_select_anyway);
+//        Button btn_cancel = alertView.findViewById(R.id.btn_cancel);
+//
+//        iv_alert_ml.setImageURI(uri);
+
+//        btn_select_anyway.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public boolean onClick(View v) {
+//
+//            }
+//        });
+
+    int getMax(float[] arr){
+        int ind = 0;
+        float min = 0.0F;
+
+        for(int i = 0; i< arr.length; i++){
+            if(arr[i]>min){
+                ind = i;
+                min = arr[i];
+            }
+        }
+        return ind;
+    }
+
+
 
 
 }

@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.helper.widget.Layer;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -66,12 +67,12 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
             public void onClick(View v) {
                 DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Myexchanges").child(object_exc_req.getClient_uid()).push();
                 firebaseDatabase.setValue(object_exc_req.getPostid());
-                holder.rl_exchange_req.setVisibility(View.GONE);
 
                 DatabaseReference firebaseDatabase2 = FirebaseDatabase.getInstance().getReference().child("Notifications").child(object_exc_req.getClient_uid());
                 NotificationsModel notificationsModel = new NotificationsModel(object_exc_req.getUser_uid(), "accepted your request", object_exc_req.getPostid(), 2);
                 firebaseDatabase2.push().setValue(notificationsModel);
 
+                FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
 
                 ////DELETE bhi krna h !!!!!!!!!!!
             }

@@ -1,5 +1,7 @@
 package com.krishna.team_olive;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -12,12 +14,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,6 +43,16 @@ import com.google.android.gms.common.api.ResolvableApiException;
 //import com.google.android.gms.location.LocationSettingsRequest;
 //import com.google.android.gms.location.LocationSettingsResponse;
 //import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,14 +62,19 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.GeoPoint;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SearchActivity extends AppCompatActivity {
-
 
     private RecyclerView recyclerView_search;
     private EditText searchbar2;
@@ -60,15 +82,26 @@ public class SearchActivity extends AppCompatActivity {
     private SearchAdapter searchAdapter;
     private FirebaseAuth auth;
     private String isNGO;
-   // private LocationRequest locationRequest;
-    private double latitude, longitude;
+    private LocationRequest locationRequest;
+    private double my_latitude, my_longitude, add_latitude, add_longitude;
+    String temp_add;
+
+    Geocoder gc ;
+    List<Address> list ;
 
     CheckBox check_ratings, check_distance;
+
+    TreeMap<Double,String> map;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        gc = new Geocoder(SearchActivity.this);
+        list = null;
+        map = new TreeMap<>();
 
         auth = FirebaseAuth.getInstance();
 
@@ -84,26 +117,21 @@ public class SearchActivity extends AppCompatActivity {
         searchAdapter = new SearchAdapter(SearchActivity.this,search_list,true);
         recyclerView_search.setAdapter(searchAdapter);
 
-        FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).child("isNGO").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(snapshot.getKey() == "isNGO"){
                         isNGO = snapshot.getValue().toString();
+                        if(isNGO.equals("Y")){
+                            searchNGOposts();
+                        }else{
+                            searchnonNGOposts();
+                        }
                     }
-                }
-            }
             @Override
             public void onCancelled( DatabaseError error) {
                 Toast.makeText(SearchActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        if(isNGO == "Y"){
-            searchNGOposts();
-        }else{
-            searchnonNGOposts();
-        }
 
         searchbar2.addTextChangedListener(new TextWatcher() {
             @Override
@@ -113,11 +141,21 @@ public class SearchActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(isNGO == "Y"){
-                    searchdetailNGO(s.toString());
-                }else{
-                    searchdetailnonNGO(s.toString());
-                }
+                FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).child("isNGO").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        isNGO = snapshot.getValue().toString();
+                        if(isNGO.equals("Y")){
+                            searchdetailNGO(s.toString());
+                        }else{
+                            searchdetailnonNGO(s.toString());
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(SearchActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
 
@@ -126,6 +164,8 @@ public class SearchActivity extends AppCompatActivity {
 
             }
         });
+
+
 
         check_ratings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,22 +192,82 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+
        locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
        locationRequest.setInterval(5000);
        locationRequest.setFastestInterval(2000);
 
+
         check_distance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getCurrentLocation();
+                for(int i=0; i<search_list.size();i++){
+                    AddedItemDescriptionModel objc = search_list.get(i);
+                    temp_add = objc.getAdress1() + ", " + objc.getAdress2();
+
+                    if(gc.isPresent()) {
+                        try {
+                            list = gc.getFromLocationName(temp_add, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                        if (!list.isEmpty()) {
+                            Address address = list.get(0);
+                            add_latitude = address.getLatitude();
+                            add_longitude = address.getLongitude();
+                            //Log.d(TAG, "Lat: " + String.valueOf(lat) + ", Lng: " + String.valueOf(lng));
+                        }
+                    }
+
+                    double dist = distance(my_latitude, add_latitude, my_longitude, add_longitude,0.0,0.0);
+                    Toast.makeText(SearchActivity.this, Double.toString(dist), Toast.LENGTH_SHORT).show();
+                    map.put(dist,objc.getPostid());
+                }
+                search_list.clear();
+                for (Map.Entry<Double, String> entry : map.entrySet()) {
+                    FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(entry.getValue()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            AddedItemDescriptionModel add_list = snapshot.getValue(AddedItemDescriptionModel.class);
+                            search_list.add(add_list);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+                searchAdapter.notifyDataSetChanged();
             }
         });
 
     }
-        //Extra Methods
+    ////////////////////////////////////////////////////////////     EXTRA METHODS   ///////////////////////////////////////////////////////////////////////////////////////
 
-    @Override
+
+    public static double distance(double lat1, double lat2, double lon1, double lon2, double el1, double el2) {
+
+        final int R = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
+
+        double height = el1 - el2;
+
+        distance = Math.pow(distance, 2) + Math.pow(height, 2);
+
+        return Math.sqrt(distance);
+    }
+
+   @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -220,8 +320,8 @@ public class SearchActivity extends AppCompatActivity {
                                     if (locationResult != null && locationResult.getLocations().size() >0){
 
                                         int index = locationResult.getLocations().size() - 1;
-                                        latitude = locationResult.getLocations().get(index).getLatitude();
-                                        longitude = locationResult.getLocations().get(index).getLongitude();
+                                        my_latitude = locationResult.getLocations().get(index).getLatitude();
+                                        my_longitude = locationResult.getLocations().get(index).getLongitude();
                                         ///////////////////////////
                                     }
                                 }
@@ -238,9 +338,6 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void turnOnGPS() {
-
-
-
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
         builder.setAlwaysShow(true);
@@ -291,9 +388,6 @@ public class SearchActivity extends AppCompatActivity {
         return isEnabled;
 
     }
-
-
-
 
         private void searchdetailnonNGO(String s){
             Query query = FirebaseDatabase.getInstance().getReference().child("nonNGOposts").orderByChild("name").startAt(s).endAt(s + "\uf8ff");

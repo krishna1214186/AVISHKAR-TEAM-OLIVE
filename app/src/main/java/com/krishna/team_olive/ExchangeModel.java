@@ -2,18 +2,27 @@ package com.krishna.team_olive;
 
 public class ExchangeModel {
 
-    private String user_name, client_name, user_uid, client_uid, item_name, postid;
+    private String user_name, client_name, user_uid, client_uid, item_name, postid, request_uid;
 
-    public ExchangeModel(String user_name, String client_name, String user_uid, String client_uid, String item_name, String postid) {
+    public ExchangeModel(String user_name, String client_name, String user_uid, String client_uid, String item_name, String postid, String request_uid) {
         this.user_name = user_name;
         this.client_name = client_name;
         this.user_uid = user_uid;
         this.client_uid = client_uid;
         this.item_name = item_name;
         this.postid = postid;
+        this.request_uid = request_uid;
     }
 
     public ExchangeModel() {
+    }
+
+    public String getRequest_uid() {
+        return request_uid;
+    }
+
+    public void setRequest_uid(String request_uid) {
+        this.request_uid = request_uid;
     }
 
     public String getUser_name() {

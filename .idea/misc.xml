@@ -21,9 +21,12 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_exchange_history.xml" value="0.1796875" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_login.xml" value="0.1796875" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_main.xml" value="0.12962962962962962" />
+<<<<<<< HEAD
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_ratings.xml" value="0.1796875" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/activity_search.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/chat_adapter_layout.xml" value="0.16354166666666667" />
+=======
+>>>>>>> try_yash
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_add.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_chat.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_home.xml" value="0.12962962962962962" />
@@ -37,10 +40,56 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/sample_sender.xml" value="0.1796875" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/card_view_categories.xml" value="0.23796296296296296" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/card_view_rating.xml" value="0.23796296296296296" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_accesories.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_baseline_laptop_mac_24.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_baseline_pedal_bike_24.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_bike.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_books.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_car.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_electronic.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_furniture.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_history.xml" value="0.22870370370370371" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_like.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_liked.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_liked_background.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_liked_foreground.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_mobile.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_others.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_person.xml" value="0.22870370370370371" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_star.xml" value="0.23796296296296296" />
+<<<<<<< HEAD
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/post_item.xml" value="0.2" />
+=======
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_tv.xml" value="0.25277777777777777" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/va_location.xml" value="0.24814814814814815" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_added_item_detail_filling2.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_exchange_request.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_item_detail.xml" value="0.152" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_my_favorite.xml" value="0.2375" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_route_and_rating.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_search.xml" value="0.2375" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/activity_search_bar.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/alert_image_validation_layout.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/cateogary_recyclerview_particularelement.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/exchange_req_item.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/favorite_item.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_home.xml" value="0.176" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_notification.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_profile.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/fragment_search.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/notification_item.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/post_item.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/search_autocomplete_element.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/search_item.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/slider_item.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/layout/temporary.xml" value="0.2" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_like.xml" value="0.1421875" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_liked.xml" value="0.24074074074074073" />
+        <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_liked_round.xml" value="0.1421875" />
+>>>>>>> try_yash
       </map>
     </option>
   </component>
