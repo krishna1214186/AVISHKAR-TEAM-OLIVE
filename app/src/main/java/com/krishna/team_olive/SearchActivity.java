@@ -151,11 +151,11 @@ public class SearchActivity extends AppCompatActivity {
                 }
             }
         });
-/*
-      //  locationRequest = LocationRequest.create();
-      //  locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-      //  locationRequest.setInterval(5000);
-      //  locationRequest.setFastestInterval(2000);
+
+       locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+       locationRequest.setInterval(5000);
+       locationRequest.setFastestInterval(2000);
 
         check_distance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,11 +163,11 @@ public class SearchActivity extends AppCompatActivity {
                 getCurrentLocation();
             }
         });
-*/
+
     }
         //Extra Methods
 
-  /*  @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -292,7 +292,7 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-*/
+
 
 
         private void searchdetailnonNGO(String s){
