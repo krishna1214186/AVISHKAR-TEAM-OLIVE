@@ -111,13 +111,13 @@ public class FragmentProfile extends Fragment {
                 detail.clear();
 
                 Users users = snapshot.getValue(Users.class);
-                tv_name.setText(users.getName());
+               tv_name.setText(users.getName());
                 tv_phone.setText(users.getPhone());
                 tv_mail.setText(users.getEmail());
                 tv_location.setText(users.getLocation());
-                if(!users.getProfileimg().isEmpty()) {
-                    Picasso.get().load(users.getProfileimg()).placeholder(R.drawable.ic_baseline_person_24).into(iv_profile);
-                }
+              if(!users.getProfileimg().isEmpty()) {
+                   Picasso.get().load(users.getProfileimg()).placeholder(R.drawable.ic_baseline_person_24).into(iv_profile);
+              }
 
             }
 
@@ -147,6 +147,13 @@ public class FragmentProfile extends Fragment {
                         tv_phone.setText(et_phone.getText().toString());
                     }
                 });
+            }
+        });
+        iv_veiw_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(),ExchangeHistory.class);
+                startActivity(intent);
             }
         });
 

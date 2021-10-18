@@ -9,6 +9,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -53,11 +54,13 @@ public class ItemDetailActivity extends AppCompatActivity {
     GoogleMap map;
 
     String postid;
+    int check;
 
     FirebaseDatabase database;
     FirebaseAuth auth;
 
     String location;
+    String ct;
 
 
     @Override
@@ -85,6 +88,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
 
         postid = getIntent().getStringExtra("postid");
+        check = getIntent().getIntExtra("check",0);
         AddedItemDescriptionModel model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 
 
@@ -183,6 +187,54 @@ public class ItemDetailActivity extends AppCompatActivity {
         btn_exchange.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
+                                                if (check!=0) {
+                                                    // Toast.makeText(ItemDetailActivity.this, postid, Toast.LENGTH_SHORT).show();
+                                                    FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
+                                                        @Override
+                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                                                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                                // Toast.makeText(ItemDetailActivity.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+
+                                                                String x = dataSnapshot.child("postid").getValue(String.class);
+                                                                //Toast.makeText(ItemDetailActivity.this, x, Toast.LENGTH_SHORT).show();
+                                                                // Toast.makeText(ItemDetailActivity.this, postid, Toast.LENGTH_SHORT).show();
+                                                                if (x.equals(postid)) {
+
+                                                                    ct = dataSnapshot.child("cateogary").getValue(String.class);
+                                                                    Toast.makeText(ItemDetailActivity.this, ct, Toast.LENGTH_SHORT).show();
+                                                                    break;
+                                                                }
+
+                                                            }
+
+
+                                                            FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                    int number = snapshot.child(ct).getValue(Integer.class);
+
+                                                                    number += 1;
+                                                                    FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getUid()).child(ct).setValue(number);
+
+
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                }
+                                                            });
+                                                        }
+
+                                                        @Override
+                                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                                        }
+                                                    });
+                                                }
+
+
                                                 client_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                                                 FirebaseDatabase.getInstance().getReference().child("users").child(client_uid).child("name").addValueEventListener(new ValueEventListener() {
