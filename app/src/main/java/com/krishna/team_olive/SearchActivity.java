@@ -204,57 +204,44 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getCurrentLocation();
-                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            AddedItemDescriptionModel objc = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                for(int i=0; i<search_list.size();i++){
+                    AddedItemDescriptionModel objc = search_list.get(i);
+                    temp_add = objc.getAdress1() + ", " + objc.getAdress2();
 
-                            temp_add = objc.getAdress1() + ", " + objc.getAdress2();
-
-                            if(gc.isPresent()) {
-                                try {
-                                    list = gc.getFromLocationName(temp_add, 1);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                                if (!list.isEmpty()) {
-                                    Address address = list.get(0);
-                                    add_latitude = address.getLatitude();
-                                    add_longitude = address.getLongitude();
-                                    //Log.d(TAG, "Lat: " + String.valueOf(lat) + ", Lng: " + String.valueOf(lng));
-                                }
-                            }
-
-                            double dist = distance(my_latitude, add_latitude, my_longitude, add_longitude,0.0,0.0);
-                            Toast.makeText(SearchActivity.this, Double.toString(dist), Toast.LENGTH_SHORT).show();
-                            map.put(dist,objc.getPostid());
+                    if(gc.isPresent()) {
+                        try {
+                            list = gc.getFromLocationName(temp_add, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
 
-                        search_list.clear();
-                        for (Map.Entry<Double, String> entry : map.entrySet()) {
-                            FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(entry.getValue()).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    AddedItemDescriptionModel add_list = snapshot.getValue(AddedItemDescriptionModel.class);
-                                    search_list.add(add_list);
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                }
-                            });
+                        if (!list.isEmpty()) {
+                            Address address = list.get(0);
+                            add_latitude = address.getLatitude();
+                            add_longitude = address.getLongitude();
+                            //Log.d(TAG, "Lat: " + String.valueOf(lat) + ", Lng: " + String.valueOf(lng));
                         }
-                        searchAdapter.notifyDataSetChanged();
                     }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    double dist = distance(my_latitude, add_latitude, my_longitude, add_longitude,0.0,0.0);
+                    Toast.makeText(SearchActivity.this, Double.toString(dist), Toast.LENGTH_SHORT).show();
+                    map.put(dist,objc.getPostid());
+                }
+                search_list.clear();
+                for (Map.Entry<Double, String> entry : map.entrySet()) {
+                    FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(entry.getValue()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            AddedItemDescriptionModel add_list = snapshot.getValue(AddedItemDescriptionModel.class);
+                            search_list.add(add_list);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                        }
+                    });
+                }
+                searchAdapter.notifyDataSetChanged();
             }
         });
 
