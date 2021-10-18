@@ -85,7 +85,9 @@ public class SignUp2Activity extends AppCompatActivity {
                                 hm.put("ELECTRONICITEMS",0);
 
                                 database.getReference().child("histo").child(auth.getCurrentUser().getUid()).setValue(hm);
-
+                                FirebaseDatabase.getInstance().getReference().child("Ratings").child(auth.getCurrentUser().getUid()).child("rating").setValue(0);
+                                FirebaseDatabase.getInstance().getReference().child("Ratings").child(auth.getCurrentUser().getUid()).child("number").setValue(0);
+                                FirebaseDatabase.getInstance().getReference().child("Ratings").child(auth.getCurrentUser().getUid()).child("review").push().setValue("");
                                 Intent i = new Intent(SignUp2Activity.this, MainActivity.class);
                                 startActivity(i);
                                 finish();

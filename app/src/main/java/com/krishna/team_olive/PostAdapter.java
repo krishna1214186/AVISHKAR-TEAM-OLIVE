@@ -133,6 +133,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder>{
             public void onClick(View v) {
                 Intent intent = new Intent(context, ItemDetailActivity.class);
                 intent.putExtra("postid", postsData.getPostid());
+                intent.putExtra("check",1);
                 context.startActivity(intent);
             }
         });
