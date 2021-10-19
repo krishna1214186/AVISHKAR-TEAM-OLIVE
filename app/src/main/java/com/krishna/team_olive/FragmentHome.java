@@ -40,12 +40,7 @@ import java.util.UUID;
 
 public class FragmentHome extends Fragment {
 
-    Boolean isScroll = false;
-    int CurrentItems, ScrolledItems, TotalItems;
-
     List<String> count_try;
-
-
 
     private RecyclerView recyclerView_posts;
     private PostAdapter postAdapter;
@@ -115,8 +110,8 @@ public class FragmentHome extends Fragment {
 
  */
         countTotal();
-        //startPosts();
-        shownonNGOPosts();
+        startPosts();
+        //shownonNGOPosts();
 
         postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList);
         recyclerView_posts.setAdapter(postAdapter);
@@ -137,7 +132,7 @@ public class FragmentHome extends Fragment {
                             //Random more data
                             shownonNGOPosts();
                         }
-                    },10000);
+                    },5000);
                 }else{
                     Toast.makeText(getContext(), "Complete data loaded!!", Toast.LENGTH_SHORT).show();
                 }
@@ -439,28 +434,23 @@ public class FragmentHome extends Fragment {
         FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i=0;
                 int start = addedItemDescriptionModelArrayList.size();
                 int end = start + 4;
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    if(start == end){
+                    if(i == end){
                         break;
+                    }
+                    if(i < start){
+                        i++;
+                        continue;
                     }
 
                     AddedItemDescriptionModel object ;
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
                     addedItemDescriptionModelArrayList.add(object);
-                    start++;
-                    /*
-                    for(int j=0;j<count_try.size();j++){
-                        for(int k=0;k<addedItemDescriptionModelArrayList.size();k++){
-                            if(!count_try.get(j).equals(addedItemDescriptionModelArrayList.get(k).getPostid())){
-
-                            }
-                        }
-                    }
-                   */
+                    i++;
                 }
-
                postAdapter.notifyDataSetChanged();
                 postAdapter.setLoaded();
             }
@@ -471,7 +461,6 @@ public class FragmentHome extends Fragment {
             }
         });
     }
-
 
     private void showNGOposts() {
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
