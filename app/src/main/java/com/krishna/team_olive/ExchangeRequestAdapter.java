@@ -74,7 +74,16 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
 
                 FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
 
+                //FirebaseDatabase.getInstance().getReference().child("")
+
                 ////DELETE bhi krna h !!!!!!!!!!!
+            }
+        });
+
+        holder.btn_decline_req.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
             }
         });
     }

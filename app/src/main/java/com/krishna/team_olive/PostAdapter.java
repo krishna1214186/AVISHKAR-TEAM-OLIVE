@@ -161,7 +161,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 public void onClick(View v) {
                     if(itemViewHolder.iv_like.getTag().equals("Like")){
                         FirebaseDatabase.getInstance().getReference().child("Likes").child(postsData.getPostid()).child(firebaseUser.getUid()).setValue(true);
-                        FirebaseDatabase.getInstance().getReference().child("MyLikes").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(postsData.getPostid());
+                        FirebaseDatabase.getInstance().getReference().child("MyLikes").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(postsData.getPostid()).setValue(true);
                         FirebaseDatabase.getInstance().getReference().child("postidwirhuserid").child(postsData.getPostid()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -182,8 +182,6 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                         FirebaseDatabase.getInstance().getReference().child("Likes").child(postsData.getPostid()).child(firebaseUser.getUid()).removeValue();
                         FirebaseDatabase.getInstance().getReference().child("MyLikes").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(postsData.getPostid()).removeValue();
                     }
-
-
                 }
             });
 

@@ -185,100 +185,103 @@ public class ItemDetailActivity extends AppCompatActivity {
         });
 
         btn_exchange.setOnClickListener(new View.OnClickListener() {
-                                            @Override
-                                            public void onClick(View v) {
-                                                if (check!=0) {
-                                                    // Toast.makeText(ItemDetailActivity.this, postid, Toast.LENGTH_SHORT).show();
-                                                    FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onClick(View v) {
+                if (check!=0) {
+                    FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                String x = dataSnapshot.child("postid").getValue(String.class);
+                                if (x.equals(postid)) {
+                                    ct = dataSnapshot.child("cateogary").getValue(String.class);
+                                    break;
+                                }
+                            }
+                            FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    int number = snapshot.child(ct).getValue(Integer.class);
+
+                                    number += 1;
+                                    FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getUid()).child(ct).setValue(number);
+
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+                client_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                FirebaseDatabase.getInstance().getReference().child("users").child(client_uid).child("name").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        client_name = snapshot.getValue().toString();
+                        FirebaseDatabase.getInstance().getReference().child("postidwirhuserid").child(postid).addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    user_uid = dataSnapshot.getValue().toString();
+                                    FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            int i=1;
+                                            for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                ExchangeModel exchangeModel = dataSnapshot.getValue(ExchangeModel.class);
+                                                if (exchangeModel.getPostid().equals(postid) && exchangeModel.getClient_uid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                                                    Toast.makeText(ItemDetailActivity.this, "You have already sent a exchange request !!", Toast.LENGTH_SHORT).show();
+                                                    i=0;
+                                                }
+                                            }
+                                                if(i==1){
+                                                    FirebaseDatabase.getInstance().getReference().child("users").child(user_uid).child("name").addValueEventListener(new ValueEventListener() {
                                                         @Override
                                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                                                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                // Toast.makeText(ItemDetailActivity.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
-
-                                                                String x = dataSnapshot.child("postid").getValue(String.class);
-                                                                //Toast.makeText(ItemDetailActivity.this, x, Toast.LENGTH_SHORT).show();
-                                                                // Toast.makeText(ItemDetailActivity.this, postid, Toast.LENGTH_SHORT).show();
-                                                                if (x.equals(postid)) {
-
-                                                                    ct = dataSnapshot.child("cateogary").getValue(String.class);
-                                                                    Toast.makeText(ItemDetailActivity.this, ct, Toast.LENGTH_SHORT).show();
-                                                                    break;
-                                                                }
-
-                                                            }
-
-
-                                                            FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    int number = snapshot.child(ct).getValue(Integer.class);
-
-                                                                    number += 1;
-                                                                    FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getUid()).child(ct).setValue(number);
-
-
-                                                                }
-
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                }
-                                                            });
+                                                            user_name = snapshot.getValue().toString();
+                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).push();
+                                                            ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, postid, "");
+                                                            String req_id = databaseReference.getKey().toString();
+                                                            exchangeModel.setRequest_uid(req_id);
+                                                            databaseReference.setValue(exchangeModel);
                                                         }
-
                                                         @Override
                                                         public void onCancelled(@NonNull DatabaseError error) {
-
                                                         }
                                                     });
                                                 }
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+                            }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
 
 
-                                                client_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                                                FirebaseDatabase.getInstance().getReference().child("users").child(client_uid).child("name").addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        client_name = snapshot.getValue().toString();
-                                                        FirebaseDatabase.getInstance().getReference().child("postidwirhuserid").child(postid).addValueEventListener(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                    user_uid = dataSnapshot.getValue().toString();
-                                                                    FirebaseDatabase.getInstance().getReference().child("users").child(user_uid).child("name").addValueEventListener(new ValueEventListener() {
-                                                                        @Override
-                                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                            user_name = snapshot.getValue().toString();
-                                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).push();
-                                                                            ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, postid, "");
-                                                                            String req_id = databaseReference.getKey().toString();
-                                                                            exchangeModel.setRequest_uid(req_id);
-                                                                            databaseReference.setValue(exchangeModel);
-                                                                        }
-
-                                                                        @Override
-                                                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                        }
-                                                                    });
-                                                                }
-                                                            }
-
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                            }
-                                                        });
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    }
-                                                });
-                                            }
-                                        });
+                }
+        });
 
 
 
