@@ -2,16 +2,22 @@ package com.krishna.team_olive;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -35,10 +41,12 @@ import org.tensorflow.lite.support.image.TensorImage;
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class AddedItemDetailFilling_2 extends AppCompatActivity {
@@ -66,6 +74,9 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
     Bitmap bitmap;
 
     ArrayList<Uri> vdo_uri_remaining = new ArrayList<>();
+
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int MY_CAMERA_PERMISSION_CODE = 100;
 
 
     @Override
@@ -151,7 +162,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                 ImageView closeButton = (ImageView) alertView.findViewById(R.id.closeButton);
                 ImageView iv_gallery_upload = (ImageView) alertView.findViewById(R.id.iv_gallery_uploado);
                 ImageView iv_vdo_upload = (ImageView) alertView.findViewById(R.id.iv_vdo_upload);
-                ImageView iv_camera_upload = (ImageView) alertView.findViewById(R.id.iv_alert_ml_image);
+                ImageView iv_camera_upload = (ImageView) alertView.findViewById(R.id.iv_camera_upload_alert);
 
                 if(j>0)
                     iv_vdo_upload.setVisibility(View.GONE);
@@ -181,17 +192,28 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                         alertDialog.dismiss();
                     }
                 });
-/*
-                iv_camera_upload.setOnClickListener(new View.OnClickListener() {
+
+                iv_camera_upload.setOnClickListener(new View.OnClickListener()
+                {
+                    @RequiresApi(api = Build.VERSION_CODES.M)
                     @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        startActivityForResult(intent, 34);
+                    public void onClick(View v)
+                    {
+                        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+                        {
+                            requestPermissions(new String[]{Manifest.permission.CAMERA}, MY_CAMERA_PERMISSION_CODE);
+                        }
+                        else
+                        {
+                            Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+                        }
                         alertDialog.dismiss();
                     }
+
                 });
 
- */
+
 
                 closeButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -202,6 +224,8 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
             }
         });
+
+
 
         if(vdo_uri_remaining.size()!=0){
             vv_upload.setVideoURI(vdo_uri_remaining.get(0));
@@ -220,6 +244,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
             if (data.getData() != null) {
 
                 imguri1 = data.getData();
+                Toast.makeText(AddedItemDetailFilling_2.this, imguri1.toString()+"gallery", Toast.LENGTH_SHORT).show();
 
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri1);
@@ -357,10 +382,6 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                     // TODO Handle the exception
                 }
 
-
-
-
-
 //                i++;
 //                list.add(imguri1);
 //                imageUploadAdapter.notifyDataSetChanged();
@@ -385,7 +406,6 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 //                        });
 //                    }
 //                });
-
             }
         }
 
@@ -422,40 +442,176 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
             }
         }
 
-        if (requestCode == 34 && resultCode == RESULT_OK) {
-            if (data.getData() != null) {
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK) {
 
-                Uri uri = data.getData();
-                Toast.makeText(AddedItemDetailFilling_2.this, uri.toString(), Toast.LENGTH_LONG).show();
-                i++;
-                list.add(uri);
-                imageUploadAdapter.notifyDataSetChanged();
 
-                final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
-                ref.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                if(i==1){
-                                    database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
-                                }
-                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
-                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
-
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                });
+            imguri1 = getImageUri(getApplicationContext(), (Bitmap) data.getExtras().get("data"));
+            Toast.makeText(AddedItemDetailFilling_2.this, "kkj", Toast.LENGTH_SHORT).show();
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri1);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(AddedItemDetailFilling_2.this, "failed", Toast.LENGTH_SHORT).show();
 
             }
+
+
+
+            Bitmap resized = Bitmap.createScaledBitmap(bitmap,224, 224,true );
+
+            try {
+                MobilenetV110224Quant model = MobilenetV110224Quant.newInstance(AddedItemDetailFilling_2.this);
+
+                TensorBuffer inputFeature0 = TensorBuffer.createFixedSize(new int[]{1, 224, 224, 3}, DataType.UINT8);
+
+                TensorImage tbuffer =  TensorImage.fromBitmap(resized);
+                ByteBuffer byteBuffer = tbuffer.getBuffer();
+
+                inputFeature0.loadBuffer( byteBuffer);
+
+                // Runs model inference and gets result.
+                MobilenetV110224Quant.Outputs outputs = model.process(inputFeature0);
+                TensorBuffer outputFeature0 = outputs.getOutputFeature0AsTensorBuffer();
+
+                int idx = getMax(outputFeature0.getFloatArray());
+
+
+                ml_predict = wordList.get(idx);
+
+                if(ml_predict.equals(category)){
+                    Toast.makeText(AddedItemDetailFilling_2.this, ml_predict,Toast.LENGTH_SHORT).show();
+                    i++;
+                    list.add(imguri1);
+                    imageUploadAdapter.notifyDataSetChanged();
+
+                    final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
+                    ref.putFile(imguri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+
+                                    if(i==1){
+                                        database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
+                                    }
+
+                                    database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
+
+                                    Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+
+                }
+                else{
+                    AlertDialog.Builder alert_isValid = new AlertDialog.Builder(AddedItemDetailFilling_2.this);
+                    View alertView = getLayoutInflater().inflate(R.layout.alert_image_validation_layout, null);
+
+
+
+                    //Set the view
+                    alert_isValid.setView(alertView);
+                    final AlertDialog alertDialog = alert_isValid.show();
+                    alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+                    ImageView iv_alert_ml = (ImageView) alertView.findViewById(R.id.iv_alert_ml_image);
+                    Button btn_select_anyway = alertView.findViewById(R.id.btn_select_anyway);
+                    Button btn_cancel = alertView.findViewById(R.id.btn_cancel);
+                    TextView tv_ml_predict = alertView.findViewById(R.id.tv_ml_predict);
+
+                    iv_alert_ml.setImageURI(imguri1);
+
+                    tv_ml_predict.setText("You have selected "+category+" but image is like "+ml_predict);
+                    iv_alert_ml.setImageURI(data.getData());
+
+                    btn_select_anyway.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            i++;
+                            list.add(imguri1);
+                            imageUploadAdapter.notifyDataSetChanged();
+                            alertDialog.dismiss();
+
+                            final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
+                            ref.putFile(imguri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                        @Override
+                                        public void onSuccess(Uri uri) {
+
+                                            if(i==1){
+                                                database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
+                                            }
+
+                                            database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
+                                            Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            });
+
+                        }
+
+                    });
+
+
+                    btn_cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                }
+
+                // Releases model resources if no longer used.
+                model.close();
+            } catch (IOException e) {
+                // TODO Handle the exception
+            }
+
+//                i++;
+//                list.add(imguri1);
+//                imageUploadAdapter.notifyDataSetChanged();
+//
+//                final StorageReference ref = storage.getReference().child("post_files").child(postid).child("images").child(i+"");
+//                ref.putFile(imguri1).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                        ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//                            @Override
+//                            public void onSuccess(Uri uri) {
+//
+//                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
+//                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+//
+//                            }
+//                        }).addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE NOT ADDED", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+//                });
         }
+
+
 
 
     }
@@ -498,6 +654,30 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
+    {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == MY_CAMERA_PERMISSION_CODE)
+        {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+            {
+                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, CAMERA_REQUEST);
+            }
+            else
+            {
+                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
 
 }

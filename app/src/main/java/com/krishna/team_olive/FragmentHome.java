@@ -113,21 +113,21 @@ public class FragmentHome extends Fragment {
         startPosts();
         //shownonNGOPosts();
 
-        postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList);
+        postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList2);
         recyclerView_posts.setAdapter(postAdapter);
 
         postAdapter.setiLoadMore(new ILoadMore() {
             @Override
             public void LoadMore() {
 
-                if(addedItemDescriptionModelArrayList.size() <= count_try.size()){
-                    addedItemDescriptionModelArrayList.add(null);
-                    postAdapter.notifyItemInserted(addedItemDescriptionModelArrayList.size() - 1);
+                if(addedItemDescriptionModelArrayList2.size() <= count_try.size()){
+                    addedItemDescriptionModelArrayList2.add(null);
+                    postAdapter.notifyItemInserted(addedItemDescriptionModelArrayList2.size() - 1);
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            addedItemDescriptionModelArrayList.remove(addedItemDescriptionModelArrayList.size() - 1);
-                            postAdapter.notifyItemRemoved(addedItemDescriptionModelArrayList.size());
+                            addedItemDescriptionModelArrayList2.remove(addedItemDescriptionModelArrayList2.size() - 1);
+                            postAdapter.notifyItemRemoved(addedItemDescriptionModelArrayList2.size());
 
                             //Random more data
                             shownonNGOPosts();
@@ -356,16 +356,64 @@ public class FragmentHome extends Fragment {
     }
 
     private void startPosts(){
+
+        FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> cat = new ArrayList<>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    cat.add(dataSnapshot.getKey());
+
+                }
+
+                FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                        int i=0;
+                        addedItemDescriptionModelArrayList.clear();
+                        for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
+                            AddedItemDescriptionModel object;
+                            object = dataSnapshot2.getValue(AddedItemDescriptionModel.class);
+                            addedItemDescriptionModelArrayList.add(object);
+                        }
+                        for (int a = 0; a < cat.size(); a++) {
+                            String x = cat.get(a);
+
+                            for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
+                                if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
+                                    if(i == 1) {
+                                        break;
+                                    }
+                                    i++;
+                                    addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
+                                }
+                            }
+                        }
+                        postAdapter.notifyDataSetChanged();
+                        postAdapter.setLoaded();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        /*
         FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 int i=0;
-                addedItemDescriptionModelArrayList.clear();
+                addedItemDescriptionModelArrayList2.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     if(i==4)
                         break;
                     AddedItemDescriptionModel object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                    addedItemDescriptionModelArrayList.add(object);
+                    addedItemDescriptionModelArrayList2.add(object);
                     i++;
                 }
                 postAdapter.notifyDataSetChanged();
@@ -378,10 +426,9 @@ public class FragmentHome extends Fragment {
             }
         });
 
+         */
     }
-
     private void shownonNGOPosts() {
-        /*
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -391,29 +438,39 @@ public class FragmentHome extends Fragment {
                     cat.add(dataSnapshot.getKey());
 
                 }
-                // Toast.makeText(context, ""+cat.size(), Toast.LENGTH_SHORT).show();
+
                 FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                        int i=0;
+                        int start = addedItemDescriptionModelArrayList2.size();
+                        int end = start + 4;
                         addedItemDescriptionModelArrayList.clear();
                         for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
                             AddedItemDescriptionModel object;
                             object = dataSnapshot2.getValue(AddedItemDescriptionModel.class);
                             addedItemDescriptionModelArrayList.add(object);
                         }
-                        addedItemDescriptionModelArrayList2.clear();
-                        for (int i = 0; i < cat.size(); i++) {
-                            String x = cat.get(i);
-                            // Toast.makeText(context, x, Toast.LENGTH_SHORT).show();
-                            //
+                        for (int a = 0; a < cat.size(); a++) {
+                            String x = cat.get(a);
+
                             for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
                                 if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
-
+                                    if(i == end){
+                                        break;
+                                    }
+                                    if(i < start){
+                                        i++;
+                                        continue;
+                                    }
+                                     i++;
                                     addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
+
                                 }
                             }
                         }
                         postAdapter.notifyDataSetChanged();
+                        postAdapter.setLoaded();
                     }
 
                     @Override
@@ -428,8 +485,7 @@ public class FragmentHome extends Fragment {
 
             }
         });
-
-        */
+        /*
 
         FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
@@ -445,11 +501,11 @@ public class FragmentHome extends Fragment {
                         i++;
                         continue;
                     }
-
+                    i++;
                     AddedItemDescriptionModel object ;
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
                     addedItemDescriptionModelArrayList.add(object);
-                    i++;
+
                 }
                postAdapter.notifyDataSetChanged();
                 postAdapter.setLoaded();
@@ -460,8 +516,8 @@ public class FragmentHome extends Fragment {
 
             }
         });
+         */
     }
-
     private void showNGOposts() {
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
@@ -535,6 +591,4 @@ public class FragmentHome extends Fragment {
         });*/
 
     }
-
-
 }
