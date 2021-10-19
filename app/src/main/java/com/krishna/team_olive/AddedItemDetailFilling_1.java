@@ -67,15 +67,7 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
                     AddedItemDescriptionModel model = new AddedItemDescriptionModel("",cateogary, name, age, description, adress, landmark, "", pincode,
                             "","","2","",auth.getCurrentUser().getUid());
 
-
-
                     uploadData(model);
-
-                    DatabaseReference databaseReference3 = FirebaseDatabase.getInstance().getReference().child("ExchangeCategory").child(model.getCateogary());
-                    NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
-                    databaseReference3.push().setValue(notifExchangeModel);
-
-                    generateNotifs(model.getCateogary());
 
                     Intent intent = new Intent(AddedItemDetailFilling_1.this, AddedItemDetailFilling_2.class);
                     intent.putExtra("postid",postid2);
@@ -90,24 +82,6 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
 
     }
 
-    public void generateNotifs(String cat){
-        FirebaseDatabase.getInstance().getReference().child("ExchangeCategory").child(cat).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    NotifExchangeModel notifExchangeModel = dataSnapshot.getValue(NotifExchangeModel.class);
-                    NotificationsModel notificationsModel = new NotificationsModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),"has same item to exchange",notifExchangeModel.getPost_id(),3);
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(notificationsModel.getUser_id());
-                    databaseReference.push().setValue(notificationsModel);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
 
     public void uploadData(AddedItemDescriptionModel m)
     {

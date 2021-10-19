@@ -78,7 +78,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView_search;
     private EditText searchbar2;
-    private List<AddedItemDescriptionModel> search_list;
+    private List<AddedItemDescriptionModel> search_list, distance_sort;
     private SearchAdapter searchAdapter;
     private FirebaseAuth auth;
     private String isNGO;
@@ -114,6 +114,8 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView_search.setLayoutManager(new LinearLayoutManager(SearchActivity.this));
 
         search_list = new ArrayList<>();
+        distance_sort = new ArrayList<>();
+
         searchAdapter = new SearchAdapter(SearchActivity.this,search_list,true);
         recyclerView_search.setAdapter(searchAdapter);
 
@@ -223,24 +225,41 @@ public class SearchActivity extends AppCompatActivity {
                     }
 
                     double dist = distance(my_latitude, add_latitude, my_longitude, add_longitude,0.0,0.0);
-                    Toast.makeText(SearchActivity.this, Double.toString(dist), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(SearchActivity.this, Integer.toString((int)dist), Toast.LENGTH_SHORT).show();
                     map.put(dist,objc.getPostid());
                 }
-                search_list.clear();
-                for (Map.Entry<Double, String> entry : map.entrySet()) {
-                    FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(entry.getValue()).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            AddedItemDescriptionModel add_list = snapshot.getValue(AddedItemDescriptionModel.class);
-                            search_list.add(add_list);
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
 
+
+                distance_sort.clear();
+                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            AddedItemDescriptionModel add_obj = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                            distance_sort.add(add_obj);
                         }
-                    });
+                        search_list.clear();
+                        for(Map.Entry<Double, String> entry : map.entrySet()){
+                            for(int i=0; i<distance_sort.size(); i++){
+                                if(distance_sort.get(i).getPostid().equals(entry.getValue())){
+                                    search_list.add(distance_sort.get(i));
+                                }
+                            }
+                        }
+                        searchAdapter.notifyDataSetChanged();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                for (Map.Entry<Double, String> entry : map.entrySet()) {
+
+
+                    searchAdapter.notifyDataSetChanged();
                 }
-                searchAdapter.notifyDataSetChanged();
+                //Toast.makeText(SearchActivity.this, Integer.toString(search_list.size()), Toast.LENGTH_SHORT).show();
+
             }
         });
 
