@@ -91,15 +91,7 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
         dataRefrence2.child("postid").setValue(postid2);
         m.setPostid(postid2);
 
-        dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).push().setValue(m);
-
         dataRefrence.child("postidwirhuserid").child(m.getPostid()).push().setValue(auth.getCurrentUser().getUid());
-
-
-//        if(m.getTypeOfExchange().equals("Y"))
-//            dataRefrence.child("NGOposts").child(postid2).setValue(m);
-//        else
-//            dataRefrence.child("nonNGOposts").child(postid2).setValue(m);
 
     }
 

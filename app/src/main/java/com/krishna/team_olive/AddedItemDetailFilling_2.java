@@ -132,13 +132,13 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
                 if(i==0){
                     Toast.makeText(AddedItemDetailFilling_2.this, "Upload atleast 1 image in your post", Toast.LENGTH_LONG).show();
+                }else{
+                    Intent intent = new Intent(AddedItemDetailFilling_2.this, AddedItemDetailFilling_3.class);
+                    intent.putExtra("model",model);
+                    intent.putExtra("postid",postid);
+                    startActivity(intent);
+                    finish();
                 }
-
-                Intent intent = new Intent(AddedItemDetailFilling_2.this, AddedItemDetailFilling_3.class);
-                intent.putExtra("model",model);
-                intent.putExtra("postid",postid);
-                startActivity(intent);
-                finish();
             }
         });
 

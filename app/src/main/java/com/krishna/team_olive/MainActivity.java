@@ -37,7 +37,7 @@ FirebaseDatabase db;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-db=FirebaseDatabase.getInstance();
+        db=FirebaseDatabase.getInstance();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         meowBottomNavigation=findViewById(R.id.bottom_navigation);
         //manageConnections();
@@ -74,7 +74,7 @@ db=FirebaseDatabase.getInstance();
                     case 5:
                         fragment = new FragmentProfile();
                 }
-loadFragment(fragment);
+                loadFragment(fragment);
 
                 }
            });

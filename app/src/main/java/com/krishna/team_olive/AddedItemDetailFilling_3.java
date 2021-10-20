@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -67,9 +68,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
         ////THIS IS FOR MY USE
 
-
-
-
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,20 +91,21 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent=new Intent(AddedItemDetailFilling_3.this,MainActivity.class);
                 startActivity(intent);
                 finish();
-
             }
         });
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
         text=parent.getItemAtPosition(position).toString();
+
         model.setExchangeCateogary(text);
         model.setTypeOfExchange("N");
+        uploadData(model);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ExchangeNotif").child(model.getCateogary()+model.getExchangeCateogary()).push();
         NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -135,62 +134,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
             }
         });
-
-
-        /*
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("NeedInExchange").child(model.getExchangeCateogary());
-        NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
-        databaseReference.push().setValue(notifExchangeModel);
-
-        FirebaseDatabase.getInstance().getReference().child("ExchangeCategory").child(model.getExchangeCateogary()).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                notifExchangeModelList_1.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    NotifExchangeModel notifExchangeModel1 = dataSnapshot.getValue(NotifExchangeModel.class);
-                    notifExchangeModelList_1.add(notifExchangeModel1);
-                }
-                Toast.makeText(AddedItemDetailFilling_3.this, Integer.toString(notifExchangeModelList_1.size()), Toast.LENGTH_SHORT).show();
-                FirebaseDatabase.getInstance().getReference().child("NeedInExchange").child(model.getCateogary()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                         for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                             NotifExchangeModel notifExchangeModel1 = dataSnapshot.getValue(NotifExchangeModel.class);
-                             notifExchangeModelList_2.add(notifExchangeModel1);
-                         }
-                        Toast.makeText(AddedItemDetailFilling_3.this, Integer.toString(notifExchangeModelList_2.size()), Toast.LENGTH_SHORT).show();
-                         for(int i=0;i<notifExchangeModelList_1.size(); i++){
-                             for(int j=0;j<notifExchangeModelList_2.size();j++){
-                                 if(notifExchangeModelList_1.get(i).getPost_id().equals(notifExchangeModelList_2.get(j).getPost_id())){
-                                     NotificationsModel notificationsModel = new NotificationsModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),"has same exchange",postid2,3);
-                                     DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference().child("Notifications").child(notifExchangeModelList_1.get(i).getUser_id()).push();
-                                     databaseReference1.setValue(notificationsModel);
-                                 }
-                             }
-                         }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        */
-
-        dataRefrence.child("allpostswithoutuser").child(postid2).setValue(model);
-        dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(model);
-
-        if(model.getTypeOfExchange().equals("Y"))
-            dataRefrence.child("NGOposts").child(postid2).setValue(model);
-        else
-            dataRefrence.child("nonNGOposts").child(postid2).setValue(model);
     }
 
     @Override
@@ -198,8 +141,7 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
     }
 
-    public void uploadData(AddedItemDescriptionModel m)
-    {
+    public void uploadData(AddedItemDescriptionModel m) {
         dataRefrence.child("allpostswithoutuser").child(postid2).setValue(m);
         dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(m);
 
