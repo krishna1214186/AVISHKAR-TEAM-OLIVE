@@ -28,10 +28,13 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.krishna.team_olive.SendNotificationPack.Token;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +63,9 @@ public class FragmentHome extends Fragment {
         context=view.getContext();
 
         count_try = new ArrayList<>();
+        UpdateToken();
+
+
 
         post_click = view.findViewById(R.id.post_click);
 
@@ -590,5 +596,12 @@ public class FragmentHome extends Fragment {
             }
         });*/
 
+    }
+
+    private void UpdateToken(){
+        FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
+        String refreshToken= FirebaseInstanceId.getInstance().getToken();
+        Token token= new Token(refreshToken);
+        FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(token);
     }
 }
