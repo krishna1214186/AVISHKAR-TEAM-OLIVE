@@ -43,7 +43,9 @@ import java.util.UUID;
 
 public class FragmentHome extends Fragment {
 
-    List<String> count_try;
+    int count_try;
+
+    int CAT_VS_POSTS = 1;
 
     private RecyclerView recyclerView_posts;
     private PostAdapter postAdapter;
@@ -62,10 +64,7 @@ public class FragmentHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         context=view.getContext();
 
-        count_try = new ArrayList<>();
         UpdateToken();
-
-
 
         post_click = view.findViewById(R.id.post_click);
 
@@ -85,8 +84,6 @@ public class FragmentHome extends Fragment {
         recyclerView_posts.setHasFixedSize(true);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        //linearLayoutManager.setStackFromEnd(true);
-        //linearLayoutManager.setReverseLayout(true);
 
         recyclerView_posts.setLayoutManager(linearLayoutManager);
 
@@ -95,16 +92,22 @@ public class FragmentHome extends Fragment {
 
         search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
         auth = FirebaseAuth.getInstance();
-/*
+
+        postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList2);
+        recyclerView_posts.setAdapter(postAdapter);
+
+
         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
 
                 if(users.getIsNGO().equals("Y")){
-                    showNGOposts();
+                    countTotal();
+                    startPostsNGO();
                 }else{
-                    shownonNGOPosts();
+                    countTotal();
+                    startPostsnonNGO();
                 }
             }
             @Override
@@ -113,20 +116,11 @@ public class FragmentHome extends Fragment {
             }
         });
 
-
- */
-        countTotal();
-        startPosts();
-        //shownonNGOPosts();
-
-        postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList2);
-        recyclerView_posts.setAdapter(postAdapter);
-
         postAdapter.setiLoadMore(new ILoadMore() {
             @Override
             public void LoadMore() {
 
-                if(addedItemDescriptionModelArrayList2.size() <= count_try.size()){
+                if(addedItemDescriptionModelArrayList2.size() <= count_try){
                     addedItemDescriptionModelArrayList2.add(null);
                     postAdapter.notifyItemInserted(addedItemDescriptionModelArrayList2.size() - 1);
                     new Handler().postDelayed(new Runnable() {
@@ -135,16 +129,29 @@ public class FragmentHome extends Fragment {
                             addedItemDescriptionModelArrayList2.remove(addedItemDescriptionModelArrayList2.size() - 1);
                             postAdapter.notifyItemRemoved(addedItemDescriptionModelArrayList2.size());
 
-                            //Random more data
-                            shownonNGOPosts();
+                            FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange( DataSnapshot snapshot) {
+                                    Users users = snapshot.getValue(Users.class);
+
+                                    if(users.getIsNGO().equals("Y")){
+                                        showNGOposts();
+                                    }else{
+                                        shownonNGOPosts();
+                                    }
+                                }
+                                @Override
+                                public void onCancelled( DatabaseError error) {
+                                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
-                    },5000);
+                    },4000);
                 }else{
                     Toast.makeText(getContext(), "Complete data loaded!!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
-
 
 
         search_bar.setOnClickListener(new View.OnClickListener() {
@@ -158,153 +165,292 @@ public class FragmentHome extends Fragment {
         cat_others.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("OTHERS");
-                }else{
-                    showcatlistnonNGO("OTHERS");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("OTHERS");
+                        }else{
+                            showcatlistnonNGO("OTHERS");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_car.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("CAR");
-                }else{
-                    showcatlistnonNGO("CAR");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("CAR");
+                        }else{
+                            showcatlistnonNGO("CAR");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_clothes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("CLOTHES");
-                }else{
-                    showcatlistnonNGO("CLOTHES");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("CLOTHES");
+                        }else{
+                            showcatlistnonNGO("CLOTHES");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_cycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("CYCLES");
-                }else{
-                    showcatlistnonNGO("CYCLES");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("CYCLES");
+                        }else{
+                            showcatlistnonNGO("CYCLES");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_books.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("BOOKS");
-                }else{
-                    showcatlistnonNGO("BOOKS");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("BOOKS");
+                        }else{
+                            showcatlistnonNGO("BOOKS");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_furniture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("FURNITURE");
-                }else{
-                    showcatlistnonNGO("FURNITURE");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("FURNITURE");
+                        }else{
+                            showcatlistnonNGO("FURNITURE");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_eleitems.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("ELECTRONIC ITEMS");
-                }else{
-                    showcatlistnonNGO("ELECTRONIC ITEMS");
-                };
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("ELECTRONIC ITEMS");
+                        }else{
+                            showcatlistnonNGO("ELECTRONIC ITEMS");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("MOBILES");
-                }else{
-                    showcatlistnonNGO("MOBILES");
-                }
-            }
-        });
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
 
-        cat_cycle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("CYCLES");
-                }else{
-                    showcatlistnonNGO("CYCLES");
-                }
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("MOBILES");
+                        }else{
+                            showcatlistnonNGO("MOBILES");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_bike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("BIKES");
-                }else{
-                    showcatlistnonNGO("BIKES");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("BIKES");
+                        }else{
+                            showcatlistnonNGO("BIKES");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("TV");
-                }else{
-                    showcatlistnonNGO("TV");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("TV");
+                        }else{
+                            showcatlistnonNGO("TV");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         cat_laptop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNGO == "Y"){
-                    showcatlistNGO("LAPTOP");
-                }else{
-                    showcatlistnonNGO("LAPTOP");
-                }
+                CAT_VS_POSTS = 2;
+                FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange( DataSnapshot snapshot) {
+                        Users users = snapshot.getValue(Users.class);
+
+                        if(users.getIsNGO().equals("Y")){
+                            showcatlistNGO("LAPTOP");
+                        }else{
+                            showcatlistnonNGO("LAPTOP");
+                        }
+                    }
+                    @Override
+                    public void onCancelled( DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         return view;
     }
 
+    private void countTotal(){
+        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                count_try = 0;
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    count_try++;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
     private void showcatlistnonNGO(String cate){
         FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                addedItemDescriptionModelArrayList.clear();
+                addedItemDescriptionModelArrayList2.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     AddedItemDescriptionModel object ;
 
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
                     if(object.getCateogary().equals(cate)){
-                        addedItemDescriptionModelArrayList.add(object);
-                        if(addedItemDescriptionModelArrayList.size()==0){
-                            Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
-                        }
+                        addedItemDescriptionModelArrayList2.add(object);
                     }
+                }
+                if(addedItemDescriptionModelArrayList2.size()==0){
+                    Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
+                    addedItemDescriptionModelArrayList2.add(null);
                 }
                 postAdapter.notifyDataSetChanged();
             }
@@ -320,17 +466,17 @@ public class FragmentHome extends Fragment {
         FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                addedItemDescriptionModelArrayList.clear();
+                addedItemDescriptionModelArrayList2.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     AddedItemDescriptionModel object ;
 
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
                     if(object.getCateogary().equals(cate)){
-                        addedItemDescriptionModelArrayList.add(object);
-                        if(addedItemDescriptionModelArrayList.size()==0){
-                            Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
-                        }
+                        addedItemDescriptionModelArrayList2.add(object);
                     }
+                }
+                if(addedItemDescriptionModelArrayList2.size()==0){
+                    Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
                 }
                 postAdapter.notifyDataSetChanged();
             }
@@ -342,26 +488,7 @@ public class FragmentHome extends Fragment {
         });
     }
 
-    private void countTotal(){
-        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                count_try.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    AddedItemDescriptionModel object ;
-                    object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                    count_try.add(object.getPostid());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void startPosts(){
+    private void startPostsnonNGO(){
 
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
@@ -370,10 +497,84 @@ public class FragmentHome extends Fragment {
 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     cat.add(dataSnapshot.getKey());
-
                 }
 
                 FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                        int end = 1;
+                        int i=0;
+                        addedItemDescriptionModelArrayList.clear();
+                        for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
+                            AddedItemDescriptionModel object;
+                            object = dataSnapshot2.getValue(AddedItemDescriptionModel.class);
+                            addedItemDescriptionModelArrayList.add(object);
+                        }
+                        addedItemDescriptionModelArrayList2.clear();
+                        for (int a = 0; a < cat.size(); a++) {
+                            String x = cat.get(a);
+
+                            for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
+                                if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
+                                    if(i == end) {
+                                        break;
+                                    }
+                                    i++;
+                                    addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
+                                }
+                            }
+                        }
+                        postAdapter.notifyDataSetChanged();
+                        postAdapter.setLoaded();
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+        /*
+        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i=0;
+                addedItemDescriptionModelArrayList2.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(i==4)
+                        break;
+                    AddedItemDescriptionModel object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    addedItemDescriptionModelArrayList2.add(object);
+                    i++;
+                }
+                postAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+         */
+    }
+
+    private void startPostsNGO(){
+
+        FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> cat = new ArrayList<>();
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    cat.add(dataSnapshot.getKey());
+                }
+
+                FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
                         int i=0;
@@ -383,6 +584,7 @@ public class FragmentHome extends Fragment {
                             object = dataSnapshot2.getValue(AddedItemDescriptionModel.class);
                             addedItemDescriptionModelArrayList.add(object);
                         }
+                        addedItemDescriptionModelArrayList2.clear();
                         for (int a = 0; a < cat.size(); a++) {
                             String x = cat.get(a);
 
@@ -434,6 +636,7 @@ public class FragmentHome extends Fragment {
 
          */
     }
+
     private void shownonNGOPosts() {
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
@@ -469,7 +672,7 @@ public class FragmentHome extends Fragment {
                                         i++;
                                         continue;
                                     }
-                                     i++;
+                                    i++;
                                     addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
 
                                 }
@@ -524,44 +727,48 @@ public class FragmentHome extends Fragment {
         });
          */
     }
+
     private void showNGOposts() {
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                List<String> cat=new ArrayList<>();
+                List<String> cat = new ArrayList<>();
 
-                for(DataSnapshot dataSnapshot:snapshot.getChildren())
-                {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     cat.add(dataSnapshot.getKey());
 
                 }
 
-                // Toast.makeText(context, ""+cat.size(), Toast.LENGTH_SHORT).show();
                 FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                        int i=0;
+                        int start = addedItemDescriptionModelArrayList2.size();
+                        int end = start + 4;
                         addedItemDescriptionModelArrayList.clear();
-                        for(DataSnapshot dataSnapshot2 : snapshot2.getChildren()){
-                            AddedItemDescriptionModel object ;
+                        for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
+                            AddedItemDescriptionModel object;
                             object = dataSnapshot2.getValue(AddedItemDescriptionModel.class);
                             addedItemDescriptionModelArrayList.add(object);
                         }
-                        addedItemDescriptionModelArrayList2.clear();
-                        for(int i=0;i<cat.size();i++)
-                        {
-                            String x=cat.get(i);
-                            // Toast.makeText(context, x, Toast.LENGTH_SHORT).show();
-                            //
-                            for(int j=0;j<addedItemDescriptionModelArrayList.size();j++)
-                            {
-                                if(addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x))
-                                {
-
+                        for (int a = 0; a < cat.size(); a++) {
+                            String x = cat.get(a);
+                            for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
+                                if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
+                                    if(i == end){
+                                        break;
+                                    }
+                                    if(i < start){
+                                        i++;
+                                        continue;
+                                    }
+                                    i++;
                                     addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
                                 }
                             }
                         }
                         postAdapter.notifyDataSetChanged();
+                        postAdapter.setLoaded();
                     }
 
                     @Override
@@ -576,28 +783,39 @@ public class FragmentHome extends Fragment {
 
             }
         });
+        /*
 
-
-
-       /* FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                addedItemDescriptionModelArrayList.clear();
+                int i=0;
+                int start = addedItemDescriptionModelArrayList.size();
+                int end = start + 4;
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    AddedItemDescriptionModel object = snapshot.getValue(AddedItemDescriptionModel.class);
+                    if(i == end){
+                        break;
+                    }
+                    if(i < start){
+                        i++;
+                        continue;
+                    }
+                    i++;
+                    AddedItemDescriptionModel object ;
+                    object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
                     addedItemDescriptionModelArrayList.add(object);
+
                 }
-                postAdapter.notifyDataSetChanged();
+               postAdapter.notifyDataSetChanged();
+                postAdapter.setLoaded();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });*/
-
+        });
+         */
     }
-
     private void UpdateToken(){
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         String refreshToken= FirebaseInstanceId.getInstance().getToken();
@@ -605,3 +823,5 @@ public class FragmentHome extends Fragment {
         FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(token);
     }
 }
+
+
