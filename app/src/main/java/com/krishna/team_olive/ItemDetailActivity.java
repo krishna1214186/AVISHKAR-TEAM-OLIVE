@@ -30,10 +30,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.krishna.team_olive.SendNotificationPack.APIService;
+import com.krishna.team_olive.SendNotificationPack.Client;
+import com.krishna.team_olive.SendNotificationPack.Data;
+import com.krishna.team_olive.SendNotificationPack.MyResponse;
+import com.krishna.team_olive.SendNotificationPack.NotificationSender;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -58,6 +67,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     FirebaseAuth auth;
+    private APIService apiService;
 
     String location;
     String ct;
@@ -81,6 +91,8 @@ public class ItemDetailActivity extends AppCompatActivity {
         iv_category = findViewById(R.id.iv_category);
         iv_ex_category = findViewById(R.id.iv_ex_category);
         rb_post = findViewById(R.id.rb_post);
+
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         fragmentmap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
 
@@ -254,6 +266,25 @@ public class ItemDetailActivity extends AppCompatActivity {
                                                             String req_id = databaseReference.getKey().toString();
                                                             exchangeModel.setRequest_uid(req_id);
                                                             databaseReference.setValue(exchangeModel);
+
+                                                            FirebaseDatabase.getInstance().getReference().child("Tokens").
+                                                                    child(user_uid).child("token").addValueEventListener(new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                    String token = snapshot.getValue(String.class);
+                                                                    sendNotifications(token, "You got an exchange request ", client_name +" has send exchange request for "+ item_name);
+                                                                }
+
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                }
+                                                            });
+
+
+
+
+
                                                         }
                                                         @Override
                                                         public void onCancelled(@NonNull DatabaseError error) {
@@ -355,6 +386,26 @@ public class ItemDetailActivity extends AppCompatActivity {
         else{
             iv.setImageResource(R.drawable.ic_gallery);
         }
+    }
+
+    public void sendNotifications(String usertoken, String title, String message) {
+        Data data = new Data(title, message);
+        NotificationSender sender = new NotificationSender(data, usertoken);
+        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().success != 1) {
+                        Toast.makeText(ItemDetailActivity.this, "Failed ", Toast.LENGTH_LONG);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+
+            }
+        });
     }
 }
 

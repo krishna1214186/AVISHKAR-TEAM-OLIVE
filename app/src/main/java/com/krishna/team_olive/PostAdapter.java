@@ -24,14 +24,24 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.krishna.team_olive.SendNotificationPack.APIService;
+import com.krishna.team_olive.SendNotificationPack.Client;
+import com.krishna.team_olive.SendNotificationPack.Data;
+import com.krishna.team_olive.SendNotificationPack.MyResponse;
+import com.krishna.team_olive.SendNotificationPack.NotificationSender;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 class LoadingViewHolder extends RecyclerView.ViewHolder{
 
     ProgressBar progressBar;
+
     public LoadingViewHolder(@NonNull View itemView) {
         super(itemView);
 
@@ -76,11 +86,13 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     int lastVisibleItem, totalItemCount;
 
     FirebaseUser firebaseUser;
+    private APIService apiService;
 
     public PostAdapter(RecyclerView recyclerView,Context mcontext, List<AddedItemDescriptionModel> mlist){
         context = mcontext;
         list = mlist;
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
 
         final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -144,6 +156,8 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             itemViewHolder.tv_exchange02.setText(postsData.getExchangeCateogary());
             itemViewHolder.tv_exchange01.setText(postsData.getCateogary());
 
+            apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
+
             itemViewHolder.tv_itemname.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -170,6 +184,34 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(user_uid);
                                     NotificationsModel notificationsModel = new NotificationsModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),"Liked your post",postsData.getPostid(),1);
                                     databaseReference.push().setValue(notificationsModel);
+
+                                    FirebaseDatabase.getInstance().getReference().child("Tokens").
+                                            child(postsData.getUid()).child("token").addValueEventListener(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String token = snapshot.getValue(String.class);
+                                            FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                                    .child("name").addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    String name = snapshot.getValue(String.class);
+                                                    sendNotifications(token, "Your post is getting liked", name + " has liked your post" );
+                                                }
+
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                                }
+                                            });
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+
                                 }
                             }
 
@@ -237,4 +279,26 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             }
         });
     }
+
+    public void sendNotifications(String usertoken, String title, String message) {
+
+        Data data = new Data(title,message);
+        NotificationSender sender = new NotificationSender(data, usertoken);
+        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if (response.code() == 200) {
+                    if (response.body().success != 1) {
+                        Toast.makeText(context, "Failed ", Toast.LENGTH_LONG);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
 }
