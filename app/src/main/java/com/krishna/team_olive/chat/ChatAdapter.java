@@ -57,15 +57,15 @@ public class ChatAdapter extends RecyclerView.Adapter{
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-ChatList cl=list.get(position);
-if(holder.getClass()==SenderViewholder.class)
-{
-    ((SenderViewholder)holder).SenderMsg.setText(list.get(position).getMessage());
-}
-else
-{
-    ((ReceiverViewholder)holder).ReceiverMsg.setText(list.get(position).getMessage());
-}
+        ChatList cl=list.get(position);
+        if(holder.getClass()==SenderViewholder.class)
+        {
+            ((SenderViewholder)holder).SenderMsg.setText(list.get(position).getMessage());
+        }
+        else
+        {
+            ((ReceiverViewholder)holder).ReceiverMsg.setText(list.get(position).getMessage());
+        }
     }
 
     @Override

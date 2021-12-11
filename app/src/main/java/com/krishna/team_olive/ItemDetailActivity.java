@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.location.Address;
 import android.location.Geocoder;
@@ -30,19 +31,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.krishna.team_olive.SendNotificationPack.APIService;
-import com.krishna.team_olive.SendNotificationPack.Client;
-import com.krishna.team_olive.SendNotificationPack.Data;
-import com.krishna.team_olive.SendNotificationPack.MyResponse;
-import com.krishna.team_olive.SendNotificationPack.NotificationSender;
+import com.krishna.team_olive.chat.Chat;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -67,7 +61,6 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     FirebaseDatabase database;
     FirebaseAuth auth;
-    private APIService apiService;
 
     String location;
     String ct;
@@ -92,8 +85,6 @@ public class ItemDetailActivity extends AppCompatActivity {
         iv_ex_category = findViewById(R.id.iv_ex_category);
         rb_post = findViewById(R.id.rb_post);
 
-        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
-
         fragmentmap = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_map);
 
         auth = FirebaseAuth.getInstance();
@@ -103,7 +94,182 @@ public class ItemDetailActivity extends AppCompatActivity {
         check = getIntent().getIntExtra("check",0);
         AddedItemDescriptionModel model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 
+        btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(postid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String uid=snapshot.child("uid").getValue(String.class);
+                        FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                int i=0;
+                                for(DataSnapshot datasnapshot2:snapshot2.getChildren())
+                                {
+
+                                    if(datasnapshot2.child("uid").getValue(String.class).equals(uid))
+                                    {
+
+                                        i++;
+                                        break;
+                                    }
+                                }
+                                if(i==0)
+                                {
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String name=snapshot.child("name").getValue(String.class);
+                                            HashMap<String,Object> hm=new HashMap<>();
+                                            hm.put("name",name);
+                                            hm.put("uid",uid);
+
+                                            FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(hm);
+
+
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                           /* FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Users users=snapshot.getValue(Users.class);
+                                    HashMap<String,Object> hm1=new HashMap<>();
+                                    hm1.put("name",users.getName());
+                                    hm1.put("uid",users.getUid());
+                                    FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).push().setValue(hm1);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });*/
+                                }
+
+                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String name=snapshot.child("name").getValue(String.class);
+                                        Intent intent=new Intent(ItemDetailActivity.this, Chat.class);
+                                        intent.putExtra("name", name);
+                                        intent.putExtra("uid",uid);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(postid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String uid=snapshot.child("uid").getValue(String.class);
+                        FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                int i=0;
+                                for(DataSnapshot datasnapshot2:snapshot2.getChildren())
+                                {
+
+                                    if(datasnapshot2.child("uid").getValue(String.class).equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                                    {
+
+                                        i++;
+                                        break;
+                                    }
+                                }
+                                if(i==0)
+                                {
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String name=snapshot.child("name").getValue(String.class);
+                                            HashMap<String,Object> hm=new HashMap<>();
+                                            hm.put("name",name);
+                                            hm.put("uid",FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                                            FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).push().setValue(hm);
+
+
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                           /* FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Users users=snapshot.getValue(Users.class);
+                                    HashMap<String,Object> hm1=new HashMap<>();
+                                    hm1.put("name",users.getName());
+                                    hm1.put("uid",users.getUid());
+                                    FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).push().setValue(hm1);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });*/
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+            }
+        });
         FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(postid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -200,17 +366,27 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (check!=0) {
+                    // Toast.makeText(ItemDetailActivity.this, postid, Toast.LENGTH_SHORT).show();
                     FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                // Toast.makeText(ItemDetailActivity.this, dataSnapshot.getKey(), Toast.LENGTH_SHORT).show();
+
                                 String x = dataSnapshot.child("postid").getValue(String.class);
+                                //Toast.makeText(ItemDetailActivity.this, x, Toast.LENGTH_SHORT).show();
+                                // Toast.makeText(ItemDetailActivity.this, postid, Toast.LENGTH_SHORT).show();
                                 if (x.equals(postid)) {
+
                                     ct = dataSnapshot.child("cateogary").getValue(String.class);
+                                    Toast.makeText(ItemDetailActivity.this, ct, Toast.LENGTH_SHORT).show();
                                     break;
                                 }
+
                             }
+
+
                             FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -235,7 +411,10 @@ public class ItemDetailActivity extends AppCompatActivity {
                         }
                     });
                 }
+
+
                 client_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
                 FirebaseDatabase.getInstance().getReference().child("users").child(client_uid).child("name").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -245,52 +424,15 @@ public class ItemDetailActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                                     user_uid = dataSnapshot.getValue().toString();
-                                    FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).addValueEventListener(new ValueEventListener() {
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(user_uid).child("name").addValueEventListener(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            int i=1;
-                                            for(DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                ExchangeModel exchangeModel = dataSnapshot.getValue(ExchangeModel.class);
-                                                if (exchangeModel.getPostid().equals(postid) && exchangeModel.getClient_uid().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                                                    Toast.makeText(ItemDetailActivity.this, "You have already sent a exchange request !!", Toast.LENGTH_SHORT).show();
-                                                    i=0;
-                                                }
-                                            }
-                                                if(i==1){
-                                                    FirebaseDatabase.getInstance().getReference().child("users").child(user_uid).child("name").addValueEventListener(new ValueEventListener() {
-                                                        @Override
-                                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                            user_name = snapshot.getValue().toString();
-                                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).push();
-                                                            ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, postid, "");
-                                                            String req_id = databaseReference.getKey().toString();
-                                                            exchangeModel.setRequest_uid(req_id);
-                                                            databaseReference.setValue(exchangeModel);
-
-                                                            FirebaseDatabase.getInstance().getReference().child("Tokens").
-                                                                    child(user_uid).child("token").addValueEventListener(new ValueEventListener() {
-                                                                @Override
-                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                    String token = snapshot.getValue(String.class);
-                                                                    sendNotifications(token, "You got an exchange request ", client_name +" has send exchange request for "+ item_name);
-                                                                }
-
-                                                                @Override
-                                                                public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                }
-                                                            });
-
-
-
-
-
-                                                        }
-                                                        @Override
-                                                        public void onCancelled(@NonNull DatabaseError error) {
-                                                        }
-                                                    });
-                                                }
+                                            user_name = snapshot.getValue().toString();
+                                            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).push();
+                                            ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, postid, "");
+                                            String req_id = databaseReference.getKey().toString();
+                                            exchangeModel.setRequest_uid(req_id);
+                                            databaseReference.setValue(exchangeModel);
                                         }
 
                                         @Override
@@ -300,18 +442,20 @@ public class ItemDetailActivity extends AppCompatActivity {
                                     });
                                 }
                             }
+
                             @Override
                             public void onCancelled(@NonNull DatabaseError error) {
+
                             }
                         });
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
-
-
-                }
+            }
         });
 
 
@@ -338,7 +482,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 dots[i].setTextColor(getResources().getColor(R.color.purple_500));
             }
             else{
-                dots[i].setTextColor(getResources().getColor(R.color.browser_actions_bg_grey));
+                //dots[i].setTextColor(getResources().getColor(R.color.browser_actions_bg_grey));
             }
         }
     }
@@ -387,29 +531,4 @@ public class ItemDetailActivity extends AppCompatActivity {
             iv.setImageResource(R.drawable.ic_gallery);
         }
     }
-
-    public void sendNotifications(String usertoken, String title, String message) {
-        Data data = new Data(title, message);
-        NotificationSender sender = new NotificationSender(data, usertoken);
-        apiService.sendNotifcation(sender).enqueue(new Callback<MyResponse>() {
-            @Override
-            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
-                if (response.code() == 200) {
-                    if (response.body().success != 1) {
-                        Toast.makeText(ItemDetailActivity.this, "Failed ", Toast.LENGTH_LONG);
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<MyResponse> call, Throwable t) {
-
-            }
-        });
-    }
 }
-
-
-
-
-

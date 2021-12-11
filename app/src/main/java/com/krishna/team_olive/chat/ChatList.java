@@ -1,13 +1,15 @@
 package com.krishna.team_olive.chat;
 
 public class ChatList {
-String id,message;
-Long timeStamp;
+    String id,message;
+    Long timeStamp;
+    String isSeen;
 
-    public ChatList(String id, String message, Long timeStamp) {
+    public ChatList(String id, String message, Long timeStamp,String isSeen) {
         this.id = id;
         this.message = message;
         this.timeStamp = timeStamp;
+        this.isSeen=isSeen;
     }
 
     public ChatList(String id, String message) {
@@ -39,5 +41,13 @@ Long timeStamp;
 
     public void setTimeStamp(Long timeStamp) {
         this.timeStamp = timeStamp;
+    }
+
+    public String getIsSeen() {
+        return isSeen;
+    }
+
+    public void setIsSeen(String isSeen) {
+        this.isSeen = isSeen;
     }
 }

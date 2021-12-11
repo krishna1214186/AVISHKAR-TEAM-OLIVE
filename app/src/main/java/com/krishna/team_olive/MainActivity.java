@@ -40,7 +40,7 @@ FirebaseDatabase db;
         db=FirebaseDatabase.getInstance();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         meowBottomNavigation=findViewById(R.id.bottom_navigation);
-        //manageConnections();
+        manageConnections();
        // manageConnections2();
        /* HashMap<String,Object> State=new HashMap<>();
         Long timeTamp=new Date().getTime();
@@ -167,40 +167,16 @@ FirebaseDatabase db;
         intent.putExtra("cateogary_name",str);
         startActivity(intent);
     }
-/*
+
 public void manageConnections()
 {
     DatabaseReference connectionRefrence=db.getReference().child("connections");
-  //  DatabaseReference lastConnected=db.getReference().child("lastConnected").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("time");
-    DatabaseReference infoLconnected=db.getReference(".info/lastconnected");
-    DatabaseReference infoConnected=db.getReference(".info/connected");
-    infoConnected.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-           // boolean connected=snapshot.getValue(Boolean.class);
-
 
           DatabaseReference con=connectionRefrence.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-         // con.setValue(ServerValue.TIMESTAMP);
-            con.setValue(true);
+          con.setValue(true);
           con.onDisconnect().setValue(false);
-
-
-
-
-         // lastConnected.onDisconnect().setValue(ServerValue.TIMESTAMP);
-
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    });
-
 }
 
- */
 
 private void updateUserStatus(String state)
 {

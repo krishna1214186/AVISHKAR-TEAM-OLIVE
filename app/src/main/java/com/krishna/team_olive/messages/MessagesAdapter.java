@@ -35,51 +35,169 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyViewHolder> {
 
-     ArrayList<MessagesList> messagesLists;
-     Context context;
-
+    ArrayList<MessagesList> messagesLists;
+    Context context;
+    int unseen;
     Long timestp;
 
 
-    public MessagesAdapter(ArrayList<MessagesList> messagesLists,Context context) {
+    public MessagesAdapter(ArrayList<MessagesList> messagesLists, Context context) {
         this.messagesLists = messagesLists;
-        this.context=context;
+        this.context = context;
 
     }
 
     @NonNull
     @Override
     public MessagesAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.message_adapter_layout, null));
+        View v = LayoutInflater.from(context).inflate(R.layout.message_adapter_layout, null);
+        return new MyViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MessagesAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
         MessagesList list2 = messagesLists.get(position);
 
 
-
+        holder.itemView.setTag(list2);
         holder.name.setText(list2.getName());
+        //     Toast.makeText(context, list2.getName(), Toast.LENGTH_SHORT).show();
+
+/*FirebaseDatabase.getInstance().getReference().child("lastconnected").addValueEventListener(new ValueEventListener() {
+                                                                                                       @Override
+                                                                                                       public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                                                           if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid())) {
+                                                                                                               timestp = snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid()).getValue(Long.class);
+                                                                                                              // Toast.makeText(context, timestp+"", Toast.LENGTH_SHORT).show();
+
+                                                                                                           }
+                                                                                                          FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid())
+                                                                                                                   .orderByChild("timeStamp").addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                                                               @Override
+                                                                                                               public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                                                                                                   int unseenmessage = 0;
+                                                                                                                  // Toast.makeText(context, "came in this function", Toast.LENGTH_SHORT).show();
+                                                                                                                   if (snapshot2.hasChildren()) {
+                                                                                                                       for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
+
+                                                                                                                           ChatList cl = dataSnapshot2.getValue(ChatList.class);
+                                                                                                                         //  Toast.makeText(context, ""+timestp, Toast.LENGTH_SHORT).show();
+                                                                                                                           if (cl.getTimeStamp() > timestp) {
+
+                                                                                                                               unseenmessage++;
 
 
-        FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                                                                                                                           }
+                                                                                                                       }
+                                                                                                                   }
+                                                                                                                   if (unseenmessage == 0) {
+                                                                                                                       holder.unseenMessages.setVisibility(View.GONE);
+                                                                                                                       //holder.lastMessage.setTextColor(Color.parseColor("#959595"));
+
+
+                                                                                                                   } else {
+                                                                                                                       holder.unseenMessages.setVisibility(View.VISIBLE);
+                                                                                                                       holder.unseenMessages.setText(unseenmessage + "");
+
+                                                                                                                      // holder.lastMessage.setTextColor(context.getResources().getColor(R.color.theme_color_80));
+
+                                                                                                                   }
+
+                                                                                                               }
+
+
+                                                                                                               @Override
+                                                                                                               public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                                                               }
+                                                                                                           });
+
+                                                                                                       }
+
+                                                                                                       @Override
+                                                                                                       public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                                                       }
+                                                                                                   });*/
+
+       /*FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                timestp=   snapshot.child("lastconnected").child("timestamp").getValue(Long.class);
-                Toast.makeText(context, ""+timestp, Toast.LENGTH_SHORT).show();
-               // Toast.makeText(context, timestp+"", Toast.LENGTH_SHORT).show();
+                timestp = snapshot.child("lastconnected").child("timestamp").getValue(Long.class);
+                Toast.makeText(context, "" + timestp, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(context, timestp+"", Toast.LENGTH_SHORT).show();
 
             }
-
 
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });*/
+
+       /* FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for (DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    ChatList chat=dataSnapshot.getValue(ChatList.class);
+                    if(chat.getIsSeen().equals("0"))
+                    {
+                        unseen++;
+                    }
+
+                }
+                if(unseen == 0){
+                    holder.unseenMessages.setVisibility(View.GONE);
+                    holder.lastMessage.setTextColor(Color.parseColor("#959595"));
+
+                }
+                else{
+                    holder.unseenMessages.setVisibility(View.VISIBLE);
+                    holder.unseenMessages.setText(unseen+"");
+                    holder.lastMessage.setTextColor(context.getResources().getColor(R.color.theme_color_80));
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        })*/
+        unseen = 0;
+        FirebaseDatabase.getInstance().getReference().child("unseen").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid()).hasChild("count")) {
+                    unseen = snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid()).child("count").getValue(Integer.class);
+                    if (unseen == 0) {
+                        holder.unseenMessages.setVisibility(View.GONE);
+                        // holder.lastMessage.setTextColor(Color.parseColor("#959595"));
+
+                    } else {
+                        holder.unseenMessages.setVisibility(View.VISIBLE);
+                        holder.unseenMessages.setText(unseen + "");
+                        // holder.lastMessage.setTextColor(context.getResources().getColor(R.color.theme_color_80));
+
+                    }
+                } else {
+                    holder.unseenMessages.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         });
-        FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+messagesLists.get(position).getUid())
+
+      /* FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+messagesLists.get(position).getUid())
                 .orderByChild("timeStamp").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -94,75 +212,7 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
                     }
                 }
-                if(unseenmessage == 0){
-                    holder.unseenMessages.setVisibility(View.GONE);
-                    holder.lastMessage.setTextColor(Color.parseColor("#959595"));
 
-                }
-                else{
-                    holder.unseenMessages.setVisibility(View.VISIBLE);
-                    holder.unseenMessages.setText(unseenmessage+"");
-                    holder.lastMessage.setTextColor(context.getResources().getColor(R.color.theme_color_80));
-
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        //holder.lastMessage.setText(list2.getLastMessage());
-
-        ;
-
-        holder.lastMessage.setText(list2.getLastMessage());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-               Intent intent = new Intent(context, Chat.class);
-                intent.putExtra("name", list2.getName());
-                intent.putExtra("uid",list2.getUid());
-
-
-                context.startActivity(intent);
-
-            }
-        });
-       FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid()+
-                messagesLists.get(position).getUid()).orderByChild("timestamp").limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChildren())
-                {
-                    for(DataSnapshot datasnapshot: snapshot.getChildren())
-                    {
-
-                        holder.lastMessage.setText(datasnapshot.child("message").getValue(String.class));
-
-
-
-
-                    }
-
-
-                }
-
-            }
-
-
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-       /* FirebaseDatabase.getInstance().getReference().child("lastMessage").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-               holder.lastMessage.setText( snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()+list2.getUid()).child("lastmessage").getValue(String.class));
             }
 
             @Override
@@ -170,9 +220,29 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
             }
         });*/
+        //holder.lastMessage.setText(list2.getLastMessage());
+
+        ;
+
+
+        FirebaseDatabase.getInstance().getReference().child("lastMessage").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid())) {
+                    holder.lastMessage.setText(snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid() + list2.getUid()).child("lastmessage").getValue(String.class));
+
+                }
+                notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
     }
-
 
 
     @Override
@@ -193,13 +263,37 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.MyView
 
             profilePic = itemView.findViewById(R.id.profilePic);
             name = itemView.findViewById(R.id.name);
-            lastMessage  = itemView.findViewById(R.id.lastMessage);
+            lastMessage = itemView.findViewById(R.id.lastMessage);
             unseenMessages = itemView.findViewById(R.id.unseenMessages);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int p = messagesLists.indexOf(itemView.getTag());
+                    Intent intent = new Intent(context, Chat.class);
+                    intent.putExtra("name", messagesLists.get(p).getName());
+                    intent.putExtra("uid", messagesLists.get(p).getUid());
+
+                    FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid() + messagesLists.get(p).getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                // ChatList temp=dataSnapshot.getValue(ChatList.class);
+
+                                FirebaseDatabase.getInstance().getReference().child("chats").child(FirebaseAuth.getInstance().getCurrentUser().getUid() + messagesLists.get(p).getUid()).child(dataSnapshot.getKey()).child("isSeen").setValue("1");
+                                //Toast.makeText(, "updated", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    context.startActivity(intent);
+
+                }
+            });
 
         }
     }
 }
-
-
-
-
