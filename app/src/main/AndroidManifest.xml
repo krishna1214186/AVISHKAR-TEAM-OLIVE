@@ -57,6 +57,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAbhJe3--EpG-PayE4C9KzX1zHbirrrnuY" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
             android:name=".chat.Chat"

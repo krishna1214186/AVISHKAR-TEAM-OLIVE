@@ -9,15 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpNGO1Activity extends AppCompatActivity {
 
@@ -35,11 +32,11 @@ public class SignUpNGO1Activity extends AppCompatActivity {
 
         auth = FirebaseAuth.getInstance();
 
-        etname2 = findViewById(R.id.etname2);
-        etmail2 = findViewById(R.id.etmail2);
-        etpswd2 = findViewById(R.id.etpswd2);
-        etconfirmpswd2 = findViewById(R.id.etconfirmpswd2);
-        btnnext2 = findViewById(R.id.btnnext2);
+        etname2 = findViewById(R.id.et_nameSignIn);
+        etmail2 = findViewById(R.id.et_emailSignIn);
+        etpswd2 = findViewById(R.id.et_passwordSignIn);
+        etconfirmpswd2 = findViewById(R.id.et_confirmPasswordSignIn);
+        btnnext2 = findViewById(R.id.btn_nextSignIn);
 
 
         btnnext2.setOnClickListener(new View.OnClickListener() {

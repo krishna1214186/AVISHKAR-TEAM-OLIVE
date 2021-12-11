@@ -13,73 +13,67 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText etemail1, etpswd1;
+    private TextInputLayout et_emailLogin;
+    private TextInputLayout et_passwordLogin;
+    private TextView tv_signIn;
 
-    TextView tvsignin1;
+    private Button btn_login;
 
-    Button btnsignin1;
-
-    FirebaseAuth auth;
-    FirebaseDatabase database;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        etemail1 = findViewById(R.id.etemail1);
-        etpswd1 = findViewById(R.id.etpswd1);
-        tvsignin1 = findViewById(R.id.tvsignin1);
-        btnsignin1 = findViewById(R.id.btnsignin1);
+        et_emailLogin = findViewById(R.id.et_emailLogin);
+        et_passwordLogin = findViewById(R.id.et_passwordLogin);
+        tv_signIn = findViewById(R.id.tv_signIn);
+        btn_login = findViewById(R.id.btn_login);
 
-        database= FirebaseDatabase.getInstance();
-        auth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
 
-
-
-        btnsignin1.setOnClickListener(new View.OnClickListener() {
+        btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (etemail1.getText().toString().isEmpty() || etpswd1.getText().toString().isEmpty()){
+                if (et_emailLogin.getEditText().getText().toString().isEmpty() || et_passwordLogin.getEditText().getText().toString().isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Fill all details", Toast.LENGTH_SHORT).show();
                 }
 
-                auth.signInWithEmailAndPassword(etemail1.getText().toString(),etpswd1.getText().toString())
+                firebaseAuth.signInWithEmailAndPassword(et_emailLogin.getEditText().getText().toString(), et_passwordLogin.getEditText().getText().toString())
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                if(task.isSuccessful())
-                                {
-                                    if(auth.getCurrentUser()!= null) {
-                                        if (auth.getCurrentUser().isEmailVerified()) {
+                                if (task.isSuccessful()) {
+                                    if (firebaseAuth.getCurrentUser() != null) {
+                                        if (firebaseAuth.getCurrentUser().isEmailVerified()) {
                                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                             startActivity(intent);
                                             finish();
-                                        }
-                                        else
+                                        } else
                                             Toast.makeText(LoginActivity.this, "Verify your account first", Toast.LENGTH_SHORT).show();
                                     }
 
-                                }
-                                else
+                                } else
                                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
             }
         });
 
-        if (auth.getCurrentUser() != null){
-            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+        if (firebaseAuth.getCurrentUser() != null) {
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish();
         }
 
-        tvsignin1.setOnClickListener(new View.OnClickListener() {
+        tv_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUp1Activity.class);

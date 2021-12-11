@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/etname2"
+            android:id="@+id/et_nameSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -42,7 +42,7 @@
             android:textColorHint="@color/black" />
 
         <EditText
-            android:id="@+id/etmail2"
+            android:id="@+id/et_emailSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -62,7 +62,7 @@
             android:textColorHint="@color/black" />
 
         <EditText
-            android:id="@+id/etpswd2"
+            android:id="@+id/et_passwordSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -82,7 +82,7 @@
             android:textColorHint="@color/black" />
 
         <EditText
-            android:id="@+id/etconfirmpswd2"
+            android:id="@+id/et_confirmPasswordSignIn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -102,7 +102,7 @@
             android:textColorHint="@color/black" />
 
         <Button
-            android:id="@+id/btnnext2"
+            android:id="@+id/btn_nextSignIn"
             android:layout_width="190dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
