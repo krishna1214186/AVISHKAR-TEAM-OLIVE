@@ -18,6 +18,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
 
         <service
             android:name=".SendNotificationPack.MyFirebaseIdService"
@@ -27,11 +30,9 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-
         <service
             android:name=".SendNotificationPack.MyFireBaseMessagingService"
-            android:permission="com.google.android.c2dm.permission.SEND" >
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -105,7 +106,8 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:windowSoftInputMode="adjustPan"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

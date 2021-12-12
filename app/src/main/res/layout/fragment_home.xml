@@ -48,34 +48,6 @@
                 android:src="@drawable/profile_icon" />
 
         </LinearLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_below="@+id/app_name"
-            android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="15dp"
-            android:clickable="true"
-            android:id="@+id/rl_search_bar"
-            android:elevation="10dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Search here...."
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="20dp"
-                android:textSize="18dp"></TextView>
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_search"
-                android:outlineAmbientShadowColor="@color/black"
-                android:layout_marginRight="20dp"></ImageView>
-
-        </RelativeLayout>
 
     </RelativeLayout>
 
@@ -443,6 +415,40 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tv_posts"
                 android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_alignParentRight="true"
+                android:tint="@color/black"
+                android:backgroundTint="#fece2f"
+                android:layout_margin="10dp"
+                android:layout_alignParentBottom="true"
+                app:srcCompat="@drawable/drawable_add" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@+id/floatingActionButton"
+                android:clickable="true"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_car" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:visibility="invisible"
+                android:layout_margin="10dp"
+                android:layout_above="@+id/floatingActionButton"
+                android:clickable="true"
+                app:srcCompat="@drawable/drawable_chat" />
         </RelativeLayout>
 
     </LinearLayout>

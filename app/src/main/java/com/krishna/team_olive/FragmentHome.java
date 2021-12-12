@@ -25,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -53,11 +54,11 @@ public class FragmentHome extends Fragment {
     private PostAdapter postAdapter;
     public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList;
     public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList2;
-    RelativeLayout search_bar;
     String isNGO ;
     LinearLayout post_click;
     FirebaseAuth auth;
     Context context;
+    private ImageView iv_profileButton;
     LinearLayout cat_car, cat_mobile, cat_cycle, cat_bike, cat_eleitems, cat_tv, cat_laptop, cat_furniture, cat_books, cat_clothes, cat_others;
 
     @Override
@@ -74,6 +75,7 @@ public class FragmentHome extends Fragment {
 
         UpdateToken();
 
+        iv_profileButton = view.findViewById(R.id.iv_profileButton);
 
         post_click = view.findViewById(R.id.post_click);
 
@@ -99,11 +101,17 @@ public class FragmentHome extends Fragment {
         addedItemDescriptionModelArrayList = new ArrayList<>();
         addedItemDescriptionModelArrayList2= new ArrayList<>();
 
-        search_bar = (RelativeLayout) view.findViewById(R.id.rl_search_bar);
         auth = FirebaseAuth.getInstance();
 
         postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList2);
         recyclerView_posts.setAdapter(postAdapter);
+
+        iv_profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ProfileActivity.class));
+            }
+        });
 
         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
@@ -158,14 +166,6 @@ public class FragmentHome extends Fragment {
                 }else{
                     Toast.makeText(getContext(), "Complete data loaded!!", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-        search_bar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(),SearchActivity.class);
-                startActivity(intent);
             }
         });
 

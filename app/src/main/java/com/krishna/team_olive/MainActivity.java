@@ -72,7 +72,7 @@ FirebaseDatabase db;
                         fragment = new FragmentNotification();
                         break;
                     case 5:
-                        fragment = new FragmentProfile();
+                        fragment = new SearchFragment();
                 }
                 loadFragment(fragment);
 
