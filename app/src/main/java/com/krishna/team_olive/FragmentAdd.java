@@ -23,7 +23,6 @@ import java.util.Arrays;
 
 public class FragmentAdd extends Fragment {
 
-
 CardView cars,mobiles,cycles,bikes,electronicItems,tv,laptop,furniture,books,clothes,others;
 ItemSelected activity;
 public interface ItemSelected

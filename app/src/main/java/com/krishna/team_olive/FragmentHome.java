@@ -24,12 +24,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +52,12 @@ public class FragmentHome extends Fragment {
     int count_try;
 
     int CAT_VS_POSTS = 1;
+
+    private FloatingActionButton f_add, f_donate, f_exchange;
+
+    private Boolean click = false;
+
+    Animation open_anim, close_anim, up_anim, down_anim;
 
     private RecyclerView recyclerView_posts;
     private PostAdapter postAdapter;
@@ -75,7 +84,18 @@ public class FragmentHome extends Fragment {
 
         UpdateToken();
 
+        open_anim = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_open_anim);
+        close_anim = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close_anim);
+        up_anim = AnimationUtils.loadAnimation(getContext(), R.anim.bottom_up_anim);
+        down_anim = AnimationUtils.loadAnimation(getContext(), R.anim.bottom_close_anim);
+
         iv_profileButton = view.findViewById(R.id.iv_profileButton);
+
+        f_add = view.findViewById(R.id.floatingActionButton);
+        f_donate = view.findViewById(R.id.floatingActionButton2);
+        f_exchange = view.findViewById(R.id.floatingActionButton3);
+
+
 
         post_click = view.findViewById(R.id.post_click);
 
@@ -105,6 +125,27 @@ public class FragmentHome extends Fragment {
 
         postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList2);
         recyclerView_posts.setAdapter(postAdapter);
+
+        f_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onAddButtonClicked();
+            }
+        });
+
+        f_exchange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AddedItemDetailFilling_0.class));
+            }
+        });
+
+        f_donate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), AddedItemDetailFilling_0.class));
+            }
+        });
 
         iv_profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -829,6 +870,35 @@ public class FragmentHome extends Fragment {
         Token token= new Token(refreshToken);
         FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(token);
 
+    }
+
+
+    private void onAddButtonClicked() {
+        setVisibility(click);
+        setAnimation(click);
+        click = !click;
+    }
+
+    private void setVisibility(Boolean clicked) {
+        if(!clicked){
+            f_exchange.setVisibility(View.VISIBLE);
+            f_donate.setVisibility(View.VISIBLE);
+        }else{
+            f_exchange.setVisibility(View.INVISIBLE);
+            f_donate.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void setAnimation(Boolean clicked) {
+        if(!clicked){
+            f_add.setAnimation(open_anim);
+            f_exchange.setAnimation(up_anim);
+            f_donate.setAnimation(up_anim);
+        }else{
+            f_add.setAnimation(close_anim);
+            f_exchange.setAnimation(down_anim);
+            f_donate.setAnimation(down_anim);
+        }
     }
 }
 
