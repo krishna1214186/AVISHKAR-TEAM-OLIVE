@@ -54,7 +54,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     String user_name, client_name, user_uid, client_uid, item_name;
 
     SupportMapFragment fragmentmap;
-    GoogleMap map;
+   // GoogleMap map;
 
     String postid;
     int check;
@@ -304,7 +304,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
                 List<Address>[] addressList = new List[]{new ArrayList<Address>()};
 
-                fragmentmap.getMapAsync(new OnMapReadyCallback() {
+               /* fragmentmap.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(@NonNull GoogleMap googleMap) {
                         //   mGoogleApiClient.connect();
@@ -330,7 +330,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                         }
 
                     }
-                });
+                });*/
 
             }
 
