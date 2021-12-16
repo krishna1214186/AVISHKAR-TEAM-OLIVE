@@ -24,4 +24,15 @@
     <color name="theme_color_80">#CC2176FF</color>
     <color name="light_8">#14000000</color>
 
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="backgroung">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="yellow">#FFD700</color>
+    <color name="yellow_pressed">#C4A484</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="grey_light">#808080</color>
+
 </resources>

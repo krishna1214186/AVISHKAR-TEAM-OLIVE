@@ -325,8 +325,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                             map.addMarker(new MarkerOptions().position(new LatLng(latfield, longfield)));
                             map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latfield, longfield)));
                             map.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(latfield, longfield)), 15.0f));
-
-
                         }
 
                     }

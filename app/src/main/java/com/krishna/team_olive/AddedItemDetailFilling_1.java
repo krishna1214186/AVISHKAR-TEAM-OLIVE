@@ -48,6 +48,7 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
 
 
         String cateogary=getIntent().getStringExtra("cateogary_name");
+        String donate=getIntent().getStringExtra("donate");
 
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +66,7 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
                 }
                 else {
                     AddedItemDescriptionModel model = new AddedItemDescriptionModel("",cateogary, name, age, description, adress, landmark, "", pincode,
-                            "","","2","",auth.getCurrentUser().getUid());
+                            donate,"","2","",auth.getCurrentUser().getUid());
 
                     uploadData(model);
 

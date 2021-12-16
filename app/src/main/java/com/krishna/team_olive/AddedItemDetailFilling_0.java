@@ -17,6 +17,8 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_item_detail_filling0);
 
+        String donate = getIntent().getStringExtra("donate");
+
         cars = findViewById(R.id.car);
         cars.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -24,6 +26,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "CARS";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -34,6 +37,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "CYCLES";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -44,6 +48,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "MOBILES";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -54,6 +59,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "BIKES";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -64,6 +70,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "ELECTRONICITEMS";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -74,6 +81,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "TV";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -84,6 +92,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "LAPTOP";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -94,6 +103,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "FURNITURE";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -104,6 +114,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "BOOKS";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -114,6 +125,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "CLOTHES";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });
@@ -124,6 +136,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 str = "OTHERS";
                 Intent intent=new Intent(AddedItemDetailFilling_0.this,AddedItemDetailFilling_1.class);
                 intent.putExtra("cateogary_name",str);
+                intent.putExtra("donate",donate);
                 startActivity(intent);
             }
         });

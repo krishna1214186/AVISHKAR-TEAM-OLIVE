@@ -52,7 +52,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
         AddedItemDescriptionModel object_search = list.get(position);
         holder.tv_item_name_search.setText(object_search.getName());
         holder.tv_category_search.setText(object_search.getCateogary());
-        holder.search_ratings.setText(object_search.getRatings());
+ //       holder.search_ratings.setText(object_search.getRatings());
 
 
         holder.iv_arrow_search.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +104,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        public CircleImageView iv_search;
+        public ImageView iv_search;
         public TextView tv_item_name_search, tv_category_search, search_ratings;
         ImageView iv_arrow_search;
 
@@ -115,7 +115,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
             tv_category_search = itemView.findViewById(R.id.tv_category_search);
             tv_item_name_search = itemView.findViewById(R.id.tv_item_name_search);
             iv_arrow_search = itemView.findViewById(R.id.iv_arrow_search);
-            search_ratings = itemView.findViewById(R.id.search_rating);
+           // search_ratings = itemView.findViewById(R.id.search_rating);
 
 
         }

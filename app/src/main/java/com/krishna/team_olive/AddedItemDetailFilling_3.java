@@ -58,8 +58,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_item_detail_filling3);
         Spinner mySpinner = findViewById(R.id.spinner_1);
-        btn_yes = findViewById(R.id.btn_yes);
-        btn_no = findViewById(R.id.btn_no);
         btn_ok = findViewById(R.id.btn_ok);
         btn_ok.setVisibility(View.GONE);
         tv = findViewById(R.id.tv_cateogary);
@@ -76,30 +74,18 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         notifExchangeModelList_2 = new ArrayList<>();
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
-        ////THIS IS FOR MY USE
-
-
-
-
-        btn_no.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                tv.setVisibility(View.VISIBLE);
-                btn_ok.setVisibility(View.VISIBLE);
-                ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(AddedItemDetailFilling_3.this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.names));
-                myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                mySpinner.setAdapter(myAdapter);
-                mySpinner.setOnItemSelectedListener(AddedItemDetailFilling_3.this);
-            }
-        });
-        btn_yes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                btn_ok.setVisibility(View.VISIBLE);
-                model.setTypeOfExchange("Y");
-                uploadData(model);
-            }
-        });
+        if(model.getTypeOfExchange().equals("Y")){
+            uploadData(model);
+            btn_ok.setVisibility(View.VISIBLE);
+        }
+        if(model.getTypeOfExchange().equals("N")){
+            tv.setVisibility(View.VISIBLE);
+            btn_ok.setVisibility(View.VISIBLE);
+            ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(AddedItemDetailFilling_3.this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.names));
+            myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mySpinner.setAdapter(myAdapter);
+            mySpinner.setOnItemSelectedListener(AddedItemDetailFilling_3.this);
+        }
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override

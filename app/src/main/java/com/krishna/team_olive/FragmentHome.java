@@ -3,8 +3,11 @@ package com.krishna.team_olive;
 import static android.app.Activity.RESULT_OK;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.activity.result.ActivityResult;
@@ -14,6 +17,8 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,18 +26,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -47,17 +56,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
     int count_try;
 
     int CAT_VS_POSTS = 1;
 
-    private FloatingActionButton f_add, f_donate, f_exchange;
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
+    ImageView iv_navigationDrawer;
+    LinearLayout contentView;
 
-    private Boolean click = false;
+    private Dialog dialog;
 
-    Animation open_anim, close_anim, up_anim, down_anim;
+    static final float END_SCALE = 0.7f;
+
+    FloatingActionButton f_donate, f_exchange;
 
     private RecyclerView recyclerView_posts;
     private PostAdapter postAdapter;
@@ -70,11 +84,13 @@ public class FragmentHome extends Fragment {
     private ImageView iv_profileButton;
     LinearLayout cat_car, cat_mobile, cat_cycle, cat_bike, cat_eleitems, cat_tv, cat_laptop, cat_furniture, cat_books, cat_clothes, cat_others;
 
-    @Override
+    /*@Override
     public void onResume() {
         super.onResume();
         ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-    }
+    }*/
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,18 +100,19 @@ public class FragmentHome extends Fragment {
 
         UpdateToken();
 
-        open_anim = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_open_anim);
-        close_anim = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_close_anim);
-        up_anim = AnimationUtils.loadAnimation(getContext(), R.anim.bottom_up_anim);
-        down_anim = AnimationUtils.loadAnimation(getContext(), R.anim.bottom_close_anim);
+        drawerLayout = view.findViewById(R.id.drawer_layout);
+        navigationView = view.findViewById(R.id.navigation_view);
+        iv_navigationDrawer = view.findViewById(R.id.iv_navigationDrawer);
+        contentView = view.findViewById(R.id.content);
+
+        navigationDrawer();
 
         iv_profileButton = view.findViewById(R.id.iv_profileButton);
 
-        f_add = view.findViewById(R.id.floatingActionButton);
         f_donate = view.findViewById(R.id.floatingActionButton2);
         f_exchange = view.findViewById(R.id.floatingActionButton3);
 
-
+        dialog = new Dialog(getContext());
 
         post_click = view.findViewById(R.id.post_click);
 
@@ -126,31 +143,28 @@ public class FragmentHome extends Fragment {
         postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList2);
         recyclerView_posts.setAdapter(postAdapter);
 
-        f_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onAddButtonClicked();
-            }
-        });
-
         f_exchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), AddedItemDetailFilling_0.class));
+                Intent intent = new Intent(getContext(), AddedItemDetailFilling_0.class);
+                intent.putExtra("donate","N");
+                startActivity(intent);
             }
         });
 
         f_donate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), AddedItemDetailFilling_0.class));
+                Intent intent = new Intent(getContext(), AddedItemDetailFilling_0.class);
+                intent.putExtra("donate","Y");
+                startActivity(intent);
             }
         });
 
         iv_profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), ProfileActivity.class));
+                startActivity(new Intent(getContext(), UserProfileActivity.class));
             }
         });
 
@@ -464,6 +478,117 @@ public class FragmentHome extends Fragment {
         });
 
         return view;
+    }
+
+
+    private void navigationDrawer() {
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
+
+        iv_navigationDrawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigationView.setCheckedItem(R.id.nav_home);
+                if(drawerLayout.isDrawerVisible(GravityCompat.START)){
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                }else{
+                    drawerLayout.openDrawer(GravityCompat.START);
+                }
+            }
+        });
+        animateNavigationDrawer();
+    }
+
+    private void animateNavigationDrawer() {
+        //drawerLayout.setScrimColor(getResources().getColor(R.color.gold));
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                contentView.setScaleX(offsetScale);
+                contentView.setScaleY(offsetScale);
+
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                contentView.setTranslationX(xTranslation);
+
+            }
+        });
+    }
+    /*
+    @Override
+    public void onBackPressed(){
+        if(drawerLayout.isDrawerVisible(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
+    */
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_home:
+                getFragmentManager().beginTransaction().replace(R.id.frame_layout, new FragmentHome()).commit();
+                break;
+            case R.id.nav_myAdds:
+                getFragmentManager().beginTransaction().replace(R.id.frame_layout, new FragmentChat()).commit();
+                break;
+            case R.id.nav_history:
+                startActivity(new Intent(getContext(),History.class));
+                break;
+            case R.id.nav_exchangeRequests:
+                startActivity(new Intent(getContext(),ExchangeRequests.class));
+                break;
+            case R.id.nav_savedPosts:
+                startActivity(new Intent(getContext(),SavedPosts.class));
+                break;
+            case R.id.nav_help:
+                startActivity(new Intent(getContext(),Help.class));
+                break;
+            case R.id.nav_feedback:
+                startActivity(new Intent(getContext(),Feedback.class));
+                break;
+            case R.id.nav_aboutUs:
+                startActivity(new Intent(getContext(),AboutUs.class));
+                break;
+            case R.id.nav_logOut:
+                logout();
+                break;
+        }
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void logout() {
+        dialog.setContentView(R.layout.logoout_alert_dialouge);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView tv_no = dialog.findViewById(R.id.et_noLogout);
+        TextView tv_yes = dialog.findViewById(R.id.et_yesLogout);
+        dialog.show();
+        tv_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        tv_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                auth.signOut();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
+            }
+        });
     }
 
     private void countTotal(){
@@ -864,41 +989,13 @@ public class FragmentHome extends Fragment {
         });
          */
     }
+
     private void UpdateToken(){
         FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
         String refreshToken= FirebaseInstanceId.getInstance().getToken();
         Token token= new Token(refreshToken);
         FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(token);
 
-    }
-
-
-    private void onAddButtonClicked() {
-        setVisibility(click);
-        setAnimation(click);
-        click = !click;
-    }
-
-    private void setVisibility(Boolean clicked) {
-        if(!clicked){
-            f_exchange.setVisibility(View.VISIBLE);
-            f_donate.setVisibility(View.VISIBLE);
-        }else{
-            f_exchange.setVisibility(View.INVISIBLE);
-            f_donate.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    private void setAnimation(Boolean clicked) {
-        if(!clicked){
-            f_add.setAnimation(open_anim);
-            f_exchange.setAnimation(up_anim);
-            f_donate.setAnimation(up_anim);
-        }else{
-            f_add.setAnimation(close_anim);
-            f_exchange.setAnimation(down_anim);
-            f_donate.setAnimation(down_anim);
-        }
     }
 }
 

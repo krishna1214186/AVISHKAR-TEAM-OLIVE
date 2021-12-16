@@ -4,11 +4,20 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
@@ -38,7 +47,11 @@ FirebaseDatabase db;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db=FirebaseDatabase.getInstance();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+
+
         meowBottomNavigation=findViewById(R.id.bottom_navigation);
         manageConnections();
        // manageConnections2();
@@ -52,10 +65,9 @@ FirebaseDatabase db;
 
         meowBottomNavigation.add(new MeowBottomNavigation.Model(1,R.drawable.drawable_home));
         meowBottomNavigation.add(new MeowBottomNavigation.Model(2,R.drawable.drawable_chat));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.drawable_add));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(4,R.drawable.drawable_notification));
-        meowBottomNavigation.add(new MeowBottomNavigation.Model(5,R.drawable.drawable_profile));
-       meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(3,R.drawable.drawable_notification));
+        meowBottomNavigation.add(new MeowBottomNavigation.Model(4,R.drawable.search_icon));
+        meowBottomNavigation.setOnShowListener(new MeowBottomNavigation.ShowListener() {
             @Override
             public void onShowItem(MeowBottomNavigation.Model item) {
                 switch(item.getId()) {
@@ -66,12 +78,9 @@ FirebaseDatabase db;
                         fragment = new FragmentChat();
                         break;
                     case 3:
-                        fragment = new FragmentAdd();
-                        break;
-                    case 4:
                         fragment = new FragmentNotification();
                         break;
-                    case 5:
+                    case 4:
                         fragment = new SearchFragment();
                 }
                 loadFragment(fragment);
@@ -236,4 +245,28 @@ private void updateUserStatus(String state)
 
 
     }*/
+    /*
+    @Override public void onBackPressed() {
+        DrawerLayout dl = findViewById(R.id.drawer_layout);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (dl.isDrawerOpen(GravityCompat.START)) {
+            dl.closeDrawer(GravityCompat.START);
+        }else{
+            if(fragment instanceof FragmentHome ){
+                super.onBackPressed();
+            }else{
+                showHome();
+            }
+        }
+    }
+
+    private void showHome() {
+        fragment = new FragmentHome();
+        if(fragment!=null){
+            FragmentManager manager = getSupportFragmentManager();
+            manager.beginTransaction().replace(R.id.frame_layout, fragment, fragment.getTag()).commit();
+        }
+    }
+
+     */
 }

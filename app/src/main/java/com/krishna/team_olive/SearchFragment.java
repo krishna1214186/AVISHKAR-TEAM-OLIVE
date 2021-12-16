@@ -14,15 +14,19 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,6 +105,17 @@ public class SearchFragment extends Fragment {
         searchAdapter = new SearchAdapter(getContext(),search_list,true);
         recyclerView_search.setAdapter(searchAdapter);
 
+/*
+        // This callback will only be called when MyFragment is at least Started.
+        OnBackPressedCallback callback = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout, new FragmentHome());
+            }
+        };
+        requireActivity().getOnBackPressedDispatcher().addCallback((LifecycleOwner) getContext(), callback);
+*/
+
         FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).child("isNGO").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
@@ -148,8 +163,6 @@ public class SearchFragment extends Fragment {
 
             }
         });
-
-
 
         check_ratings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -247,6 +260,8 @@ public class SearchFragment extends Fragment {
 
         return view;
     }
+
+
 
     public static double distance(double lat1, double lat2, double lon1, double lon2, double el1, double el2) {
 
@@ -468,4 +483,6 @@ public class SearchFragment extends Fragment {
             }
         });
     }
+
+
 }
