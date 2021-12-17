@@ -13,6 +13,11 @@
         <item>CLOTHES</item>
         <item>OTHERS</item>
     </string-array>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="access_token">sk.eyJ1Ijoia3Jpc2huYTEyMTQiLCJhIjoiY2t4N2dnOXA5MGppYTJubzB6eXB0c253diJ9.RaJuqkAkqqquA1lzEwmaKA</string>
+    <string name="start_navigation">Start Navigation</string>
+    <string name="user_location_permission_explanation">This app needs location permissions to show its functionality.</string>
+    <string name="user_location_permission_not_granted">You didn\'t grant location permissions.</string>
 </resources>
