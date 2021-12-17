@@ -48,9 +48,6 @@ public class FragmentNotification extends Fragment {
 
         context = v.getContext();
 
-        iv_arrow_exchange = v.findViewById(R.id.iv_arrow_exchange_req);
-        iv_arrow_fav = v.findViewById(R.id.iv_arrow_myfav);
-
         recyclerview_notification = v.findViewById(R.id.recyclerview_notifs);
         recyclerview_notification.setHasFixedSize(true);
 
@@ -64,24 +61,6 @@ public class FragmentNotification extends Fragment {
         recyclerview_notification.setAdapter(notificationAdapter);
 
         readnotifs();
-
-        iv_arrow_exchange.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ExchangeRequest.class);
-                context.startActivity(intent);
-            }
-        });
-
-        iv_arrow_fav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2 = new Intent(getContext(), MyFavorite.class);
-                context.startActivity(intent2);
-            }
-        });
-
-
 
         return v;
     }

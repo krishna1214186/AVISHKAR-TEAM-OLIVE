@@ -68,6 +68,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mcontext, RouteAndRating.class);
+                    intent.putExtra("Post id", notificationsModel.getPost_id());
                     mcontext.startActivity(intent);
                 }
             });

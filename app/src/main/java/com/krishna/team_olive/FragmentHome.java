@@ -540,16 +540,16 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 getFragmentManager().beginTransaction().replace(R.id.frame_layout, new FragmentHome()).commit();
                 break;
             case R.id.nav_myAdds:
-                getFragmentManager().beginTransaction().replace(R.id.frame_layout, new FragmentChat()).commit();
+                startActivity(new Intent(getContext(),MyAdds.class));
                 break;
             case R.id.nav_history:
                 startActivity(new Intent(getContext(),History.class));
                 break;
             case R.id.nav_exchangeRequests:
-                startActivity(new Intent(getContext(),ExchangeRequests.class));
+                startActivity(new Intent(getContext(),ExchangeRequest.class));
                 break;
             case R.id.nav_savedPosts:
-                startActivity(new Intent(getContext(),SavedPosts.class));
+                startActivity(new Intent(getContext(),MyFavorite.class));
                 break;
             case R.id.nav_help:
                 startActivity(new Intent(getContext(),Help.class));

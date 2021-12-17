@@ -1,6 +1,10 @@
 package com.krishna.team_olive;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,6 +42,7 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
     private Context context;
     private List<ExchangeModel> mylist;
     private APIService apiService;
+    private Dialog dialog;
 
     public ExchangeRequestAdapter(Context context, List<ExchangeModel> mylist) {
         this.context = context;
@@ -48,7 +53,6 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
 
         private TextView tv_customer_name, tv_item_name;
         private Button btn_accept_req, btn_decline_req;
-        private RelativeLayout rl_exchange_req;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,7 +61,6 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
             tv_item_name = itemView.findViewById(R.id.tv_item_name_exchange_req);
             btn_accept_req = itemView.findViewById(R.id.btn_accept_exchange_req);
             btn_decline_req = itemView.findViewById(R.id.btn_decline_exchange_req);
-            rl_exchange_req = itemView.findViewById(R.id.rl_exchange_req);
         }
     }
 
@@ -78,41 +81,80 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
         holder.tv_item_name.setText(object_exc_req.getItem_name());
         holder.tv_customer_name.setText(object_exc_req.getClient_name());
 
+
+        dialog = new Dialog(context);
+        dialog.setContentView(R.layout.confirm_exchange_alert_dialouge);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        TextView tv_no = dialog.findViewById(R.id.et_no_exchange_req);
+        TextView tv_yes = dialog.findViewById(R.id.et_yes_exchange_req);
+
         holder.btn_accept_req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Myexchanges").child(object_exc_req.getClient_uid()).push();
-                firebaseDatabase.setValue(object_exc_req.getPostid());
-
-                DatabaseReference firebaseDatabase2 = FirebaseDatabase.getInstance().getReference().child("Notifications").child(object_exc_req.getClient_uid());
-                NotificationsModel notificationsModel = new NotificationsModel(object_exc_req.getUser_uid(), "accepted your request", object_exc_req.getPostid(), 2);
-                firebaseDatabase2.push().setValue(notificationsModel);
-
-                FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
-
-                String client_uid = object_exc_req.getClient_uid();
-
-                FirebaseDatabase.getInstance().getReference().child("Tokens").child(client_uid).child("token").addValueEventListener(new ValueEventListener() {
+                dialog.show();
+                tv_no.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        String token = snapshot.getValue(String.class);
-                        sendNotifications(token, "Exchange request accepted", "Your exchange request for "+object_exc_req.getItem_name()+" has been accepted");
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
+                    public void onClick(View v) {
+                        dialog.dismiss();
                     }
                 });
+                tv_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Myexchanges").child(object_exc_req.getClient_uid()).push();
+                        firebaseDatabase.setValue(object_exc_req.getPostid());
 
-                ////DELETE bhi krna h !!!!!!!!!!!
+                        DatabaseReference firebaseDatabase2 = FirebaseDatabase.getInstance().getReference().child("Notifications").child(object_exc_req.getClient_uid());
+                        NotificationsModel notificationsModel = new NotificationsModel(object_exc_req.getUser_uid(), "accepted your request", object_exc_req.getPostid(), 2);
+                        firebaseDatabase2.push().setValue(notificationsModel);
+
+                        FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
+
+                        String client_uid = object_exc_req.getClient_uid();
+
+                        FirebaseDatabase.getInstance().getReference().child("Tokens").child(client_uid).child("token").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                String token = snapshot.getValue(String.class);
+                                sendNotifications(token, "Exchange request accepted", "Your exchange request for "+object_exc_req.getItem_name()+" has been accepted");
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+                        dialog.dismiss();
+                        ////DELETE bhi krna h !!!!!!!!!!!
+                    }
+                });
             }
         });
+
 
         holder.btn_decline_req.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
+                dialog.show();
+                tv_no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                tv_yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
+                        dialog.dismiss();
+                        ////DELETE bhi krna h !!!!!!!!!!!
+                    }
+                });
+
+
+
+
             }
         });
     }

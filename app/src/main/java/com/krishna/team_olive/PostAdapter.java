@@ -61,7 +61,6 @@ class ItemViewHolder extends RecyclerView.ViewHolder{
 
         iv_postimage = itemView.findViewById(R.id.iv_postimg);
         iv_like = itemView.findViewById(R.id.iv_like);
-        tv_exchange01 = itemView.findViewById(R.id.tv_exchange01);
         tv_exchange02 = itemView.findViewById(R.id.tv_exchange02);
         tv_itemname = itemView.findViewById(R.id.tv_postitemname);
         tv_rating = itemView.findViewById(R.id.tv_rating);
@@ -154,7 +153,6 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             itemViewHolder.tv_rating.setText(postsData.getRatings());
             itemViewHolder.tv_itemname.setText(postsData.getName());
             itemViewHolder.tv_exchange02.setText(postsData.getExchangeCateogary());
-            itemViewHolder.tv_exchange01.setText(postsData.getCateogary());
 
             apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
@@ -176,14 +174,10 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                     if(itemViewHolder.iv_like.getTag().equals("Like")){
                         FirebaseDatabase.getInstance().getReference().child("Likes").child(postsData.getPostid()).child(firebaseUser.getUid()).setValue(true);
                         FirebaseDatabase.getInstance().getReference().child("MyLikes").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(postsData.getPostid()).setValue(true);
-                        FirebaseDatabase.getInstance().getReference().child("postidwirhuserid").child(postsData.getPostid()).addValueEventListener(new ValueEventListener() {
+                    /*    FirebaseDatabase.getInstance().getReference().child("postidwirhuserid").child(postsData.getPostid()).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                                    String user_uid = dataSnapshot.getValue().toString();
-                                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Notifications").child(user_uid);
-                                    NotificationsModel notificationsModel = new NotificationsModel(FirebaseAuth.getInstance().getCurrentUser().getUid(),"Liked your post",postsData.getPostid(),1);
-                                    databaseReference.push().setValue(notificationsModel);
 
                                     FirebaseDatabase.getInstance().getReference().child("Tokens").
                                             child(postsData.getUid()).child("token").addValueEventListener(new ValueEventListener() {
@@ -220,6 +214,8 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
                             }
                         });
+
+                    */
                     }else{
                         FirebaseDatabase.getInstance().getReference().child("Likes").child(postsData.getPostid()).child(firebaseUser.getUid()).removeValue();
                         FirebaseDatabase.getInstance().getReference().child("MyLikes").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(postsData.getPostid()).removeValue();

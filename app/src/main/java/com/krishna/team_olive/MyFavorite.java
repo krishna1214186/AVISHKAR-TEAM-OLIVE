@@ -33,7 +33,6 @@ public class MyFavorite extends AppCompatActivity {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
-        linearLayoutManager.setReverseLayout(true);
 
         recyclerview_fav.setLayoutManager(linearLayoutManager);
 
@@ -47,12 +46,11 @@ public class MyFavorite extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedItemDescriptionModelList.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    String post_id = dataSnapshot.getValue().toString();
+                    String post_id = dataSnapshot.getKey().toString();
                     FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(post_id).addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             AddedItemDescriptionModel addedItemDescriptionModel = snapshot.getValue(AddedItemDescriptionModel.class);
-                            Toast.makeText(MyFavorite.this,addedItemDescriptionModel.getName(), Toast.LENGTH_SHORT).show();
                             addedItemDescriptionModelList.add(addedItemDescriptionModel);
                             favoriteAdapter.notifyDataSetChanged();
                         }

@@ -1,10 +1,12 @@
 package com.krishna.team_olive;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,20 +31,42 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         this.context = context;
     }
 
+    public class ViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView iv_postimage;
+        public TextView  tv_exchange02, tv_itemname;
+        LinearLayout ll_postClickFav;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            iv_postimage = itemView.findViewById(R.id.iv_postimg_fav);
+            tv_exchange02 = itemView.findViewById(R.id.tv_exchange02_fav);
+            tv_itemname = itemView.findViewById(R.id.tv_postitemname_fav);
+            ll_postClickFav = itemView.findViewById(R.id.post_click_fav);
+        }
+    }
+
     @Override
     public FavoriteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.favorite_item,parent, false);
-
         return new FavoriteAdapter.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteAdapter.ViewHolder holder, int position) {
         AddedItemDescriptionModel obj = addedItemDescriptionModelList.get(position);
-        holder.tv_exchange01.setText(obj.getCateogary());
         holder.tv_exchange02.setText(obj.getExchangeCateogary());
         holder.tv_itemname.setText(obj.getName());
         //Picasso.get().load(obj.getImageurl()).into(holder.iv_postimage);
+
+        holder.ll_postClickFav.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ItemDetailActivity.class);
+                intent.putExtra("postid", obj.getPostid());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -50,17 +74,5 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         return addedItemDescriptionModelList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ImageView iv_postimage;
-        public TextView tv_exchange01, tv_exchange02, tv_itemname;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            iv_postimage = itemView.findViewById(R.id.iv_postimg_fav);
-            tv_exchange01 = itemView.findViewById(R.id.tv_exchange01_fav);
-            tv_exchange02 = itemView.findViewById(R.id.tv_exchange02_fav);
-            tv_itemname = itemView.findViewById(R.id.tv_postitemname_fav);
-        }
-    }
 }

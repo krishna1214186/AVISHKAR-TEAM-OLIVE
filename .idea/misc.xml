@@ -12,6 +12,8 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/TEAM_OLIVE/app/src/main/res/layout/fragment_profile.xml" value="0.12962962962962962" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/btn_corner.xml" value="0.1421875" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/card_view_categories.xml" value="0.2537037037037037" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/custom_button.xml" value="1.171875" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/custom_button2.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/drawable_add.xml" value="0.10277777777777777" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/fab_add.xml" value="0.10277777777777777" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/fab_label.xml" value="0.10277777777777777" />
@@ -19,24 +21,34 @@
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/ic_star.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/view_bg_profile.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_added_item_detail_filling0.xml" value="0.2375" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_added_item_detail_filling1.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_added_item_detail_filling2.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_added_item_detail_filling3.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_exchange_request.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_exchange_requests.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_login.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_main.xml" value="0.264" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_main2.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_my_favorite.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_profile.xml" value="0.2375" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_search.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_search_bar.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_sign_up1.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_sign_up2.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/activity_user_profile.xml" value="0.2375" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/confirm_exchange_alert_dialouge.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/exchange_req_item.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/favorite_item.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/fragment_add.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/fragment_notification.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/fragment_profile.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/fragment_profile__info_.xml" value="0.2375" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/fragment_review.xml" value="0.2375" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/fragment_search.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/logoout_alert_dialouge.xml" value="0.264" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/menu_header.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/notification_item.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/post_item.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/post_loading.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/layout/review_layout.xml" value="0.2526041666666667" />

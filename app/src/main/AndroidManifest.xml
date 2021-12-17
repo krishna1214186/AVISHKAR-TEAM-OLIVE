@@ -37,9 +37,6 @@
             android:name=".SavedPosts"
             android:exported="true" />
         <activity
-            android:name=".ExchangeRequests"
-            android:exported="true" />
-        <activity
             android:name=".MyAdds"
             android:exported="true" />
         <activity
