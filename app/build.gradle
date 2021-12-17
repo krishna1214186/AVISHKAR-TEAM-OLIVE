@@ -92,6 +92,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.5.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.github.vimalcvs:Material-Smart-Rating:1.0.9'
     //implementation 'com.karumi:dexter:6.2.3'
 
 }
