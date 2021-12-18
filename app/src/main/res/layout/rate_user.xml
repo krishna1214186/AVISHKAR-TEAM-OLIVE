@@ -2,55 +2,54 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:background="@color/white_pressed"
     app:cardCornerRadius="7dp"
     app:cardElevation="1dp"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintEnd_toEndOf="parent">
+    >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="3dp">
+        android:orientation="vertical"
+       >
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/ic_rate_star"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/animation_view"
+            app:lottie_fileName="rating_animation.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/dialog_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+android:gravity="center_horizontal"
+            android:fontFamily="@font/bangers"
+            android:textSize="25dp"
             android:text="Rate User"
-            android:textSize="18sp"
-            android:textColor="@color/rate_button_color"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/icon"/>
+            android:textColor="@color/black"
+
+            />
 
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/give_five_star"
-            android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:layout_marginTop="6dp"
-            android:text="Provide your honest experience"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/dialog_title"/>
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:textSize="15dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:text="Please provide your honest experience"
+            />
 
 
 
@@ -59,56 +58,34 @@
             android:id="@+id/rb_stars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:numStars="5"
             android:stepSize="1.0"
             android:scaleX="0.9"
             android:scaleY="0.9"
             style="@style/AppRatingBar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/give_five_star" />
+            android:layout_gravity="center_horizontal"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_save"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:background="@drawable/rate_button_blue"
-            android:gravity="center"
-            android:text="Next"
-            android:textColor="@android:color/white"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rb_stars" />
-
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/bt_no"
-            android:layout_width="match_parent"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:gravity="center_horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_save">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackgroundBorderless">
+            android:layout_marginBottom="20dp"
+            android:textAllCaps="false"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/white"
+            android:id="@+id/btn_next"
+            android:text="Save"
+            android:textStyle="bold"
+            android:background="@drawable/custom_button"
+            android:layout_gravity="center_horizontal"/>
 
 
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>

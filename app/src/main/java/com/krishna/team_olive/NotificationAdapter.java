@@ -68,14 +68,15 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mcontext, RouteAndRating.class);
-                    intent.putExtra("Post id", notificationsModel.getPost_id());
-                    mcontext.startActivity(intent);
+
+
 
                     FirebaseDatabase.getInstance().getReference("allpostswithoutuser").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             AddedItemDescriptionModel model=snapshot.child(notificationsModel.getPost_id()).getValue(AddedItemDescriptionModel.class);
                             intent.putExtra("uid",model.getUid());
+                            intent.putExtra("postid", notificationsModel.getPost_id());
                             intent.putExtra("address",model.getAdress1()+model.getAdress2());
                             mcontext.startActivity(intent);
 

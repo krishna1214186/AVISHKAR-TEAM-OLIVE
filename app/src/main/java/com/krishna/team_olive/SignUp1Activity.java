@@ -56,7 +56,7 @@ public class SignUp1Activity extends AppCompatActivity {
 
         if(et_nameSignIn.getEditText().getText().toString().isEmpty() || et_emailSignIn.getEditText().getText().toString().isEmpty() || et_passwordSignIn.getEditText().getText().toString().isEmpty() || et_confirmPasswordSignIn.getEditText().getText().toString().isEmpty() ){
             Toast.makeText(this, "Enter all fields !", Toast.LENGTH_SHORT).show();
-        }else if( !(et_passwordSignIn.getEditText().getText().toString().equals( et_confirmPasswordSignIn.getEditText().getText().toString().isEmpty())) ) {
+        }else if( !(et_passwordSignIn.getEditText().getText().toString().equals( et_confirmPasswordSignIn.getEditText().getText().toString())) ) {
             Toast.makeText(this, "Both passowrds do not match !", Toast.LENGTH_SHORT).show();
         } else {
             btn_nextSignIn.setOnClickListener(new View.OnClickListener() {
@@ -73,17 +73,7 @@ public class SignUp1Activity extends AppCompatActivity {
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
 
-                                                SharedPreferences shrd = getSharedPreferences("data", MODE_PRIVATE);
-                                                SharedPreferences.Editor editor = shrd.edit();
 
-//                                            editor.putString("email", etmail2.getText().toString());
-//                                            editor.putString("name", etname2.getText().toString());
-                                                editor.putString("password", et_passwordSignIn.getEditText().getText().toString());
-                                                editor.apply();
-
-                                                Intent intent = new Intent(SignUp1Activity.this, SignUp2Activity.class);
-                                                startActivity(intent);
-                                                finish();
                                             } else {
                                                 Toast.makeText(SignUp1Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             }
