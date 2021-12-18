@@ -27,6 +27,7 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/exchange_req_item.xml" value="0.125" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/feedback_user.xml" value="0.11203703703703703" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/rate_user.xml" value="0.125" />
+
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/btn_corner.xml" value="0.1421875" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/card_view_categories.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/custom_button.xml" value="1.171875" />
@@ -122,6 +123,15 @@
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_like.xml" value="0.1421875" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_liked.xml" value="0.24074074074074073" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/mipmap-anydpi-v26/ic_liked_round.xml" value="0.1421875" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/activity_added_item_detail_filling0.xml" value="0.264" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/activity_item_detail.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/activity_login.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/activity_user_profile.xml" value="0.264" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/fragment_profile.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/fragment_profile__info_.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/fragment_review.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/THE BARTER SHOP/app/src/main/res/layout/fragment_search.xml" value="0.2526041666666667" />
       </map>
     </option>
   </component>

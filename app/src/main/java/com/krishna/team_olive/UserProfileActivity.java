@@ -48,6 +48,8 @@ public class UserProfileActivity extends AppCompatActivity {
 
     Uri imageUri;
 
+
+
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +60,16 @@ public class UserProfileActivity extends AppCompatActivity {
         vp_profile = findViewById(R.id.vp_profile);
         iv_edit_prof = findViewById(R.id.iv_profile_edit);
         iv_profile_img = findViewById(R.id.iv_profile_img);
-        iv_logout = findViewById(R.id.iv_profile_logout);
+//        iv_logout = findViewById(R.id.iv_profile_logout);
 
         auth = FirebaseAuth.getInstance();
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+
+
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
+        //collapsingToolbarLayout.setTitleEnabled(false);
 
 
         tl_profile.addTab(tl_profile.newTab().setText("Info"));
@@ -90,6 +98,19 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
+        reference.child("name").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                collapsingToolbarLayout.setTitle(snapshot.getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+       // collapsingToolbarLayout.setScrollY(1);
+
         final ProfileAdapter adapter = new ProfileAdapter(getSupportFragmentManager(), this, tl_profile.getTabCount());
         vp_profile.setAdapter(adapter);
 
@@ -102,8 +123,7 @@ public class UserProfileActivity extends AppCompatActivity {
         tl_profile.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
 
 
-
-        iv_edit_prof.setOnClickListener(new View.OnClickListener() {
+iv_edit_prof.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -112,7 +132,7 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivityForResult(intent,32);
             }
         });
-
+/*
         iv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,10 +142,9 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(intent);
 //                finish();
             }
-        });
+        });*/
 
-        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setScrollY(1);
+
 
     }
 
