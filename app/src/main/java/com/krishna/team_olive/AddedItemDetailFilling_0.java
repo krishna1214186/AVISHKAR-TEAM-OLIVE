@@ -129,7 +129,8 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        others=findViewById(R.id.OTHERS);
+        //others=findViewById(R.id.OTHERS);
+        /*
         others.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,5 +141,7 @@ public class AddedItemDetailFilling_0 extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+         */
     }
 }
