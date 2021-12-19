@@ -435,36 +435,37 @@
                     android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
 
                 <com.getbase.floatingactionbutton.FloatingActionsMenu
+                    android:id="@+id/floatingActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/floatingActionButton"
-                    android:clickable="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_alignParentBottom="true"
+                    android:clickable="true"
                     app:fab_colorNormal="@color/yellow"
                     app:fab_colorPressed="@color/yellow_pressed"
                     app:fab_icon="@color/white"
-                    app:fab_labelStyle="@style/custom_fab"
-                    android:layout_alignParentEnd="true">
+                    app:fab_labelStyle="@style/custom_fab">
 
                     <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/floatingActionButton2"
-                        app:fab_colorNormal="@color/white"
-                        app:fab_colorPressed="@color/white_pressed"
-                        app:fab_icon="@drawable/fab_add"
-                        app:fab_size="mini"
-                        app:fab_title="Donate"/>
-
-                    <com.getbase.floatingactionbutton.FloatingActionButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/floatingActionButton3"
                         app:fab_colorNormal="@color/white"
                         app:fab_colorPressed="@color/white_pressed"
                         app:fab_icon="@drawable/fab_add"
                         app:fab_size="mini"
-                        app:fab_title="Exchange"/>
+                        app:fab_title="Donate" />
+
+                    <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/floatingActionButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:fab_colorNormal="@color/white"
+                        app:fab_colorPressed="@color/white_pressed"
+                        app:fab_icon="@drawable/fab_add"
+                        android:backgroundTint="@color/light_orange"
+                        app:fab_size="mini"
+                        app:fab_title="Exchange" />
 
                 </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
