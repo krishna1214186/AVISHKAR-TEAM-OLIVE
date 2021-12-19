@@ -16,7 +16,7 @@
         android:padding="5dp"
         android:text="Please select the category of your item -"
         android:textAllCaps="true"
-        android:textColor="@color/black"
+        android:textColor="@color/light_orange"
         android:textSize="30sp" />
 
     <View

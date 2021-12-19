@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,7 +26,7 @@ import com.google.firebase.storage.UploadTask;
 import java.util.Map;
 
 public class AddedItemDetailFilling_1 extends AppCompatActivity {
-    EditText et_name,et_age,et_description,et_adress,et_landmark,et_pincode;
+    TextInputLayout et_name,et_age,et_description,et_adress,et_landmark,et_pincode;
     Button btn_next;
     DatabaseReference dataRefrence;
     FirebaseAuth auth;
@@ -53,12 +54,12 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name=et_name.getText().toString();
-                String age=et_age.getText().toString();
-                String description=et_description.getText().toString();
-                String adress=et_adress.getText().toString();
-                String landmark=et_landmark.getText().toString();
-                String pincode=et_pincode.getText().toString();
+                String name=et_name.getEditText().getText().toString();
+                String age=et_age.getEditText().getText().toString();
+                String description=et_description.getEditText().getText().toString();
+                String adress=et_adress.getEditText().getText().toString();
+                String landmark=et_landmark.getEditText().getText().toString();
+                String pincode=et_pincode.getEditText().getText().toString();
                 if(TextUtils.isEmpty(name)||TextUtils.isEmpty(age)||TextUtils.isEmpty(description)||TextUtils.isEmpty(adress)
                         ||TextUtils.isEmpty(landmark)||TextUtils.isEmpty(pincode))
                 {
