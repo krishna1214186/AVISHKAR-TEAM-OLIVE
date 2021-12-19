@@ -543,7 +543,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 startActivity(new Intent(getContext(),MyAdds.class));
                 break;
             case R.id.nav_history:
-                startActivity(new Intent(getContext(),History.class));
+                startActivity(new Intent(getContext(),MyExchangeHistory.class));
                 break;
             case R.id.nav_exchangeRequests:
                 startActivity(new Intent(getContext(),ExchangeRequest.class));

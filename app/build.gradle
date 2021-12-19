@@ -97,6 +97,7 @@ dependencies {
     implementation 'com.getbase:floatingactionbutton:1.10.1'
 
     implementation 'com.github.vimalcvs:Material-Smart-Rating:1.0.9'
+    implementation 'com.libRG:customtextview:2.2'
     //implementation 'com.karumi:dexter:6.2.3'
 
 }
