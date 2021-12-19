@@ -1,9 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     tools:context=".Feedback">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+   >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Feedback"
+        android:layout_marginLeft="10dp"
+        android:textSize="27sp"
+        android:fontFamily="@font/bangers"
+        android:textColor="@color/black"/>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/animation_view"
+        app:lottie_fileName="review.json"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rate us"
+        android:fontFamily="@font/bangers"
+        android:textColor="@color/black"
+       android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="18sp"/>
+    <RatingBar
+        android:id="@+id/rb_stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:scaleX="0.9"
+        android:scaleY="0.9"
+        style="@style/AppRatingBar"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_feedback"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rate_background"
+        android:gravity="top"
+        android:hint="@string/write_your_feedback_here"
+        android:lines="6"
+        android:padding="5dp"
+        android:layout_margin="20dp"
+        android:textSize="14sp"
+        />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="20dp"
+        android:textAllCaps="false"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/white"
+        android:id="@+id/btn_Save"
+        android:text="Save"
+        android:textStyle="bold"
+        android:background="@drawable/custom_button"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>
+
+</ScrollView>
