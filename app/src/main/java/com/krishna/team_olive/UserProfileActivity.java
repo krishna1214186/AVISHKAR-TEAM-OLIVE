@@ -48,8 +48,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     Uri imageUri;
 
-
-
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +58,11 @@ public class UserProfileActivity extends AppCompatActivity {
         vp_profile = findViewById(R.id.vp_profile);
         iv_edit_prof = findViewById(R.id.iv_profile_edit);
         iv_profile_img = findViewById(R.id.iv_profile_img);
-//        iv_logout = findViewById(R.id.iv_profile_logout);
+        iv_logout = findViewById(R.id.iv_profile_logout);
+        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
 
         auth = FirebaseAuth.getInstance();
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
-
-
-        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
-        //collapsingToolbarLayout.setTitleEnabled(false);
 
 
         tl_profile.addTab(tl_profile.newTab().setText("Info"));
@@ -82,12 +75,14 @@ public class UserProfileActivity extends AppCompatActivity {
         Picasso.get().load(R.drawable.ic_baseline_person_24).placeholder(R.drawable.ic_baseline_person_24).into(iv_profile_img);
 
         reference = FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid());
-        reference.child("profileimg").addValueEventListener(new ValueEventListener() {
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
 
-                if(!snapshot.getValue(String.class).isEmpty()) {
-                    Picasso.get().load(snapshot.getValue(String.class)).placeholder(R.drawable.ic_baseline_person_24).into(iv_profile_img);
+                collapsingToolbarLayout.setTitle(users.getName());
+                if(!users.getProfileimg().isEmpty()) {
+                    Picasso.get().load(users.getProfileimg()).placeholder(R.drawable.ic_baseline_person_24).into(iv_profile_img);
                 }
 
             }
@@ -98,32 +93,20 @@ public class UserProfileActivity extends AppCompatActivity {
             }
         });
 
-        reference.child("name").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                collapsingToolbarLayout.setTitle(snapshot.getValue(String.class));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-       // collapsingToolbarLayout.setScrollY(1);
-
         final ProfileAdapter adapter = new ProfileAdapter(getSupportFragmentManager(), this, tl_profile.getTabCount());
         vp_profile.setAdapter(adapter);
 
         vp_profile.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tl_profile));
 
-        tl_profile.setTranslationY(300);
+//        tl_profile.setTranslationY(300);
+//
+//        tl_profile.setAlpha(v);
+//
+//        tl_profile.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
 
-        tl_profile.setAlpha(v);
-
-        tl_profile.animate().translationY(0).alpha(1).setDuration(1000).setStartDelay(400).start();
 
 
-iv_edit_prof.setOnClickListener(new View.OnClickListener() {
+        iv_edit_prof.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
@@ -132,7 +115,7 @@ iv_edit_prof.setOnClickListener(new View.OnClickListener() {
                 startActivityForResult(intent,32);
             }
         });
-/*
+
         iv_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,8 +125,10 @@ iv_edit_prof.setOnClickListener(new View.OnClickListener() {
                 startActivity(intent);
 //                finish();
             }
-        });*/
+        });
 
+
+//        collapsingToolbarLayout.setScrollY(1);
 
 
     }

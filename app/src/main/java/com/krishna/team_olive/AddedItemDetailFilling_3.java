@@ -3,7 +3,10 @@ package com.krishna.team_olive;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -52,6 +55,8 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     AddedItemDescriptionModel model;
     List<NotifExchangeModel> notifExchangeModelList_1, notifExchangeModelList_2;
     private APIService apiService;
+    private Dialog dialog;
+    private Button btn_done;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +67,13 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         btn_ok.setVisibility(View.GONE);
         tv = findViewById(R.id.tv_cateogary);
         tv.setVisibility(View.GONE);
-
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.congrats_donate);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        btn_done = dialog.findViewById(R.id.btn_done);
         postid2 = getIntent().getStringExtra("postid");
         model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
+
 
         database = FirebaseDatabase.getInstance();
         dataRefrence = database.getReference();
@@ -76,21 +85,19 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
         if(model.getTypeOfExchange().equals("Y")){
             uploadData(model);
-            btn_ok.setVisibility(View.VISIBLE);
+            alertMessage();
         }
-        if(model.getTypeOfExchange().equals("N")){
-            tv.setVisibility(View.VISIBLE);
-            btn_ok.setVisibility(View.VISIBLE);
-            ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(AddedItemDetailFilling_3.this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.names));
-            myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mySpinner.setAdapter(myAdapter);
-            mySpinner.setOnItemSelectedListener(AddedItemDetailFilling_3.this);
-        }
+
+        tv.setVisibility(View.VISIBLE);
+        btn_ok.setVisibility(View.VISIBLE);
+        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(AddedItemDetailFilling_3.this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.names));
+        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mySpinner.setAdapter(myAdapter);
+        mySpinner.setOnItemSelectedListener(AddedItemDetailFilling_3.this);
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent=new Intent(AddedItemDetailFilling_3.this,MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -99,11 +106,23 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         });
     }
 
+    private void alertMessage() {
+        dialog.show();
+        btn_done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AddedItemDetailFilling_3.this,MainActivity.class));
+                dialog.dismiss();
+            }
+        });
+
+    }
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         text=parent.getItemAtPosition(position).toString();
         model.setExchangeCateogary(text);
-        model.setTypeOfExchange("N");
+        uploadData(model);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ExchangeNotif").child(model.getCateogary()+model.getExchangeCateogary()).push();
         NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -127,8 +146,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                     String client_uid = notifExchangeModel1.getUser_id();
 
                     forNotification(user_uid, client_uid);
-
-
                     Toast.makeText(AddedItemDetailFilling_3.this, notifExchangeModel1.getUser_id(), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -138,8 +155,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
             }
         });
-
-
         /*
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("NeedInExchange").child(model.getExchangeCateogary());
         NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -186,7 +201,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
             }
         });
         */
-
         dataRefrence.child("allpostswithoutuser").child(postid2).setValue(model);
         dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(model);
 
@@ -198,11 +212,9 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
-    public void uploadData(AddedItemDescriptionModel m)
-    {
+    public void uploadData(AddedItemDescriptionModel m) {
         dataRefrence.child("allpostswithoutuser").child(postid2).setValue(m);
         dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(m);
 
@@ -224,7 +236,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<MyResponse> call, Throwable t) {
 
@@ -244,23 +255,16 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
                         String token = snapshot.getValue(String.class);
                         sendNotifications(token, "Exchange item matched", name +" has same item for exchange");
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
                     }
                 });
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
-
-
 }
 /*
  DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ExchangeCategory").child(model.getExchangeCateogary());

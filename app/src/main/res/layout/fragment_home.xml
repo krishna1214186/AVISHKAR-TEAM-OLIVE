@@ -258,7 +258,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_tv"></ImageView>
+                                    android:src="@drawable/ic_tv">
+
+                                </ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -267,7 +269,9 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp"></TextView>
+                                android:layout_marginTop="5dp">
+
+                            </TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -295,7 +299,9 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp"></TextView>
+                                android:layout_marginTop="5dp">
+
+                            </TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -314,7 +320,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_furniture"></ImageView>
+                                    android:src="@drawable/ic_furniture">
+
+                                </ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -323,7 +331,9 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp"></TextView>
+                                android:layout_marginTop="5dp">
+
+                            </TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -342,7 +352,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_books"></ImageView>
+                                    android:src="@drawable/ic_books">
+
+                                </ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -351,7 +363,9 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp"></TextView>
+                                android:layout_marginTop="5dp">
+
+                            </TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -370,7 +384,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_accesories"></ImageView>
+                                    android:src="@drawable/ic_accesories">
+
+                                </ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -379,7 +395,9 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp"></TextView>
+                                android:layout_marginTop="5dp">
+
+                            </TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -398,7 +416,9 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_others"></ImageView>
+                                    android:src="@drawable/ic_others">
+
+                                </ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -407,7 +427,9 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp"></TextView>
+                                android:layout_marginTop="5dp">
+
+                            </TextView>
                         </LinearLayout>
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -425,14 +447,18 @@
                     android:textSize="15dp"
                     android:textColor="@color/black"
                     android:text="POSTS-"
-                    android:id="@+id/tv_posts"></TextView>
+                    android:id="@+id/tv_posts">
+
+                </TextView>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_posts"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/tv_posts"
-                    android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
+                    android:layout_marginTop="10dp">
+
+                </androidx.recyclerview.widget.RecyclerView>
 
                 <com.getbase.floatingactionbutton.FloatingActionsMenu
                     android:id="@+id/floatingActionButton"

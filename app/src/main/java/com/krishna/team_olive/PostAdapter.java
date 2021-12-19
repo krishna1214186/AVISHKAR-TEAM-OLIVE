@@ -161,6 +161,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtra("postid", postsData.getPostid());
+                    intent.putExtra("model", postsData);
                     context.startActivity(intent);
                 }
             });
@@ -228,6 +229,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtra("postid", postsData.getPostid());
+                    intent.putExtra("model", postsData);
                     intent.putExtra("check",1);
                     context.startActivity(intent);
                 }

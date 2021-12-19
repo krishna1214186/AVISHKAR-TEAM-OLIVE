@@ -77,7 +77,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     private PostAdapter postAdapter;
     public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList;
     public static ArrayList<AddedItemDescriptionModel> addedItemDescriptionModelArrayList2;
-    String isNGO ;
+    String isNGO;
     LinearLayout post_click;
     FirebaseAuth auth;
     Context context;
@@ -91,12 +91,11 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     }*/
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        context=view.getContext();
+        context = view.getContext();
 
         UpdateToken();
 
@@ -120,7 +119,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         cat_mobile = view.findViewById(R.id.cat_mobile);
         cat_cycle = view.findViewById(R.id.cat_cycle);
         cat_bike = view.findViewById(R.id.cat_bike);
-        cat_eleitems= view.findViewById(R.id.cat_eleitems);
+        cat_eleitems = view.findViewById(R.id.cat_eleitems);
         cat_tv = view.findViewById(R.id.cat_tv);
         cat_laptop = view.findViewById(R.id.cat_laptop);
         cat_furniture = view.findViewById(R.id.cat_furniture);
@@ -136,18 +135,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         recyclerView_posts.setLayoutManager(linearLayoutManager);
 
         addedItemDescriptionModelArrayList = new ArrayList<>();
-        addedItemDescriptionModelArrayList2= new ArrayList<>();
+        addedItemDescriptionModelArrayList2 = new ArrayList<>();
 
         auth = FirebaseAuth.getInstance();
 
-        postAdapter = new PostAdapter(recyclerView_posts,getContext(),addedItemDescriptionModelArrayList2);
+        postAdapter = new PostAdapter(recyclerView_posts, getContext(), addedItemDescriptionModelArrayList2);
         recyclerView_posts.setAdapter(postAdapter);
 
         f_exchange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddedItemDetailFilling_0.class);
-                intent.putExtra("donate","N");
+                intent.putExtra("donate", "N");
                 startActivity(intent);
             }
         });
@@ -156,7 +155,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AddedItemDetailFilling_0.class);
-                intent.putExtra("donate","Y");
+                intent.putExtra("donate", "Y");
                 startActivity(intent);
             }
         });
@@ -170,19 +169,20 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
         FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange( DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
 
-                if(users.getIsNGO().equals("Y")){
+                if (users.getIsNGO().equals("Y")) {
                     countTotal();
                     startPostsNGO();
-                }else{
+                } else {
                     countTotal();
                     startPostsnonNGO();
                 }
             }
+
             @Override
-            public void onCancelled( DatabaseError error) {
+            public void onCancelled(DatabaseError error) {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
@@ -191,7 +191,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
             @Override
             public void LoadMore() {
 
-                if(addedItemDescriptionModelArrayList2.size() <= count_try){
+                if (addedItemDescriptionModelArrayList2.size() <= count_try) {
                     addedItemDescriptionModelArrayList2.add(null);
                     postAdapter.notifyItemInserted(addedItemDescriptionModelArrayList2.size() - 1);
                     new Handler().postDelayed(new Runnable() {
@@ -202,23 +202,24 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
                             FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                                 @Override
-                                public void onDataChange( DataSnapshot snapshot) {
+                                public void onDataChange(DataSnapshot snapshot) {
                                     Users users = snapshot.getValue(Users.class);
 
-                                    if(users.getIsNGO().equals("Y")){
+                                    if (users.getIsNGO().equals("Y")) {
                                         showNGOposts();
-                                    }else{
+                                    } else {
                                         shownonNGOPosts();
                                     }
                                 }
+
                                 @Override
-                                public void onCancelled( DatabaseError error) {
+                                public void onCancelled(DatabaseError error) {
                                     Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
-                    },4000);
-                }else{
+                    }, 4000);
+                } else {
                     Toast.makeText(getContext(), "Complete data loaded!!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -230,17 +231,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("OTHERS");
-                        }else{
+                        } else {
                             showcatlistnonNGO("OTHERS");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -253,17 +255,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("CAR");
-                        }else{
+                        } else {
                             showcatlistnonNGO("CAR");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -276,17 +279,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("CLOTHES");
-                        }else{
+                        } else {
                             showcatlistnonNGO("CLOTHES");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -299,17 +303,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("CYCLES");
-                        }else{
+                        } else {
                             showcatlistnonNGO("CYCLES");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -322,17 +327,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("BOOKS");
-                        }else{
+                        } else {
                             showcatlistnonNGO("BOOKS");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -345,17 +351,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("FURNITURE");
-                        }else{
+                        } else {
                             showcatlistnonNGO("FURNITURE");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -368,17 +375,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("ELECTRONIC ITEMS");
-                        }else{
+                        } else {
                             showcatlistnonNGO("ELECTRONIC ITEMS");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -391,17 +399,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("MOBILES");
-                        }else{
+                        } else {
                             showcatlistnonNGO("MOBILES");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -414,17 +423,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("BIKES");
-                        }else{
+                        } else {
                             showcatlistnonNGO("BIKES");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -437,17 +447,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("TV");
-                        }else{
+                        } else {
                             showcatlistnonNGO("TV");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -460,17 +471,18 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 CAT_VS_POSTS = 2;
                 FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange( DataSnapshot snapshot) {
+                    public void onDataChange(DataSnapshot snapshot) {
                         Users users = snapshot.getValue(Users.class);
 
-                        if(users.getIsNGO().equals("Y")){
+                        if (users.getIsNGO().equals("Y")) {
                             showcatlistNGO("LAPTOP");
-                        }else{
+                        } else {
                             showcatlistnonNGO("LAPTOP");
                         }
                     }
+
                     @Override
-                    public void onCancelled( DatabaseError error) {
+                    public void onCancelled(DatabaseError error) {
                         Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -490,9 +502,9 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
             @Override
             public void onClick(View v) {
                 navigationView.setCheckedItem(R.id.nav_home);
-                if(drawerLayout.isDrawerVisible(GravityCompat.START)){
+                if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
                     drawerLayout.closeDrawer(GravityCompat.START);
-                }else{
+                } else {
                     drawerLayout.openDrawer(GravityCompat.START);
                 }
             }
@@ -535,30 +547,30 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_home:
                 getFragmentManager().beginTransaction().replace(R.id.frame_layout, new FragmentHome()).commit();
                 break;
             case R.id.nav_myAdds:
-                startActivity(new Intent(getContext(),MyAdds.class));
+                startActivity(new Intent(getContext(), MyAdds.class));
                 break;
             case R.id.nav_history:
-                startActivity(new Intent(getContext(),MyExchangeHistory.class));
+                startActivity(new Intent(getContext(), MyExchangeHistory.class));
                 break;
             case R.id.nav_exchangeRequests:
-                startActivity(new Intent(getContext(),ExchangeRequest.class));
+                startActivity(new Intent(getContext(), ExchangeRequest.class));
                 break;
             case R.id.nav_savedPosts:
-                startActivity(new Intent(getContext(),MyFavorite.class));
+                startActivity(new Intent(getContext(), MyFavorite.class));
                 break;
             case R.id.nav_help:
-                startActivity(new Intent(getContext(),Help.class));
+                startActivity(new Intent(getContext(), Help.class));
                 break;
             case R.id.nav_feedback:
-                startActivity(new Intent(getContext(),Feedback.class));
+                startActivity(new Intent(getContext(), Feedback.class));
                 break;
             case R.id.nav_aboutUs:
-                startActivity(new Intent(getContext(),AboutUs.class));
+                startActivity(new Intent(getContext(), AboutUs.class));
                 break;
             case R.id.nav_logOut:
                 logout();
@@ -591,12 +603,12 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         });
     }
 
-    private void countTotal(){
+    private void countTotal() {
         FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 count_try = 0;
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     count_try++;
                 }
             }
@@ -608,20 +620,20 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         });
     }
 
-    private void showcatlistnonNGO(String cate){
+    private void showcatlistnonNGO(String cate) {
         FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedItemDescriptionModelArrayList2.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    AddedItemDescriptionModel object ;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    AddedItemDescriptionModel object;
 
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                    if(object.getCateogary().equals(cate)){
+                    if (object.getCateogary().equals(cate)) {
                         addedItemDescriptionModelArrayList2.add(object);
                     }
                 }
-                if(addedItemDescriptionModelArrayList2.size()==0){
+                if (addedItemDescriptionModelArrayList2.size() == 0) {
                     Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
                     addedItemDescriptionModelArrayList2.add(null);
                 }
@@ -635,20 +647,20 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         });
     }
 
-    private void showcatlistNGO(String cate){
+    private void showcatlistNGO(String cate) {
         FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedItemDescriptionModelArrayList2.clear();
-                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                    AddedItemDescriptionModel object ;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    AddedItemDescriptionModel object;
 
                     object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                    if(object.getCateogary().equals(cate)){
+                    if (object.getCateogary().equals(cate)) {
                         addedItemDescriptionModelArrayList2.add(object);
                     }
                 }
-                if(addedItemDescriptionModelArrayList2.size()==0){
+                if (addedItemDescriptionModelArrayList2.size() == 0) {
                     Toast.makeText(getContext(), "Sorry no item available !!", Toast.LENGTH_SHORT).show();
                 }
                 postAdapter.notifyDataSetChanged();
@@ -661,7 +673,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         });
     }
 
-    private void startPostsnonNGO(){
+    private void startPostsnonNGO() {
 
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
@@ -676,7 +688,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
                         int end = 1;
-                        int i=0;
+                        int i = 0;
                         addedItemDescriptionModelArrayList.clear();
                         for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
                             AddedItemDescriptionModel object;
@@ -689,7 +701,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
                             for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
                                 if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
-                                    if(i == end) {
+                                    if (i == end) {
                                         break;
                                     }
                                     i++;
@@ -700,11 +712,13 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                         postAdapter.notifyDataSetChanged();
                         postAdapter.setLoaded();
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -736,7 +750,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
          */
     }
 
-    private void startPostsNGO(){
+    private void startPostsNGO() {
 
         FirebaseDatabase.getInstance().getReference().child("histo").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).orderByValue().limitToLast(11).addValueEventListener(new ValueEventListener() {
             @Override
@@ -750,7 +764,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
-                        int i=0;
+                        int i = 0;
                         addedItemDescriptionModelArrayList.clear();
                         for (DataSnapshot dataSnapshot2 : snapshot2.getChildren()) {
                             AddedItemDescriptionModel object;
@@ -763,7 +777,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
                             for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
                                 if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
-                                    if(i == 1) {
+                                    if (i == 1) {
                                         break;
                                     }
                                     i++;
@@ -774,11 +788,13 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                         postAdapter.notifyDataSetChanged();
                         postAdapter.setLoaded();
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
                 });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -824,7 +840,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
-                        int i=0;
+                        int i = 0;
                         int start = addedItemDescriptionModelArrayList2.size();
                         int end = start + 4;
                         addedItemDescriptionModelArrayList.clear();
@@ -838,10 +854,10 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
                             for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
                                 if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
-                                    if(i == end){
+                                    if (i == end) {
                                         break;
                                     }
-                                    if(i < start){
+                                    if (i < start) {
                                         i++;
                                         continue;
                                     }
@@ -915,7 +931,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
-                        int i=0;
+                        int i = 0;
                         int start = addedItemDescriptionModelArrayList2.size();
                         int end = start + 4;
                         addedItemDescriptionModelArrayList.clear();
@@ -928,10 +944,10 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                             String x = cat.get(a);
                             for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
                                 if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
-                                    if(i == end){
+                                    if (i == end) {
                                         break;
                                     }
-                                    if(i < start){
+                                    if (i < start) {
                                         i++;
                                         continue;
                                     }
@@ -990,10 +1006,10 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
          */
     }
 
-    private void UpdateToken(){
-        FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        String refreshToken= FirebaseInstanceId.getInstance().getToken();
-        Token token= new Token(refreshToken);
+    private void UpdateToken() {
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String refreshToken = FirebaseInstanceId.getInstance().getToken();
+        Token token = new Token(refreshToken);
         FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(token);
 
     }

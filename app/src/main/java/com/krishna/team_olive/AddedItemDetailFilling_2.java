@@ -23,6 +23,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -160,9 +161,9 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                 alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
                 ImageView closeButton = (ImageView) alertView.findViewById(R.id.closeButton);
-                ImageView iv_gallery_upload = (ImageView) alertView.findViewById(R.id.iv_gallery_uploado);
-                ImageView iv_vdo_upload = (ImageView) alertView.findViewById(R.id.iv_vdo_upload);
-                ImageView iv_camera_upload = (ImageView) alertView.findViewById(R.id.iv_camera_upload_alert);
+                LinearLayout iv_gallery_upload = (LinearLayout) alertView.findViewById(R.id.iv_gallery_uploado);
+                LinearLayout iv_vdo_upload = (LinearLayout) alertView.findViewById(R.id.iv_vdo_upload);
+                LinearLayout iv_camera_upload = (LinearLayout) alertView.findViewById(R.id.iv_camera_upload_alert);
 
                 if(j>0)
                     iv_vdo_upload.setVisibility(View.GONE);

@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
         <activity
+            android:name=".FullScreenVideoActivity"
+            android:exported="true" />
+        <activity
             android:name=".MyExchangeHistory"
             android:exported="true" />
         <activity
@@ -83,7 +86,7 @@
             android:exported="true" />
         <activity
             android:name=".RouteAndRating"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".ExchangeRequest"
             android:exported="true" />

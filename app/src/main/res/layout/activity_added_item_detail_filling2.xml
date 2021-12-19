@@ -4,13 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     android:orientation="vertical"
-    tools:context=".AddedItemDetailFilling_2">
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/bangers"
+        android:text="PLEASE ADD IMAGES AND VIDEO HERE-"
+        android:textColor="@color/light_orange"
+        android:textSize="30sp" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_below="@+id/tv"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="15dp"
+        android:background="@color/black" />
 
     <VideoView
         android:id="@+id/vv_upload"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:layout_below="@+id/view" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_img"
@@ -21,26 +41,29 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fac_add"
-        android:layout_width="149dp"
-        android:layout_height="133dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/gold"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:backgroundTint="@color/light_orange"
         android:clickable="true"
+        android:layout_above="@+id/btn_next"
         app:rippleColor="@color/gold"
-        app:srcCompat="@drawable/card_view_categories" />
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/fab_add"
+        android:layout_marginBottom="15dp"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_next"
-        android:layout_width="250dp"
-        android:layout_height="60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginLeft="20sp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginBottom="10dp"
-        android:layout_alignParentLeft="true"
-        android:text="Next" />
+        android:background="@drawable/custom_button"
+        android:text="Next"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>
