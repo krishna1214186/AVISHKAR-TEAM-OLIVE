@@ -19,7 +19,6 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop/app/src/main/res/layout/feedback_user.xml" value="0.11203703703703703" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop/app/src/main/res/layout/nav_map.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop/app/src/main/res/layout/rate_user.xml" value="0.11203703703703703" />
-
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/drawable/checkbox.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/drawable/custom_button2.xml" value="0.1" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/drawable/custom_button3.xml" value="0.1" />
@@ -37,10 +36,15 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/history_element.xml" value="0.11203703703703703" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/my_exchange_history_item.xml" value="0.11203703703703703" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/rate_user.xml" value="0.125" />
-
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/search_item.xml" value="0.11203703703703703" />
-
->>>>>>> krishna_new
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_about_us.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_added_item_detail_filling3.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_exchange_request.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/design_profile.xml" value="0.13333333333333333" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/fragment_profile__info_.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/image_profile.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/message_adapter_layout.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/rate_user.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/btn_corner.xml" value="0.1421875" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/card_view_categories.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/custom_button.xml" value="1.171875" />

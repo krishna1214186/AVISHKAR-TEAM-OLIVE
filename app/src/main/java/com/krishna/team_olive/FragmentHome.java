@@ -163,7 +163,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         iv_profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), UserProfileActivity.class));
+                startActivity(new Intent(getContext(), ProfileActivity.class));
             }
         });
 

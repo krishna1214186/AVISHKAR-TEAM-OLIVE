@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".FullScreenVideoActivity"
             android:exported="true" />
         <activity
