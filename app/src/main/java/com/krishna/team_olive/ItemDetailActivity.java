@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,8 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,9 +41,16 @@ import com.krishna.team_olive.SendNotificationPack.Client;
 import com.krishna.team_olive.SendNotificationPack.Data;
 import com.krishna.team_olive.SendNotificationPack.MyResponse;
 import com.krishna.team_olive.SendNotificationPack.NotificationSender;
+
+
+
+
+
 import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -51,7 +65,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     PostPhotoAdapter postPhotoAdapter;
     RecyclerView rv_post_photo;
-
+//MapView mapView;
     ArrayList<String> list_photo;
 
 
@@ -94,13 +108,23 @@ public class ItemDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Mapbox.getInstance(this, getString(R.string.access_token));
         setContentView(R.layout.activity_item_detail);
 
-
+//mapView =findViewById(R.id.mapView);
+       // mapView.onCreate(savedInstanceState);
+fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentmap);
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-
+////mapView.getMapAsync(new OnMapReadyCallback() {
+//    @Override
+//    public void onMapReady(@NonNull MapboxMap mapboxMap) {
+//        MarkerOptions options=new MarkerOptions();
+//        options.position(new LatLng(26.850000,80.949997));
+//        mapboxMap.addMarker(options);
+//    }
+ //});
         list_photo = new ArrayList<>();
         sim_model_list = new ArrayList<>();
 
@@ -139,13 +163,13 @@ public class ItemDetailActivity extends AppCompatActivity {
 //        check = getIntent().getIntExtra("check",0);
         AddedItemDescriptionModel model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 
-//        FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(post_id).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                AddedItemDescriptionModel object = snapshot.getValue(AddedItemDescriptionModel.class);
-//
-//                item_name = object.getName();
-//
+        FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(post_id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                AddedItemDescriptionModel object = snapshot.getValue(AddedItemDescriptionModel.class);
+
+                item_name = object.getName();
+
 //                tv_age.setText(object.getAgeOfProduct());
 //                tv_title.setText(object.getName());
 //                tv_location.setText(object.getAdress1()+", "+object.getAdress2());
@@ -154,46 +178,49 @@ public class ItemDetailActivity extends AppCompatActivity {
 //                rb_post.setRating(Float.parseFloat(object.getRatings()));
 //                rb_post.setIsIndicator(true);
 //                location = object.getAdress1()+", "+object.getAdress2();
+
+               // setImageforCategory(object.getCateogary(), iv_category);
+              // setImageforCategory(object.getExchangeCateogary(), iv_ex_category);
+                List<Address>[] addressList=new List[]{new ArrayList<Address>()};
+                fragment_map.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(@NonNull GoogleMap googleMap) {
+                        //   mGoogleApiClient.connect();
+                        map = googleMap;
+//                        if(location!=null || !location.equals("")){
+//                            Geocoder geocoder = new Geocoder(ItemDetailActivity.this);
+//                            try {
 //
-////                setImageforCategory(object.getCateogary(), iv_category);
-////                setImageforCategory(object.getExchangeCateogary(), iv_ex_category);
-//
-////                fragmentmap.getMapAsync(new OnMapReadyCallback() {
-////                    @Override
-////                    public void onMapReady(@NonNull GoogleMap googleMap) {
-////                        //   mGoogleApiClient.connect();
-////                        map = googleMap;
-////                        if(location!=null || !location.equals("")){
-////                            Geocoder geocoder = new Geocoder(ItemDetailActivity_old.this);
-////                            try {
-////                                addressList[0] = geocoder.getFromLocationName(location, 1);
-////                            } catch (IOException e) {
-////                                e.printStackTrace();
-////                            }
-////
-////                            Address address = (Address) addressList[0].get(0);
-////
-////                            double latfield = address.getLatitude();
-////                            double longfield = address.getLongitude();
-////
-////                            map.addMarker(new MarkerOptions().position(new LatLng(latfield, longfield)));
-////                            map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latfield, longfield)));
-////                            map.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(latfield, longfield)), 15.0f));
-////
-////
-////                        }
-////
-////                    }
-////                });
-//
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+//                                addressList[0] = geocoder.getFromLocationName(location, 1);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+
+                            //Address address = (Address) addressList[0].get(0);
+
+                          // double latfield = address.getLatitude();
+                          //  double longfieldc = address.getLongitude();
+                            double latfield=26.850000;
+                            double longfield=80.949997;
+
+                            map.addMarker(new MarkerOptions().position(new LatLng(latfield, longfield)));
+                            map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latfield, longfield)));
+                            map.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(latfield, longfield)), 15.0f));
+
+
+                      //  }
+
+                    }
+                });
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 //        database.getReference().child("post_files").child(post_id).addValueEventListener(new ValueEventListener() {
 //            @Override
@@ -232,7 +259,7 @@ public class ItemDetailActivity extends AppCompatActivity {
 //        });
 
 //                tv_age.setText(model.getAgeOfProduct());
-        tv_title.setText(model.getName());
+       /* tv_title.setText(model.getName());
         tv_location.setText(model.getAdress1()+", "+model.getAdress2());
 //                tv_description.setText(model.getDescription());
         tv_exchange_cate.setText(model.getExchangeCateogary());
@@ -240,7 +267,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         rb_post.setIsIndicator(true);
         location = model.getAdress1()+", "+ model.getAdress2();
         if(!(model.getImageurl().equals("")))
-            Picasso.get().load(model.getImageurl()).placeholder(R.drawable.ic_ads).into(iv_post_poster);
+            Picasso.get().load(model.getImageurl()).placeholder(R.drawable.ic_ads).into(iv_post_poster);*/
 
 
 
@@ -738,4 +765,5 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
     }
+
 }
