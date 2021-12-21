@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
        >
+
 <!--
                 <com.airbnb.lottie.LottieAnimationView
                     android:layout_width="match_parent"
@@ -38,6 +39,31 @@
                     android:textColor="@color/black"
 
                     />
+=======
+
+   <!--     <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="320dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/animation_view"
+            app:lottie_fileName="rating_animation.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>-->
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+android:gravity="center_horizontal"
+            android:fontFamily="@font/bangers"
+            android:textSize="25dp"
+            android:text="Rate User"
+            android:textColor="@color/black"
+
+            />
+>>>>>>> krishna_new
 
 
         <androidx.appcompat.widget.AppCompatTextView

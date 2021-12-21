@@ -19,6 +19,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TEAM_OLIVE">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".FullScreenVideoActivity"
             android:exported="true" />
         <activity
@@ -140,6 +143,9 @@
         <activity
             android:name=".AddedItemDetailFilling_1"
             android:exported="true" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAbhJe3--EpG-PayE4C9KzX1zHbirrrnuY" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -153,6 +159,7 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
+
         </provider>
     </application>
 
