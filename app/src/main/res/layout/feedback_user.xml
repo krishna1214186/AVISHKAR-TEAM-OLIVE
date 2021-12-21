@@ -18,7 +18,7 @@
         android:orientation="vertical"
         >
 
-        <com.airbnb.lottie.LottieAnimationView
+    <!--    <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="320dp"
             android:layout_marginTop="15dp"
@@ -28,6 +28,7 @@
             app:lottie_fileName="feedback_animation.json"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"/>
+            -->
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/dialog_title"
             android:layout_width="wrap_content"
