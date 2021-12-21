@@ -509,7 +509,12 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_alignParentBottom="true"
-                        android:clickable="true">
+                        android:clickable="true"
+                        app:fab_colorNormal="@color/yellow"
+                        app:fab_colorPressed="@color/yellow_pressed"
+                        app:fab_icon="@color/white"
+                        app:fab_labelStyle="@style/custom_fab">
+
 
                         <com.getbase.floatingactionbutton.FloatingActionButton
                             android:id="@+id/floatingActionButton2"
@@ -517,9 +522,12 @@
                             android:layout_height="wrap_content"
                             app:fab_colorNormal="@color/white"
                             app:fab_colorPressed="@color/white_pressed"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
                             app:fab_icon="@drawable/fab_add"
                             app:fab_size="mini"
                             app:fab_title="Donate" />
+
 
                         <com.getbase.floatingactionbutton.FloatingActionButton
                             android:id="@+id/floatingActionButton3"
@@ -527,11 +535,15 @@
                             android:layout_height="wrap_content"
                             app:fab_colorNormal="@color/white"
                             app:fab_colorPressed="@color/white_pressed"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
                             app:fab_icon="@drawable/fab_add"
                             app:fab_size="mini"
                             app:fab_title="Exchange" />
 
+
                     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 
                 </RelativeLayout>
 

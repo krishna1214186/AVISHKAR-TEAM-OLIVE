@@ -84,19 +84,30 @@
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/menu/main_menu.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1421875" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1421875" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/background_spinner.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custom_background4.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custom_background5.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custom_background6.xml" value="0.265625" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custom_button.xml" value="0.26875" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custom_button2.xml" value="0.26875" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custom_button3.xml" value="0.26875" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custombuttonchat.xml" value="0.26875" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/custombuttonreq.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/save_icon.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/drawable/saved_icon.xml" value="0.26875" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_added_item_detail_filling0.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_added_item_detail_filling3.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_feedback.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_item_detail.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_login.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_sign_up1.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_sign_up2.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/congrats_donate.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/congratulations_dialog.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/feedback_user.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/item_spinner.xml" value="0.264" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/post_item.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/rate_user.xml" value="0.24351851851851852" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/card_view_categories.xml" value="0.23796296296296296" />

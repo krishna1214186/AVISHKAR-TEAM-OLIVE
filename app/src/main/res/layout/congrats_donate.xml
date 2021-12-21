@@ -3,8 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_marginLeft="25dp"
-    android:layout_marginRight="25dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:background="@color/white_pressed"
@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
-
+<!--
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="320dp"
@@ -28,6 +28,7 @@
             app:lottie_fileName="thankyou.json"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"/>
+            -->
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
@@ -54,11 +55,8 @@
             android:text="We will soon find someone who needs this !"
             />
 
-
-
-
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="150dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             android:textAllCaps="false"
@@ -70,10 +68,6 @@
             android:textStyle="bold"
             android:background="@drawable/custom_button"
             android:layout_gravity="center_horizontal"/>
-
-
-
-
 
     </LinearLayout>
 

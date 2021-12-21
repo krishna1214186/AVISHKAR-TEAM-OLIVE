@@ -1,3 +1,4 @@
+
 package com.krishna.team_olive;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,18 +60,21 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     private Dialog dialog;
     private Button btn_done;
 
+    private SpinnerItemAdapter spinnerItemAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_item_detail_filling3);
+
         Spinner mySpinner = findViewById(R.id.spinner_1);
+
         btn_ok = findViewById(R.id.btn_ok);
         btn_ok.setVisibility(View.GONE);
         tv = findViewById(R.id.tv_cateogary);
-        tv.setVisibility(View.GONE);
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.congrats_donate);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
         btn_done = dialog.findViewById(R.id.btn_done);
         postid2 = getIntent().getStringExtra("postid");
         model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
@@ -88,12 +93,9 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
             alertMessage();
         }
 
-        tv.setVisibility(View.VISIBLE);
-        btn_ok.setVisibility(View.VISIBLE);
-        ArrayAdapter<String> myAdapter=new ArrayAdapter<String>(AddedItemDetailFilling_3.this, android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.names));
-        myAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        mySpinner.setAdapter(myAdapter);
         mySpinner.setOnItemSelectedListener(AddedItemDetailFilling_3.this);
+        spinnerItemAdapter = new SpinnerItemAdapter(AddedItemDetailFilling_3.this, com.krishna.team_olive.Data.getFruitList());
+        mySpinner.setAdapter(spinnerItemAdapter);
 
         btn_ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +125,7 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         text=parent.getItemAtPosition(position).toString();
         model.setExchangeCateogary(text);
         uploadData(model);
+        btn_ok.setVisibility(View.VISIBLE);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ExchangeNotif").child(model.getCateogary()+model.getExchangeCateogary()).push();
         NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
