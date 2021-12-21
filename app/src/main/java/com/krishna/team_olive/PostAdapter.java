@@ -63,8 +63,8 @@ class ItemViewHolder extends RecyclerView.ViewHolder{
         iv_like = itemView.findViewById(R.id.iv_like);
         tv_exchange02 = itemView.findViewById(R.id.tv_exchange02);
         tv_itemname = itemView.findViewById(R.id.tv_postitemname);
-        tv_rating = itemView.findViewById(R.id.tv_rating);
-        tv_no_of_likes = itemView.findViewById(R.id.tv_no_of_likes);
+        //tv_rating = itemView.findViewById(R.id.tv_rating);
+        //tv_no_of_likes = itemView.findViewById(R.id.tv_no_of_likes);
 
 
     }
@@ -150,7 +150,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             if(postsData.getRatings() == ""){
                 postsData.setRatings("2");
             }
-            itemViewHolder.tv_rating.setText(postsData.getRatings());
+            //itemViewHolder.tv_rating.setText(postsData.getRatings());
             itemViewHolder.tv_itemname.setText(postsData.getName());
             itemViewHolder.tv_exchange02.setText(postsData.getExchangeCateogary());
 
@@ -250,10 +250,10 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(firebaseUser.getUid()).exists()){
-                    iv.setImageResource(R.drawable.ic_liked);
+                    iv.setImageResource(R.drawable.save_icon);
                     iv.setTag("Liked");
                 }else{
-                    iv.setImageResource(R.drawable.ic_like);
+                    iv.setImageResource(R.drawable.saved_icon);
                     iv.setTag("Like");
                 }
             }
@@ -268,7 +268,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
         FirebaseDatabase.getInstance().getReference().child("Likes").child(postid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                text.setText(snapshot.getChildrenCount() + " Like");
+//                text.setText(snapshot.getChildrenCount() + " Like");
             }
 
             @Override

@@ -49,7 +49,7 @@ FirebaseDatabase db;
         db=FirebaseDatabase.getInstance();
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        getWindow().setStatusBarColor(getResources().getColor(R.color.white));
+        getWindow().setStatusBarColor(getResources().getColor(R.color.back_white));
 
 
         meowBottomNavigation=findViewById(R.id.bottom_navigation);

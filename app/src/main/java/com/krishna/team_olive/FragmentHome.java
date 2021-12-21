@@ -17,6 +17,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -82,7 +83,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     FirebaseAuth auth;
     Context context;
     private ImageView iv_profileButton;
-    LinearLayout cat_car, cat_mobile, cat_cycle, cat_bike, cat_eleitems, cat_tv, cat_laptop, cat_furniture, cat_books, cat_clothes, cat_others;
+    CardView cat_car, cat_mobile, cat_cycle, cat_bike, cat_eleitems, cat_tv, cat_laptop, cat_furniture, cat_books, cat_clothes, cat_others;
 
     /*@Override
     public void onResume() {
@@ -125,7 +126,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         cat_furniture = view.findViewById(R.id.cat_furniture);
         cat_books = view.findViewById(R.id.cat_books);
         cat_clothes = view.findViewById(R.id.cat_accecories);
-        cat_others = view.findViewById(R.id.cat_others);
+        //cat_others = view.findViewById(R.id.cat_others);
 
         recyclerView_posts = view.findViewById(R.id.recyclerview_posts);
         recyclerView_posts.setHasFixedSize(true);
@@ -225,7 +226,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
             }
         });
 
-        cat_others.setOnClickListener(new View.OnClickListener() {
+       /* cat_others.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 CAT_VS_POSTS = 2;
@@ -248,6 +249,8 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 });
             }
         });
+
+        */
 
         cat_car.setOnClickListener(new View.OnClickListener() {
             @Override

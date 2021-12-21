@@ -26,6 +26,7 @@
     <color name="mapboxGrayLight">#C6D2E1</color>
     <color name="colorPrimary">#6200EE</color>
     <color name="mapboxBlue">#4264FB</color>
+    <color name="back_white">#FAF9F6</color>
 
 
     <color name="black_semi_transparent">#B2000000</color>
