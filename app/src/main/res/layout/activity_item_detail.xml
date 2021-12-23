@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-<<<<<<< HEAD
-=======
     xmlns:mapbox="http://schemas.android.com/apk/res-auto"
->>>>>>> krishna_new
     android:id="@+id/cl_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -174,14 +172,9 @@
                                         android:layout_below="@id/tv_exchange_cate"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginRight="10dp"
-<<<<<<< HEAD
                                         android:src="@drawable/exchange" />
-=======
-
-                                        android:src="@drawable/man"
-
                                          />
->>>>>>> krishna_new
+
 
 
                                     <TextView
@@ -243,9 +236,34 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:orientation="vertical">
-<<<<<<< HEAD
+                                android:orientation="vertical"/>
 
+                             <TextView
+                                    android:id="@+id/textView6"
+                                    android:layout_width="100dp"
+                                    android:gravity="center_horizontal"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:fontFamily="@font/bangers"
+                                    android:text="Rating"
+                                    android:textSize="18dp"
+                                    android:textColor="@color/black"/>
+
+                                <RatingBar
+                                    android:id="@+id/rb_post_rating"
+                                    style="?android:attr/ratingBarStyleIndicator"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_marginTop="8dp"
+                                    android:clickable="false"
+                                    android:focusable="false"
+                                    android:focusableInTouchMode="false"
+                                    android:numStars="5"
+                                    android:progressTint="@color/gold"
+                                    android:rating="2.0"
+                                    android:stepSize="0.1"/>
+                            </LinearLayout>
 
                                 <TextView
                                     android:id="@+id/textView6"
@@ -274,39 +292,6 @@
                                     android:stepSize="0.1"/>
                             </LinearLayout>
 
-
-=======
-
-
-                                <TextView
-                                    android:id="@+id/textView6"
-                                    android:layout_width="100dp"
-                                    android:gravity="center_horizontal"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:fontFamily="@font/bangers"
-                                    android:text="Rating"
-                                    android:textSize="18dp"
-                                    android:textColor="@color/black"/>
-
-                                <RatingBar
-                                    android:id="@+id/rb_post_rating"
-                                    style="?android:attr/ratingBarStyleIndicator"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_marginTop="8dp"
-                                    android:clickable="false"
-                                    android:focusable="false"
-                                    android:focusableInTouchMode="false"
-                                    android:numStars="5"
-                                    android:progressTint="@color/gold"
-                                    android:rating="2.0"
-                                    android:stepSize="0.1"/>
-                            </LinearLayout>
-
-
->>>>>>> krishna_new
                         </LinearLayout>
 
                         <View
@@ -355,15 +340,12 @@
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
                             android:background="@color/grey_light" />
-<<<<<<< HEAD
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:padding="10dp">
-=======
-
 
                         <fragment
                             android:id="@+id/fragmentmap"
@@ -372,14 +354,6 @@
                             android:layout_height="250dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="20dp" />
->>>>>>> krishna_new
-
-
-
-<<<<<<< HEAD
-=======
-
->>>>>>> krishna_new
 
                         <View
                             android:layout_width="match_parent"
@@ -471,13 +445,7 @@
                 android:layout_marginLeft="2dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="0.5"
-<<<<<<< HEAD
-                android:background="@drawable/custombuttonchat"
-=======
-
                 android:background="@drawable/custom_button"
-
->>>>>>> krishna_new
                 android:clickable="true"
                 android:fontFamily="@font/antic"
                 android:text="Chat"
@@ -492,13 +460,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
-<<<<<<< HEAD
                 android:background="@drawable/custombuttonreq"
-=======
-
-                android:background="@drawable/custom_background4"
-
->>>>>>> krishna_new
                 android:clickable="true"
                 android:fontFamily="@font/antic"
                 android:text="Request for exchange"

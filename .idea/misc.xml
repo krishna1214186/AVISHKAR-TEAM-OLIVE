@@ -37,27 +37,6 @@
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/my_exchange_history_item.xml" value="0.11203703703703703" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/rate_user.xml" value="0.125" />
         <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop2/app/src/main/res/layout/search_item.xml" value="0.11203703703703703" />
-<<<<<<< HEAD
-=======
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/drawable/my_msg_back.xml" value="0.17037037037037037" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/drawable/opo_msg_back.xml" value="0.17037037037037037" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/drawable/round_back_theme_1000.xml" value="0.17037037037037037" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_about_us.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_added_item_detail_filling3.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_chat.xml" value="0.15601851851851853" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_exchange_request.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/activity_item_detail.xml" value="0.15601851851851853" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/design_profile.xml" value="0.13333333333333333" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/exchange_req_item.xml" value="0.15601851851851853" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/fragment_chat.xml" value="0.15601851851851853" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/fragment_notification.xml" value="0.15601851851851853" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/fragment_profile__info_.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/image_profile.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/message_adapter_layout.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/nav_map.xml" value="0.15601851851851853" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/rate_user.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/hp/AndroidStudioProjects/TheBarterShop3/app/src/main/res/layout/sample_sender.xml" value="0.15601851851851853" />
->>>>>>> krishna_new
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/btn_corner.xml" value="0.1421875" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/card_view_categories.xml" value="0.2537037037037037" />
         <entry key="..\:/Users/hp/Desktop/BarterDemo/app/src/main/res/drawable/custom_button.xml" value="1.171875" />
@@ -119,6 +98,7 @@
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_added_item_detail_filling0.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_added_item_detail_filling3.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_feedback.xml" value="0.2526041666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_history.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_item_detail.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_login.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/activity_main.xml" value="0.2526041666666667" />
@@ -131,6 +111,10 @@
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/item_spinner.xml" value="0.264" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/post_item.xml" value="0.2526041666666667" />
         <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/rate_user.xml" value="0.24351851851851852" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/search_autocomplete_element.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/search_item.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/similar_posts_layout.xml" value="0.17916666666666667" />
+        <entry key="..\:/Users/hp/Desktop/MYAPP/app/src/main/res/layout/slider_item.xml" value="0.17916666666666667" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/card_view_categories.xml" value="0.23796296296296296" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/card_view_rating.xml" value="0.23796296296296296" />
         <entry key="..\:/Users/hp/Desktop/TEAM OLIVE 012/app/src/main/res/drawable/ic_accesories.xml" value="0.25277777777777777" />
