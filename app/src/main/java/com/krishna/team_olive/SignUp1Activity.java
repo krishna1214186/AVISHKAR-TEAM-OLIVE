@@ -54,35 +54,46 @@ public class SignUp1Activity extends AppCompatActivity {
             }
         });
 
-        if(et_nameSignIn.getEditText().getText().toString().isEmpty() || et_emailSignIn.getEditText().getText().toString().isEmpty() || et_passwordSignIn.getEditText().getText().toString().isEmpty() || et_confirmPasswordSignIn.getEditText().getText().toString().isEmpty() ){
-            Toast.makeText(this, "Enter all fields !", Toast.LENGTH_SHORT).show();
-        }else if( !(et_passwordSignIn.getEditText().getText().toString().equals( et_confirmPasswordSignIn.getEditText().getText().toString())) ) {
-            Toast.makeText(this, "Both passowrds do not match !", Toast.LENGTH_SHORT).show();
-        } else {
-            btn_nextSignIn.setOnClickListener(new View.OnClickListener() {
+
+        btn_nextSignIn.setOnClickListener(new View.OnClickListener() {
+
+
 
                 @Override
                 public void onClick(View v) {
 
-                    firebaseAuth.createUserWithEmailAndPassword(et_emailSignIn.getEditText().getText().toString(), et_passwordSignIn.getEditText().getText().toString()).
-                            addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
+                    if (et_nameSignIn.getEditText().getText().toString().isEmpty() || et_emailSignIn.getEditText().getText().toString().isEmpty() || et_passwordSignIn.getEditText().getText().toString().isEmpty() || et_confirmPasswordSignIn.getEditText().getText().toString().isEmpty()) {
+                        Toast.makeText(SignUp1Activity.this, "Enter all fields !", Toast.LENGTH_SHORT).show();
+                    } else if (!(et_passwordSignIn.getEditText().getText().toString().equals(et_confirmPasswordSignIn.getEditText().getText().toString()))) {
+                        Toast.makeText(SignUp1Activity.this, "Both passowrds do not match !", Toast.LENGTH_SHORT).show();
+                    } else {
 
+                        firebaseAuth.createUserWithEmailAndPassword(et_emailSignIn.getEditText().getText().toString(), et_passwordSignIn.getEditText().getText().toString()).
+                                addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        firebaseAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
 
-                                            } else {
-                                                Toast.makeText(SignUp1Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent(SignUp1Activity.this, SignUp2Activity.class);
+                                                    intent.putExtra("email", et_emailSignIn.getEditText().getText().toString());
+                                                    intent.putExtra("pswd", et_passwordSignIn.getEditText().getText().toString());
+                                                    intent.putExtra("name", et_nameSignIn.getEditText().getText().toString());
+                                                    startActivity(intent);
+                                                    finish();
+
+                                                } else {
+                                                    Toast.makeText(SignUp1Activity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                        }
-                                    });
-                                }
-                            });
+                                        });
+                                    }
+                                });
+                    }
                 }
             });
         }
     }
-}
+

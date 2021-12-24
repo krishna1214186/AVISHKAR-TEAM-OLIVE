@@ -14,7 +14,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -246,6 +249,19 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
                 imguri1 = data.getData();
                 Toast.makeText(AddedItemDetailFilling_2.this, imguri1.toString()+"gallery", Toast.LENGTH_SHORT).show();
+
+                Bitmap bitmap_before_changes = null;
+                try {
+                    bitmap_before_changes = MediaStore.Images.Media.getBitmap(getContentResolver(), imguri1);
+//
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                Bitmap bitmap_after_changes = overlay(bitmap_before_changes);
+
+                imguri1 = getImageUri_from_bitmap(bitmap_after_changes);
 
                 try {
                     bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imguri1);
@@ -538,6 +554,20 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                         public void onClick(View v) {
 
                             i++;
+
+                            Bitmap bitmap_before_changes = null;
+                            try {
+                                bitmap_before_changes = MediaStore.Images.Media.getBitmap(getContentResolver(), imguri1);
+//
+
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            Bitmap bitmap_after_changes = overlay(bitmap_before_changes);
+
+                            imguri1 = getImageUri_from_bitmap(bitmap_after_changes);
+
                             list.add(imguri1);
                             imageUploadAdapter.notifyDataSetChanged();
                             alertDialog.dismiss();
@@ -678,6 +708,37 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
+    }
+
+    private Bitmap overlay(Bitmap bmp1) {
+        Bitmap bmOverlay = Bitmap.createBitmap(bmp1.getWidth(), bmp1.getHeight(), bmp1.getConfig());
+        Canvas canvas = new Canvas(bmOverlay);
+        canvas.drawBitmap(bmp1, new Matrix(), null);
+//        canvas.drawBitmap(bmp1, new Matrix(), null);
+
+        Paint paint = new Paint();
+//        paint.setAntiAlias(true);
+//        paint.setDither(true);
+//        paint.setStyle(Paint.Style.STROKE);
+//        paint.setStrokeJoin(Paint.Join.MITER);
+//        paint.setStrokeCap(Paint.Cap.SQUARE);
+        paint.setColor(Color.RED);
+//        paint.setStrokeWidth(16);
+        paint.setAlpha(220);
+
+        paint.setTextSize(bmp1.getWidth()/2);
+
+
+        canvas.drawText("!",bmp1.getWidth()/2, bmp1.getHeight()/2, paint);
+//        canvas.drawBitmap(bmp2, new Matrix(), null);
+        return bmOverlay;
+    }
+
+    public Uri getImageUri_from_bitmap( Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
 

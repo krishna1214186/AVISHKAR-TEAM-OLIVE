@@ -258,9 +258,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_tv">
-
-                                </ImageView>
+                                    android:src="@drawable/ic_tv"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -269,9 +267,7 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp">
-
-                            </TextView>
+                                android:layout_marginTop="5dp"></TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -299,9 +295,7 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp">
-
-                            </TextView>
+                                android:layout_marginTop="5dp"></TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -320,9 +314,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_furniture">
-
-                                </ImageView>
+                                    android:src="@drawable/ic_furniture"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -331,9 +323,7 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp">
-
-                            </TextView>
+                                android:layout_marginTop="5dp"></TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -352,9 +342,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_books">
-
-                                </ImageView>
+                                    android:src="@drawable/ic_books"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -363,9 +351,7 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp">
-
-                            </TextView>
+                                android:layout_marginTop="5dp"></TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -384,9 +370,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_accesories">
-
-                                </ImageView>
+                                    android:src="@drawable/ic_accesories"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -395,9 +379,7 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp">
-
-                            </TextView>
+                                android:layout_marginTop="5dp"></TextView>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="100dp"
@@ -416,9 +398,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:layout_margin="4dp"
-                                    android:src="@drawable/ic_others">
-
-                                </ImageView>
+                                    android:src="@drawable/ic_others"></ImageView>
                             </RelativeLayout>
                             <TextView
                                 android:layout_width="match_parent"
@@ -427,9 +407,7 @@
                                 android:gravity="center_horizontal"
                                 android:textColor="@color/black"
                                 android:textStyle="bold"
-                                android:layout_marginTop="5dp">
-
-                            </TextView>
+                                android:layout_marginTop="5dp"></TextView>
                         </LinearLayout>
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -447,51 +425,97 @@
                     android:textSize="15dp"
                     android:textColor="@color/black"
                     android:text="POSTS-"
-                    android:id="@+id/tv_posts">
+                    android:id="@+id/tv_posts"></TextView>
 
-                </TextView>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerview_posts"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@+id/tv_posts"
-                    android:layout_marginTop="10dp">
+                    android:layout_height="match_parent">
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmerFrameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="vertical">
+
+                        <!-- Adding 15 rows of placeholders -->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+
+                            <include layout="@layout/shimmer_placeholder_layout" />
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_posts"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
+                    <!--                    android:layout_below="@+id/tv_posts"-->
+
+                </RelativeLayout>
 
                 <com.getbase.floatingactionbutton.FloatingActionsMenu
-                    android:id="@+id/floatingActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentBottom="true"
+                    android:id="@+id/fam_home"
                     android:clickable="true"
+                    android:layout_alignParentBottom="true"
                     app:fab_colorNormal="@color/yellow"
                     app:fab_colorPressed="@color/yellow_pressed"
                     app:fab_icon="@color/white"
-                    app:fab_labelStyle="@style/custom_fab">
+                    app:fab_labelStyle="@style/custom_fab"
+                    android:layout_alignParentEnd="true">
 
                     <com.getbase.floatingactionbutton.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:id="@+id/floatingActionButton2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         app:fab_colorNormal="@color/white"
                         app:fab_colorPressed="@color/white_pressed"
                         app:fab_icon="@drawable/fab_add"
                         app:fab_size="mini"
-                        app:fab_title="Donate" />
+                        app:fab_title="Donate"/>
 
                     <com.getbase.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/floatingActionButton3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:id="@+id/floatingActionButton3"
                         app:fab_colorNormal="@color/white"
                         app:fab_colorPressed="@color/white_pressed"
                         app:fab_icon="@drawable/fab_add"
-                        android:backgroundTint="@color/light_orange"
                         app:fab_size="mini"
-                        app:fab_title="Exchange" />
+                        app:fab_title="Exchange"/>
 
                 </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

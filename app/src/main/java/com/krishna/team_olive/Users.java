@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class Users {
     private String email,name,location,phone,uid,profileimg,isNGO;
+    private String description;
    // HashMap<String,Object> map;
 
     public Users(String email,String isNGO, String location, String name,  String phone,  String profileimg,String uid ) {
@@ -17,6 +18,21 @@ public class Users {
         this.profileimg = profileimg;
         this.isNGO = isNGO;
     }
+
+    public Users( String discription, String email,String isNGO, String location, String name,  String phone,  String profileimg,String uid ) {
+//        HashMap<String,Object>
+        this.description = discription;
+        this.email = email;
+        this.name = name;
+        this.location = location;
+        this.phone = phone;
+        this.uid = uid;
+        this.profileimg = profileimg;
+        this.isNGO = isNGO;
+
+    }
+
+
 
     public Users() {
     }
@@ -75,5 +91,13 @@ public class Users {
 
     public void setIsNGO(String isNGO) {
         this.isNGO = isNGO;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

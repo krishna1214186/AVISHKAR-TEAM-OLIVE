@@ -38,4 +38,6 @@
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
     <color name="grey_light">#808080</color>
 
+    <color name="colorGrey">#dddddd</color>
+
 </resources>

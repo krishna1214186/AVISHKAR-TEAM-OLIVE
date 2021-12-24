@@ -79,7 +79,6 @@ public class UserProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Users users = snapshot.getValue(Users.class);
-
                 collapsingToolbarLayout.setTitle(users.getName());
                 if(!users.getProfileimg().isEmpty()) {
                     Picasso.get().load(users.getProfileimg()).placeholder(R.drawable.ic_baseline_person_24).into(iv_profile_img);
