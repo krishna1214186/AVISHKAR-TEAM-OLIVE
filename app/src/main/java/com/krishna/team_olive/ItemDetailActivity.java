@@ -15,6 +15,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
@@ -41,22 +43,20 @@ import com.krishna.team_olive.SendNotificationPack.Client;
 import com.krishna.team_olive.SendNotificationPack.Data;
 import com.krishna.team_olive.SendNotificationPack.MyResponse;
 import com.krishna.team_olive.SendNotificationPack.NotificationSender;
-
-
-
-
-
+import com.krishna.team_olive.chat.Chat;
 import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ItemDetailActivity extends AppCompatActivity {
+public class ItemDetailActivity extends AppCompatActivity implements Animation.AnimationListener {
 
     VideoView vv_postvdo;
 
@@ -71,18 +71,18 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     ArrayList<String> post_photo;
 
-
     TextView tv_title, tv_age, tv_description, tv_location, tv_exchange_cate;
     Button btn_chat,btn_exchange;
-    RatingBar rb_post;
+    TextView tv_detail_rating, tv_u_may_like;
     ImageView iv_post_poster;
 
-
+    RecyclerView rv_user_review_detail;
+    TextView tv_user_name;
+    ImageView iv_user_review_detail;
+    CircleImageView iv_user_img_detail;
 
     FloatingActionButton fab_vdo_play, fab_vdo_pause;
-    ImageView iv_fullscreen, iv_vv_gradient;
-
-
+    ImageView iv_fullscreen, iv_vv_gradient, iv_ex_cate;
 
     String user_name, client_name, user_uid, client_uid, item_name;
 
@@ -103,6 +103,11 @@ public class ItemDetailActivity extends AppCompatActivity {
     private MediaController mediaController;
 
     int curr = 0;
+
+    Animation Togetheraniamtion;
+    int isClose = 0;
+
+    AddedItemDescriptionModel model;
 
 
     @Override
@@ -133,7 +138,7 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
         vv_postvdo = findViewById(R.id.vv_post_video);
         tv_title = findViewById(R.id.tv_item_title);
         tv_age = findViewById(R.id.tv_detail_age);
-//        tv_description = findViewById(R.id.tv_description);
+        tv_description = findViewById(R.id.tv_detail_description);
         rv_post_photo=findViewById(R.id.rv_photo);
         rv_similar_post = findViewById(R.id.rv_similar_post);
         tv_location = findViewById(R.id.tv_location);
@@ -143,25 +148,37 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
         iv_post_poster = findViewById(R.id.iv_post_poster);
 //        iv_category = findViewById(R.id.iv_category);
 //        iv_ex_category =findViewById(R.id.iv_exchange_category);
-        rb_post = findViewById(R.id.rb_post_rating);
+        tv_detail_rating = findViewById(R.id.tv_detail_rating);
         fab_vdo_play = findViewById(R.id.fab_vdo_play);
         fab_vdo_pause = findViewById(R.id.fab_vdo_pause);
         iv_fullscreen = findViewById(R.id.iv_enter_fullscreen);
         iv_vv_gradient = findViewById(R.id.iv_vv_gradient);
+        tv_u_may_like = findViewById(R.id.tv_u_may_like_detail);
+
+        rv_user_review_detail = findViewById(R.id.rv_user_review_detail);
+        iv_user_img_detail = findViewById(R.id.iv_user_img_detail);
+        tv_user_name = findViewById(R.id.tv_user_name);
+        iv_user_review_detail = findViewById(R.id.iv_user_review_detail);
+        iv_ex_cate = findViewById(R.id.iv_exchange_cate);
+
 
         post_photo = new ArrayList<>();
+
+        fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentmap);
+
 
         fab_vdo_play.setVisibility(View.INVISIBLE);
         fab_vdo_pause.setVisibility(View.INVISIBLE);
         iv_fullscreen.setVisibility(View.INVISIBLE);
         iv_vv_gradient.setVisibility(View.INVISIBLE);
 
+
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         post_id = getIntent().getStringExtra("postid");
 
 //        check = getIntent().getIntExtra("check",0);
-        AddedItemDescriptionModel model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
+        model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 
         FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(post_id).addValueEventListener(new ValueEventListener() {
             @Override
@@ -261,13 +278,57 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
 //                tv_age.setText(model.getAgeOfProduct());
        /* tv_title.setText(model.getName());
         tv_location.setText(model.getAdress1()+", "+model.getAdress2());
-//                tv_description.setText(model.getDescription());
+        if(model.getDescription()!=null)
+        tv_description.setText(model.getDescription());
         tv_exchange_cate.setText(model.getExchangeCateogary());
-        rb_post.setRating(Float.parseFloat(model.getRatings()));
-        rb_post.setIsIndicator(true);
+
+        tv_detail_rating.setText(model.getRatings()+ "/5");
+
         location = model.getAdress1()+", "+ model.getAdress2();
         if(!(model.getImageurl().equals("")))
             Picasso.get().load(model.getImageurl()).placeholder(R.drawable.ic_ads).into(iv_post_poster);*/
+
+        database.getReference().child("users").child(auth.getCurrentUser().getUid()).child("isNGO").addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String isNGO = snapshot.getValue(String.class);
+                        if(isNGO.equals("Yes")){
+                            iv_ex_cate.setVisibility(View.INVISIBLE);
+                            tv_exchange_cate.setVisibility(View.INVISIBLE);
+                            tv_u_may_like.setVisibility(View.GONE);
+                            rv_similar_post.setVisibility(View.GONE);
+                        }
+                        else{
+                            shownonNGOposts();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                }
+        );
+
+        database.getReference().child("users").child(model.getUid()).addValueEventListener(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Users user = snapshot.getValue(Users.class);
+                        if(user.getProfileimg()!=null){
+                            Picasso.get().load(user.getProfileimg()).placeholder(R.drawable.user_icon).into(iv_user_img_detail);
+                        }
+                        tv_user_name.setText(user.getName());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                }
+        );
 
 
 
@@ -385,6 +446,183 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
                     }
                 });
 
+
+            }
+        });
+
+        btn_chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(model.getPostid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String uid=snapshot.child("uid").getValue(String.class);
+                        FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                int i=0;
+                                for(DataSnapshot datasnapshot2:snapshot2.getChildren())
+                                {
+
+                                    if(datasnapshot2.child("uid").getValue(String.class).equals(uid))
+                                    {
+
+                                        i++;
+                                        break;
+                                    }
+                                }
+                                if(i==0)
+                                {
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String name=snapshot.child("name").getValue(String.class);
+                                            HashMap<String,Object> hm=new HashMap<>();
+                                            hm.put("name",name);
+                                            hm.put("uid",uid);
+
+                                            FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).push().setValue(hm);
+
+
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                           /* FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Users users=snapshot.getValue(Users.class);
+                                    HashMap<String,Object> hm1=new HashMap<>();
+                                    hm1.put("name",users.getName());
+                                    hm1.put("uid",users.getUid());
+                                    FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).push().setValue(hm1);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });*/
+                                }
+
+                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        String name=snapshot.child("name").getValue(String.class);
+                                        Intent intent=new Intent(ItemDetailActivity.this, Chat.class);
+                                        intent.putExtra("name", name);
+                                        intent.putExtra("uid",uid);
+                                        startActivity(intent);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(model.getPostid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                        String uid=snapshot.child("uid").getValue(String.class);
+                        FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                int i=0;
+                                for(DataSnapshot datasnapshot2:snapshot2.getChildren())
+                                {
+
+                                    if(datasnapshot2.child("uid").getValue(String.class).equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))
+                                    {
+
+                                        i++;
+                                        break;
+                                    }
+                                }
+                                if(i==0)
+                                {
+                                    FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            String name=snapshot.child("name").getValue(String.class);
+                                            HashMap<String,Object> hm=new HashMap<>();
+                                            hm.put("name",name);
+                                            hm.put("uid",FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+                                            FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).push().setValue(hm);
+
+
+
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                           /* FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    Users users=snapshot.getValue(Users.class);
+                                    HashMap<String,Object> hm1=new HashMap<>();
+                                    hm1.put("name",users.getName());
+                                    hm1.put("uid",users.getUid());
+                                    FirebaseDatabase.getInstance().getReference().child("persons for chatting").child(uid).push().setValue(hm1);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });*/
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
         });
@@ -611,7 +849,6 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
                                 }
                             });
 
-                    Toast.makeText(ItemDetailActivity.this, "vdo pause vv", Toast.LENGTH_SHORT).show();
                     curr++;
                     vv_postvdo.pause();
                 }
@@ -691,7 +928,6 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
                                 }
                             });
                     curr++;
-                    Toast.makeText(ItemDetailActivity.this, "vdo button vv", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -707,25 +943,100 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
             }
         });
 
-        database.getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
+//        database.getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+//                    AddedItemDescriptionModel model1 = snapshot1.getValue(AddedItemDescriptionModel.class);
+//                    if( ((model1.getCateogary().equals(model.getCateogary()) ) ||( model1.getCateogary().equals(model.getExchangeCateogary())) ||
+//                            (model1.getExchangeCateogary() .equals( model.getCateogary())) || (model1.getExchangeCateogary().equals(model.getExchangeCateogary() ) ))
+//                            && !(model1.getUid() .equals(model.getUid())) ){
+//                        sim_model_list.add(model1);
+//                    }
+//                }
+//
+//                rv_similar_post.setHasFixedSize(true);
+//                SimilarPostAdapter similarPostAdapter;
+//                similarPostAdapter =new SimilarPostAdapter(context,sim_model_list);
+//                rv_similar_post.setAdapter(similarPostAdapter);
+//
+//                LinearLayoutManager layoutmanager=new LinearLayoutManager(context, RecyclerView.HORIZONTAL,false);
+//                rv_similar_post.setLayoutManager(layoutmanager);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
+        List<Address>[] addressList=new List[]{new ArrayList<Address>()};
+        fragment_map.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(@NonNull GoogleMap googleMap) {
+                //   mGoogleApiClient.connect();
+                map = googleMap;
+//                        if(location!=null || !location.equals("")){
+//                            Geocoder geocoder = new Geocoder(ItemDetailActivity.this);
+//                            try {
+//
+//                                addressList[0] = geocoder.getFromLocationName(location, 1);
+//                            } catch (IOException e) {
+//                                e.printStackTrace();
+//                            }
+
+                //Address address = (Address) addressList[0].get(0);
+
+                // double latfield = address.getLatitude();
+                //  double longfieldc = address.getLongitude();
+                double latfield=26.850000;
+                double longfield=80.949997;
+
+                map.addMarker(new MarkerOptions().position(new LatLng(latfield, longfield)));
+                map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latfield, longfield)));
+                map.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(latfield, longfield)), 15.0f));
+
+
+                //  }
+
+            }
+        });
+
+        iv_user_review_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    if(isClose%2==0) {
+                        Togetheraniamtion = AnimationUtils.loadAnimation(getApplicationContext(),
+                                R.anim.image_rotation);
+
+                        Togetheraniamtion.setAnimationListener(ItemDetailActivity.this);
+                        iv_user_review_detail.startAnimation(Togetheraniamtion);
+                    }
+                    else{
+                        Togetheraniamtion = AnimationUtils.loadAnimation(getApplicationContext(),
+                                R.anim.rev_image_rotation);
+
+                        Togetheraniamtion.setAnimationListener(ItemDetailActivity.this);
+                        iv_user_review_detail.startAnimation(Togetheraniamtion);
+                    }
+            }
+        });
+
+        ArrayList<String> list = new ArrayList<>();
+
+        database.getInstance().getReference().child("Ratings").child(auth.getCurrentUser().getUid().toString()).child("review").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+
                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                    AddedItemDescriptionModel model1 = snapshot1.getValue(AddedItemDescriptionModel.class);
-                    if( ((model1.getCateogary().equals(model.getCateogary()) ) ||( model1.getCateogary().equals(model.getExchangeCateogary())) ||
-                            (model1.getExchangeCateogary() .equals( model.getCateogary())) || (model1.getExchangeCateogary().equals(model.getExchangeCateogary() ) ))
-                            && !(model1.getUid() .equals(model.getUid())) ){
-                        sim_model_list.add(model1);
-                    }
+                    list.add(snapshot1.getValue(String.class));
                 }
+                rv_user_review_detail.hasFixedSize();
+                ReviewAdapter adapter =new ReviewAdapter(ItemDetailActivity.this,list);
+                rv_user_review_detail.setAdapter(adapter);
 
-                rv_similar_post.setHasFixedSize(true);
-                SimilarPostAdapter similarPostAdapter;
-                similarPostAdapter =new SimilarPostAdapter(context,sim_model_list);
-                rv_similar_post.setAdapter(similarPostAdapter);
-
-                LinearLayoutManager layoutmanager=new LinearLayoutManager(context, RecyclerView.HORIZONTAL,false);
-                rv_similar_post.setLayoutManager(layoutmanager);
+                LinearLayoutManager layoutmanager=new LinearLayoutManager(ItemDetailActivity.this,RecyclerView.VERTICAL,false);
+                rv_user_review_detail.setLayoutManager(layoutmanager);
             }
 
             @Override
@@ -735,7 +1046,7 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
         });
 
 
-
+    }
 
 
 
@@ -744,7 +1055,7 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
 
 
 
-    }
+
 
     public void sendNotifications(String usertoken, String title, String message) {
         Data data = new Data(title, message);
@@ -765,5 +1076,88 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
             }
         });
     }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+    }
+
+    @Override
+    public void onAnimationEnd(Animation animation) {
+        if(isClose%2==0){
+            isClose++;
+            rv_user_review_detail.setVisibility(View.VISIBLE);
+        }
+        else{
+            isClose++;
+            rv_user_review_detail.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+
+    }
+
+    private void shownonNGOposts() {
+        database.getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    AddedItemDescriptionModel model1 = snapshot1.getValue(AddedItemDescriptionModel.class);
+                    if( ((model1.getCateogary().equals(model.getCateogary()) ) ||( model1.getCateogary().equals(model.getExchangeCateogary())) ||
+                            (model1.getExchangeCateogary() .equals( model.getCateogary())) || (model1.getExchangeCateogary().equals(model.getExchangeCateogary() ) ))
+                            && !(model1.getUid() .equals(model.getUid())) ){
+                        sim_model_list.add(model1);
+                    }
+                }
+
+                rv_similar_post.setHasFixedSize(true);
+                SimilarPostAdapter similarPostAdapter;
+                similarPostAdapter =new SimilarPostAdapter(ItemDetailActivity.this,sim_model_list);
+                rv_similar_post.setAdapter(similarPostAdapter);
+
+                LinearLayoutManager layoutmanager=new LinearLayoutManager(ItemDetailActivity.this, RecyclerView.HORIZONTAL,false);
+                rv_similar_post.setLayoutManager(layoutmanager);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+        /*
+
+        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                int i=0;
+                int start = addedItemDescriptionModelArrayList.size();
+                int end = start + 4;
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    if(i == end){
+                        break;
+                    }
+                    if(i < start){
+                        i++;
+                        continue;
+                    }
+                    i++;
+                    AddedItemDescriptionModel object ;
+                    object = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    addedItemDescriptionModelArrayList.add(object);
+
+                }
+               postAdapter.notifyDataSetChanged();
+                postAdapter.setLoaded();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+         */
+
 
 }

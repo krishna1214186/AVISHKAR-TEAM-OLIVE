@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout et_emailLogin;
     private TextInputLayout et_passwordLogin;
-    private TextView tv_signIn;
+    private TextView tv_signIn, tv_forget_pswd;
 
     private Button btn_login;
 
@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         et_passwordLogin = findViewById(R.id.et_passwordLogin);
         tv_signIn = findViewById(R.id.tv_signIn);
         btn_login = findViewById(R.id.btn_login);
+        tv_forget_pswd = findViewById(R.id.btn_forget_pswd);
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -79,6 +80,14 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, SignUp1Activity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        tv_forget_pswd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentForgotPassword forgotPassword = new FragmentForgotPassword();
+                forgotPassword.show(getSupportFragmentManager(), forgotPassword.getTag());
             }
         });
 

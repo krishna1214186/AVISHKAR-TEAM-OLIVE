@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
@@ -23,8 +24,8 @@ import java.util.HashMap;
 
 public class SignUp2Activity extends AppCompatActivity {
 
-    private EditText et_locationSignIn;
-    private EditText et_phoneSignIn;
+    private TextInputLayout et_locationSignIn;
+    private TextInputLayout et_phoneSignIn;
 
     private Button btn_signIn;
 
@@ -39,27 +40,26 @@ public class SignUp2Activity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseAuth = FirebaseAuth.getInstance();
         et_locationSignIn = findViewById(R.id.et_location);
-        et_phoneSignIn = findViewById(R.id.et_phone);
+        et_phoneSignIn = findViewById(R.id.et_phoneNumber);
         btn_signIn = findViewById(R.id.btn_enter);
 
-        SharedPreferences getshared = getSharedPreferences("data", Context.MODE_PRIVATE);
-        String name = getshared.getString("name", "not known");
-//        String email = getshared.getString("email", "not known");
-        String pswd = getshared.getString("password", "not known");
+        String email = getIntent().getStringExtra("email");
+        String pswd = getIntent().getStringExtra("pswd");
+        String name = getIntent().getStringExtra("name");
 //        String uid = auth.getCurrentUser().getUid();
 
 
         btn_signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                firebaseAuth.signInWithEmailAndPassword(firebaseAuth.getCurrentUser().getEmail(), pswd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                firebaseAuth.signInWithEmailAndPassword(email, pswd).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             if (firebaseAuth.getCurrentUser().isEmailVerified()) {
 
-                                Users users = new Users(firebaseAuth.getCurrentUser().getEmail(), "No", et_locationSignIn.getText().toString(),
-                                        name, et_phoneSignIn.getText().toString(), "",
+                                Users users = new Users(firebaseAuth.getCurrentUser().getEmail(), "No", et_locationSignIn.getEditText().getText().toString(),
+                                        name, et_phoneSignIn.getEditText().getText().toString(), "https://firebasestorage.googleapis.com/v0/b/team-olive-29eea.appspot.com/o/avatar%2Fman%20(1).png?alt=media&token=ac70b688-2340-46bf-930d-173073c74753",
                                         firebaseAuth.getCurrentUser().getUid());
                                 firebaseDatabase.getReference().child("users").child(firebaseAuth.getCurrentUser().getUid()).setValue(users);
                                 HashMap<String, Object> hm = new HashMap<>();
@@ -91,12 +91,6 @@ public class SignUp2Activity extends AppCompatActivity {
                 });
             }
         });
-
-        if (firebaseAuth.getCurrentUser().isEmailVerified()) {
-            Intent intent = new Intent(SignUp2Activity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
 
     }
 }
