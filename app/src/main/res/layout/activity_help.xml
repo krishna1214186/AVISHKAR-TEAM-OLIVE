@@ -1,9 +1,182 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".Help">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Help"
+            android:layout_marginLeft="10dp"
+            android:textSize="27sp"
+            android:fontFamily="@font/bangers"
+            android:textColor="@color/black"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/animation_view"
+            app:lottie_fileName="help.json"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:text="Dont worry!! below is the list of features with description on how to use them-">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </TextView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Adding a post"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="There is a add button icon on the home page ,clicking on which you  will be asked about the details of the item you want to add.Like its description,your address, whether you want to donate or add it.After saving your post will be made visible to other users feed."
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Notifications"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="On clicking the notification icon in the home bar,you can get all the request you have received for exchange of item,you will also get notification about the accept of all the requests that you have made."
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Navigation"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you want to navigate to the user for exchange of item,you just need to go to the notifactions ,there you go to the notification of your request been accepted.Clicking this notification will show you a dialog giving option of navigating to the user .On clicking navigate to the user you will have a turn by turn navigation to the users place."
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sorting the feed"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you want filter the item on your home page on the basis of rating of product or you want to filter items on the basis of their distance,Then you just simply click on the search icon on the home bar, There you will get options of sorting on the basis of rating and sorting on the basis of distance."
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Rating the user"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="If you want to rate the user with which you exchanged the item,you just need to go to the notifactions ,there you go to the notification of your request been accepted.Clicking this notification will show you a dialog giving option of Already exchanged .On clicking ,Already exchanged , you will be shown the dialogs of rating and feedback."
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:text="For any other help you can contact us at-"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="20dp"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:text="krishnajalan1214@gmail.com">
+
+
+
+
+        </TextView>
+    </LinearLayout>
+
+</ScrollView>
