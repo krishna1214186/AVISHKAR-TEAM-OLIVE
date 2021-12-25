@@ -71,6 +71,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
             <LinearLayout
@@ -477,20 +478,21 @@
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
                 android:layout_height="match_parent">
+
                 <TextView
+                    android:id="@+id/tv_posts"
                     android:layout_width="match_parent"
-                    android:layout_height="20dp"
-                    android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/bangers"
                     android:text="@string/posts"
                     android:textAllCaps="true"
-                    android:fontFamily="@font/bangers"
-                    android:id="@+id/tv_posts"></TextView>
+                    android:textColor="@color/black"
+                    android:textSize="20sp"></TextView>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:layout_below="@+id/tv_posts"
                     android:layout_height="match_parent">
 
                     <com.facebook.shimmer.ShimmerFrameLayout

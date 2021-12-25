@@ -120,7 +120,11 @@ Button iv_logout;
         database.getInstance().getReference().child("Ratings").child(auth.getCurrentUser().getUid().toString()).child("rating").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                tv_prof_rating.setText(String.valueOf((long) snapshot.getValue()));
+                if(snapshot.getValue()==null){
+                    tv_prof_rating.setText("Not rated");
+                }else{
+                    tv_prof_rating.setText(String.valueOf((long) snapshot.getValue()));
+                }
             }
 
             @Override
