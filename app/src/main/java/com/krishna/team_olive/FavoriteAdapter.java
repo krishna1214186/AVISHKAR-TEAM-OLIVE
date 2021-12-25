@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,15 +35,18 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView iv_postimage;
-        public TextView  tv_exchange02, tv_itemname;
+        public TextView  tv_exchange02, tv_itemname,tv_username;
+        public Button btn_open;
         LinearLayout ll_postClickFav;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            iv_postimage = itemView.findViewById(R.id.iv_postimg_fav);
-            tv_exchange02 = itemView.findViewById(R.id.tv_exchange02_fav);
-            tv_itemname = itemView.findViewById(R.id.tv_postitemname_fav);
-            ll_postClickFav = itemView.findViewById(R.id.post_click_fav);
+            iv_postimage = itemView.findViewById(R.id.iv_postimg);
+            tv_exchange02 = itemView.findViewById(R.id.tv_exchange02);
+            tv_itemname = itemView.findViewById(R.id.tv_postitemname);
+            ll_postClickFav = itemView.findViewById(R.id.post_click);
+            tv_username=itemView.findViewById(R.id.tv_username);
+            btn_open=itemView.findViewById(R.id.btn_postOpen);
         }
     }
 
@@ -59,7 +63,21 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         holder.tv_itemname.setText(obj.getName());
         //Picasso.get().load(obj.getImageurl()).into(holder.iv_postimage);
 
-        holder.ll_postClickFav.setOnClickListener(new View.OnClickListener() {
+FirebaseDatabase.getInstance().getReference("users").addListenerForSingleValueEvent(new ValueEventListener() {
+    @Override
+    public void onDataChange(@NonNull DataSnapshot snapshot) {
+        if(snapshot.hasChild(obj.getUid())) {
+            Users user = snapshot.child(obj.getUid()).getValue(Users.class);
+            holder.tv_username.setText(user.getName());
+        }
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError error) {
+
+    }
+});
+        holder.btn_open.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ItemDetailActivity.class);
