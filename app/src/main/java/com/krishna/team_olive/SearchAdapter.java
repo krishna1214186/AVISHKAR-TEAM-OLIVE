@@ -92,7 +92,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
                 Intent intent = new Intent(context, ItemDetailActivity.class);
                intent.putExtra("postid", object_search.getPostid());
-
                context.startActivity(intent);
             }
         });

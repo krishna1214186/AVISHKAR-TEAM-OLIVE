@@ -15,11 +15,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="About Us"
-            android:layout_marginLeft="10dp"
             android:textSize="27sp"
             android:gravity="center_horizontal"
             android:fontFamily="@font/bangers"
-            android:textColor="@color/black"/>
+            android:textColor="@color/light_orange"/>
         <ImageView
             android:layout_width="250dp"
             android:layout_height="200dp"
@@ -30,8 +29,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="One mans trash is another mans treasure."
-            android:layout_marginLeft="10dp"
+            android:text="@string/slogan"
             android:textSize="27sp"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
@@ -68,13 +66,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Creators"
-            android:layout_marginLeft="10dp"
+            android:text="@string/creators"
             android:textSize="27sp"
             android:layout_marginTop="15dp"
             android:gravity="center_horizontal"
             android:fontFamily="@font/bangers"
-            android:textColor="@color/black"/>
+            android:textColor="@color/light_orange"/>
 
 
         <LinearLayout
@@ -95,7 +92,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="YASH A KABRA"
+                    android:text="@string/yash"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/antic"
@@ -134,7 +131,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="KRISHNA JALAN"
+                    android:text="@string/krishna"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/antic"
@@ -172,7 +169,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="ANUJ PANDEY"
+                    android:text="@string/anuj"
                     android:layout_marginLeft="10dp"
                     android:textColor="@color/black"
                     android:fontFamily="@font/antic"

@@ -176,8 +176,7 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         post_id = getIntent().getStringExtra("postid");
-
-//        check = getIntent().getIntExtra("check",0);
+        check = getIntent().getIntExtra("check",0);
         model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 
         FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").child(post_id).addValueEventListener(new ValueEventListener() {

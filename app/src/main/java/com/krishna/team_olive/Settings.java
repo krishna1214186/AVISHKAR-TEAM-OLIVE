@@ -59,7 +59,6 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setLanguage(Settings.this,"hi");
-
             }
         });
 
@@ -67,10 +66,10 @@ public class Settings extends AppCompatActivity {
 
     public void setLanguage(Activity activity, String language){
         Locale locale = new Locale(language);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale = locale;
-        getResources().updateConfiguration(config,getResources().getDisplayMetrics());
+        Resources resources = activity.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config,resources.getDisplayMetrics());
         dialog.dismiss();
     }
 }

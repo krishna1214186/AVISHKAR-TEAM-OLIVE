@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,7 +54,8 @@ class ItemViewHolder extends RecyclerView.ViewHolder{
 
     public ImageView iv_postimage;
     public ImageView iv_like;
-    public TextView tv_exchange01, tv_exchange02, tv_itemname, tv_rating, tv_no_of_likes;
+    public TextView tv_exchange02, tv_itemname, tv_rating, tv_reviews, tv_location;
+    public Button btn_post;
 
 
     public ItemViewHolder(@NonNull View itemView) {
@@ -63,10 +65,10 @@ class ItemViewHolder extends RecyclerView.ViewHolder{
         iv_like = itemView.findViewById(R.id.iv_like);
         tv_exchange02 = itemView.findViewById(R.id.tv_exchange02);
         tv_itemname = itemView.findViewById(R.id.tv_postitemname);
-        //tv_rating = itemView.findViewById(R.id.tv_rating);
-        //tv_no_of_likes = itemView.findViewById(R.id.tv_no_of_likes);
-
-
+        tv_rating = itemView.findViewById(R.id.tv_rating);
+        tv_reviews = itemView.findViewById(R.id.tv_reviews);
+        btn_post = itemView.findViewById(R.id.btn_postOpen);
+        tv_location = itemView.findViewById(R.id.tv_location);
     }
 }
 
@@ -150,24 +152,47 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             if(postsData.getRatings() == ""){
                 postsData.setRatings("2");
             }
-            //itemViewHolder.tv_rating.setText(postsData.getRatings());
             itemViewHolder.tv_itemname.setText(postsData.getName());
             itemViewHolder.tv_exchange02.setText(postsData.getExchangeCateogary());
 
+            itemViewHolder.tv_location.setText(postsData.getAdress2());
+
             apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
-            itemViewHolder.tv_itemname.setOnClickListener(new View.OnClickListener() {
+            itemViewHolder.btn_post.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtra("postid", postsData.getPostid());
                     intent.putExtra("model", postsData);
+                    intent.putExtra("check",1);
                     context.startActivity(intent);
                 }
             });
 
             isliked(postsData.getPostid(),itemViewHolder.iv_like);
-            nooflikes(postsData.getPostid(),itemViewHolder.tv_no_of_likes);
+
+            FirebaseDatabase.getInstance().getReference().child("Ratings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("number").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    itemViewHolder.tv_reviews.setText(snapshot.getValue().toString());
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+            FirebaseDatabase.getInstance().getReference().child("Ratings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rating").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    itemViewHolder.tv_rating.setText(snapshot.getValue().toString());
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
 
             itemViewHolder.iv_like.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -250,10 +275,10 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.child(firebaseUser.getUid()).exists()){
-                    iv.setImageResource(R.drawable.save_icon);
+                    iv.setImageResource(R.drawable.bookmark1);
                     iv.setTag("Liked");
                 }else{
-                    iv.setImageResource(R.drawable.saved_icon);
+                    iv.setImageResource(R.drawable.bookmark);
                     iv.setTag("Like");
                 }
             }
@@ -261,19 +286,6 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(context.getApplicationContext(), "Something went wrong !", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-    private void nooflikes(String postid, final TextView text){
-        FirebaseDatabase.getInstance().getReference().child("Likes").child(postid).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                text.setText(snapshot.getChildrenCount() + " Like");
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }
