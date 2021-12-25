@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="About Us"
+        android:text="@string/aboutus"
         android:layout_marginLeft="10dp"
         android:textSize="27sp"
        android:gravity="center_horizontal"
@@ -30,7 +30,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="One mans trash is another mans treasure."
+        android:text="@string/slogan"
         android:layout_marginLeft="10dp"
         android:textSize="27sp"
         android:layout_marginTop="10dp"
@@ -62,7 +62,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Creators"
+        android:text="@string/creators"
         android:layout_marginLeft="10dp"
         android:textSize="27sp"
         android:layout_marginTop="15dp"
@@ -70,44 +70,7 @@
         android:fontFamily="@font/bangers"
         android:textColor="@color/black"/>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="horizontal"
-    android:layout_marginTop="10dp"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:id="@id/search_image"
-        android:layout_marginLeft="15dp"
-        android:src="@drawable/man_1"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="KRISHNA JALAN"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/black"
-            android:fontFamily="@font/antic"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email:krishnajalan1214@gmail.com"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-           android:textSize="15dp"
-            android:fontFamily="@font/antic"
-            android:textStyle="bold"
-            />
-    </LinearLayout>
 
-</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -126,7 +89,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="YASH A KABRA"
+                android:text="@string/yash"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/antic"
@@ -164,7 +127,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="ANUJ PANDEY"
+                android:text="@string/anuj"
                 android:layout_marginLeft="10dp"
                 android:textColor="@color/black"
                 android:fontFamily="@font/antic"
@@ -175,6 +138,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Email:fearlessanuj31@gmail.com"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:textSize="15dp"
+                android:fontFamily="@font/antic"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@id/search_image"
+            android:layout_marginLeft="15dp"
+            android:src="@drawable/man_1"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/krishna"
+                android:layout_marginLeft="10dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/antic"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email:krishnajalan1214@gmail.com"
                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:textSize="15dp"

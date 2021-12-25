@@ -24,7 +24,7 @@
         android:layout_height="72dp"
         android:layout_gravity="center_vertical"
         android:fontFamily="@font/bungee_inline"
-        android:text="WELCOME !"
+        android:text="@string/welcome"
         android:textColor="@color/black"
         android:textSize="40sp"
         android:transitionName="logo_text" />
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_sloganLogin"
         android:transitionName="text"
-        android:text="Sign up to start a new journey !"
+        android:text="@string/signup"
         android:textSize="18sp"/>
 
     <LinearLayout
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:id="@+id/et_description_NGO"
-            android:hint="Description"
+            android:hint="@string/description"
             android:transitionName="user_trans"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_location_NGO"
-            android:hint="Address"
+            android:hint="@string/adress"
             android:transitionName="user_trans"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -80,7 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_phoneNumber_NGO"
-            android:hint="Number"
+            android:hint="@string/number"
             android:transitionName="password_trans"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -94,7 +94,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go"
+            android:text="@string/go"
             android:id="@+id/btn_enter_NGO"
             android:background="@color/black"
             android:textColor="@color/white"

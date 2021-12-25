@@ -75,7 +75,9 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.congrats_donate);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
         btn_done = dialog.findViewById(R.id.btn_done);
+
         postid2 = getIntent().getStringExtra("postid");
         model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 

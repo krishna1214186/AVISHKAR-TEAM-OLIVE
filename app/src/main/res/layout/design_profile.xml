@@ -1,222 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-
-    tools:context=".Help">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-<com.google.android.material.card.MaterialCardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
-    android:layout_marginTop="15dp"
-    app:cardBackgroundColor="@color/white_pressed"
-    app:cardCornerRadius="25dp"
-    app:cardElevation="15dp"
-    >
+
+    tools:context=".Help">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-    <TextView
-        android:layout_width="0dp"
-        android:layout_weight="5"
         android:layout_height="wrap_content"
-        android:text="My profile"
-        android:layout_marginLeft="10dp"
-        android:textSize="27sp"
+        android:orientation="vertical">
 
-        android:gravity="left"
-        android:fontFamily="@font/bangers"
-        android:textColor="@color/black"/>
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_marginTop="20dp"
-                android:layout_weight="0.5"
-                android:layout_height="match_parent"
-                android:src="@drawable/logout"/>
-            <Button
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="Log out"
-                android:textSize="15sp"
-                android:id="@+id/iv_profile_logout"
-                android:textColor="@color/black"
-                android:textAllCaps="false"
-                android:fontFamily="@font/antic"
-                android:backgroundTint="@color/white_pressed"
-
-                />
-        </LinearLayout>
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_profile_img"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="30dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/man_1"
-           />
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:clickable="true"
-            android:id="@+id/iv_profile_edit"
-            android:layout_marginTop="-30dp"
-            android:src="@drawable/plus"
-            android:layout_marginLeft="35dp"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
-            android:id="@+id/tv_name_prof"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/antic"
-            android:gravity="center_horizontal"
-            android:text="Name"
-            android:textColor="@color/black"
-            android:textSize="23sp"
-            android:textStyle="bold" />
+            android:layout_gravity="center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="5dp"
+            app:cardBackgroundColor="@color/white_pressed"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="15dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginTop="35dp"
-
-            android:layout_height="0.5dp"
-            android:background="@color/grey_light"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-                <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Posts"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20sp"
+                    android:orientation="horizontal">
 
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/antic"
-                   />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="5"
+                        android:fontFamily="@font/bangers"
+                        android:gravity="left"
+
+                        android:text="@string/myprofile"
+                        android:textColor="@color/black"
+                        android:textSize="27sp" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/logout" />
+
+                    <Button
+                        android:id="@+id/iv_profile_logout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:backgroundTint="@color/white_pressed"
+                        android:fontFamily="@font/antic"
+                        android:text="@string/logout"
+                        android:textAllCaps="false"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
+
+                        />
+                </LinearLayout>
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile_img"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/man_1" />
+
+                <ImageView
+                    android:id="@+id/iv_profile_edit"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="-30dp"
+                    android:clickable="true"
+                    android:src="@drawable/plus" />
+
                 <TextView
+                    android:id="@+id/tv_name_prof"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Posts"
                     android:layout_marginLeft="10dp"
-                    android:textSize="20sp"
-
-                    android:id="@+id/tv_prof_totpost"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/antic"
+                    android:gravity="center_horizontal"
+                    android:text="Name"
                     android:textColor="@color/black"
-                    />
+                    android:textSize="23sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+
+                    android:layout_marginTop="35dp"
+                    android:background="@color/grey_light" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/antic"
+                            android:gravity="center_horizontal"
+                            android:text="@string/posts"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_prof_totpost"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/antic"
+                            android:gravity="center_horizontal"
+                            android:text="Posts"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="0.005"
+                        android:background="@color/grey_light" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/antic"
+
+                            android:gravity="center_horizontal"
+                            android:text="@string/ratings"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_prof_rating"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="15dp"
+                            android:fontFamily="@font/antic"
+                            android:gravity="center_horizontal"
+                            android:text="Posts"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
-            <View
-                android:layout_width="0dp"
-                android:layout_weight="0.005"
-                android:layout_marginTop="5dp"
-                android:layout_height="match_parent"
-                android:background="@color/grey_light"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
 
-                android:orientation="vertical"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ratings"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20sp"
+        </com.google.android.material.card.MaterialCardView>
 
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/antic"
-                    />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Posts"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="20sp"
-                    android:id="@+id/tv_prof_rating"
-                    android:layout_marginTop="15dp"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/antic"
-                    />
-
-            </LinearLayout>
-        </LinearLayout>
-
-    </LinearLayout>
-
-</com.google.android.material.card.MaterialCardView>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="User Info"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="0dp"
-            android:textSize="27sp"
-
-            android:gravity="left"
             android:fontFamily="@font/bangers"
-            android:textColor="@color/black"/>
+            android:gravity="left"
+
+            android:text="User Info"
+            android:textColor="@color/black"
+            android:textSize="27sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:hint="Full Name"
 
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:hint="@string/name">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_name_prof2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_name_prof2"
-                android:text="My name"
                 android:background="@color/white_pressed"
                 android:drawableLeft="@drawable/ic_person"
                 android:drawablePadding="10dp"
-                android:textStyle="bold"
-
-                />
-
-            <!--            android:drawableLeft = "10dp"-->
+                android:text="My name"
+                android:textStyle="bold" />
 
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -224,20 +228,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="E-mail"
+            android:layout_marginLeft="10dp"
 
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:hint="@string/email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_email_prof"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_email_prof"
-                android:text="My e-mail"
                 android:background="@color/white_pressed"
                 android:drawableLeft="@drawable/ic_mail"
                 android:drawablePadding="10dp"
+                android:text="My e-mail"
                 android:textStyle="bold"
 
                 />
@@ -250,19 +254,19 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Phone number"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/number">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_phone_prof"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_phone_prof"
-                android:text="My name"
                 android:background="@color/white_pressed"
                 android:drawableLeft="@drawable/ic_phone"
                 android:drawablePadding="10dp"
+                android:text="My name"
                 android:textStyle="bold"
 
                 />
@@ -275,20 +279,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Address"
-            android:background="@color/white"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:hint="Address">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tv_address_prof"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_address_prof"
-                android:text="My Address"
                 android:background="@color/white_pressed"
                 android:drawableLeft="@drawable/ic_location"
                 android:drawablePadding="10dp"
+                android:text="@string/adress"
                 android:textStyle="bold"
 
                 />
@@ -302,32 +306,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
 
-            android:layout_marginBottom="20dp"
-            android:textAllCaps="false"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/white"
-            android:id="@+id/btn_edit_prof"
-            android:text="Update"
-            android:textStyle="bold"
-            android:background="@drawable/custom_button"
-            android:layout_gravity="center_horizontal"/>
-        <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_edit_prof"
+                android:layout_width="150dp"
 
-            android:layout_marginBottom="20dp"
-            android:textAllCaps="false"
-            android:layout_marginTop="15dp"
-            android:textColor="@color/white"
-            android:id="@+id/btn_done_prof"
-            android:text="Done"
-            android:textStyle="bold"
-            android:background="@drawable/custom_button"
-            android:layout_gravity="center_horizontal"/>
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_button"
+                android:text="Update"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_done_prof"
+                android:layout_width="150dp"
+
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/custom_button"
+                android:text="@string/done"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 

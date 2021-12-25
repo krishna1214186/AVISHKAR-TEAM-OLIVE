@@ -21,8 +21,8 @@
         android:id="@+id/tv_name_login"
         android:layout_width="wrap_content"
         android:layout_height="112dp"
-        android:fontFamily="@font/bungee_inline"
-        android:text="HELLO THERE, WELCOME BACK !"
+        android:fontFamily="@font/bangers"
+        android:text="@string/welcomeback"
         android:textColor="@color/black"
         android:textSize="40sp"
         android:transitionName="logo_text" />
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_sloganLogin"
         android:transitionName="text"
-        android:text="Sign In to continue"
+        android:text="@string/signintocontinue"
         android:textSize="18sp"/>
 
     <LinearLayout
@@ -46,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_emailLogin"
-            android:hint="Email"
+            android:hint="@string/email"
             android:transitionName="user_trans"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_passwordLogin"
-            android:hint="Password"
+            android:hint="@string/password"
             android:transitionName="password_trans"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -81,13 +81,13 @@
             android:textSize="16sp"
             android:paddingLeft="60dp"
             android:id="@+id/btn_forget_pswd"
-            android:text="Forget Password ?"
+            android:text="@string/forgotpswd"
             android:textColor="@color/black"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Go"
+            android:text="@string/go"
             android:id="@+id/btn_login"
             android:background="@color/black"
             android:textColor="@color/white"
@@ -103,7 +103,7 @@
             android:textSize="16sp"
             android:id="@+id/tv_signIn"
             android:transitionName="tv_trans"
-            android:text="New User, Sign up !"
+            android:text="@string/newusersignup"
             android:layout_margin="5dp"
             android:textColor="@color/black"/>
 

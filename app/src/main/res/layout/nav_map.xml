@@ -30,7 +30,7 @@
             android:layout_weight="4"
             android:background="@color/mapboxGrayLight"
             android:enabled="true"
-            android:text="show route" />
+            android:text="@string/showroute" />
         <Button
             android:id="@+id/btnStart"
             android:layout_width="0dp"

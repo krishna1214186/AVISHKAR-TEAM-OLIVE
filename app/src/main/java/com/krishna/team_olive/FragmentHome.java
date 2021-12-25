@@ -594,6 +594,9 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
             case R.id.nav_aboutUs:
                 startActivity(new Intent(getContext(),AboutUs.class));
                 break;
+            case R.id.nav_setting:
+                startActivity(new Intent(getContext(), Settings.class));
+                break;
             case R.id.nav_logOut:
                 logout();
                 break;

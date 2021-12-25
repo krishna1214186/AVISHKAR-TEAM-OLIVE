@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bangers"
-        android:text="PLEASE ADD IMAGES AND VIDEO HERE-"
+        android:text="@string/addimages"
         android:textColor="@color/light_orange"
         android:textSize="30sp" />
 
@@ -60,7 +60,7 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/custom_button"
-        android:text="Next"
+        android:text="@string/next"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold" />

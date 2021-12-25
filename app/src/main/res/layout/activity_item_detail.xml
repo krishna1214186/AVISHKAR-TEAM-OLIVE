@@ -386,7 +386,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:fontFamily="@font/adamina"
-                        android:text="About product"
+                        android:text="@string/description"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -415,16 +415,6 @@
                     <!--                    android:layout_width=""-->
                     <!--                    android:layout_height=""-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginRight="20dp"
-                        android:fontFamily="@font/adamina"
-                        android:text="Photos"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_photo"
@@ -583,7 +573,7 @@
                         android:layout_marginTop="20dp"
                         android:layout_marginRight="20dp"
                         android:fontFamily="@font/adamina"
-                        android:text="You may also like"
+                        android:text="@string/youmaylike"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -625,7 +615,7 @@
                 android:layout_weight="1.5"
                 android:textAllCaps="false"
                 android:id="@+id/btn_chat"
-                android:text="Chat"
+                android:text="@string/chat"
                 android:textStyle="bold"
                 android:textColor="@color/green"
                 android:background="@drawable/custom_button3"
@@ -643,7 +633,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:id="@+id/btn_exchange"
-                android:text="Request exchange"
+                android:text="@string/reqexchange"
                 android:textStyle="bold"
                 android:background="@drawable/custom_button"
                 android:layout_gravity="center_horizontal"

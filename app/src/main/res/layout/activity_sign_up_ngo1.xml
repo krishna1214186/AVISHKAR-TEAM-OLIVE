@@ -23,7 +23,7 @@
         android:layout_height="72dp"
         android:layout_gravity="center_vertical"
         android:fontFamily="@font/bungee_inline"
-        android:text="WELCOME !"
+        android:text="@string/welcome"
         android:textColor="@color/black"
         android:textSize="40sp"
         android:transitionName="logo_text" />
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_sloganLogin"
         android:transitionName="text"
-        android:text="Sign up to start a new journey !"
+        android:text="@string/signup"
         android:textSize="18sp"/>
 
     <LinearLayout
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_nameSignIn_NGO"
-            android:hint="Organization name"
+            android:hint="@string/orgname"
             android:transitionName="user_trans"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -61,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_emailSignIn_NGO"
-            android:hint="Your email"
+            android:hint="@string/email"
             android:transitionName="password_trans"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_passwordSignIn_NGO"
-            android:hint="Password"
+            android:hint="@string/password"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -90,7 +90,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/et_confirmPasswordSignIn_NGO"
-            android:hint="Confirm password"
+            android:hint="@string/confirmpswd"
             app:passwordToggleEnabled="true"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
@@ -103,7 +103,7 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next"
+            android:text="@string/next"
             android:id="@+id/btn_nextSignIn_NGO"
             android:background="@color/black"
             android:textColor="@color/white"
@@ -118,7 +118,7 @@
             android:gravity="center"
             android:textSize="14sp"
             android:id="@+id/tv_backLogin_NGO"
-            android:text="Already have an account. Sign Up!!"
+            android:text="@string/alreadyhaveaccount"
             android:layout_margin="5dp"
             android:transitionName="tv_trans"
             android:textColor="@color/black"/>
