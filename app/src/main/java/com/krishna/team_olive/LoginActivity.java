@@ -3,10 +3,15 @@ package com.krishna.team_olive;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,6 +23,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
+
 public class LoginActivity extends AppCompatActivity {
 
     private TextInputLayout et_emailLogin;
@@ -28,15 +35,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+
+
         et_emailLogin = findViewById(R.id.et_emailLogin);
         et_passwordLogin = findViewById(R.id.et_passwordLogin);
         tv_signIn = findViewById(R.id.tv_signIn);
-        btn_login = findViewById(R.id.btn_login);
+        btn_login = findViewById(R.id.btn_login_go);
         tv_forget_pswd = findViewById(R.id.btn_forget_pswd);
 
         firebaseAuth = FirebaseAuth.getInstance();

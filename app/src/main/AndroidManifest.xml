@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.krishna.team_olive">
+    package="com.krishna.team_olive" >
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -27,7 +27,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".Settings"
+            android:exported="true" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAbhJe3--EpG-PayE4C9KzX1zHbirrrnuY" />
@@ -81,14 +83,14 @@
         <service
             android:name=".SendNotificationPack.MyFirebaseIdService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="true" >
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
         <service
             android:name=".SendNotificationPack.MyFireBaseMessagingService"
-            android:permission="com.google.android.c2dm.permission.SEND">
+            android:permission="com.google.android.c2dm.permission.SEND" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
@@ -139,7 +141,6 @@
         <activity
             android:name=".LoginActivity"
             android:exported="true">
-
         </activity>
         <activity
             android:name=".SearchBar"
@@ -167,7 +168,7 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true" >
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />

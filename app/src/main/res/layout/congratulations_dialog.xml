@@ -37,7 +37,7 @@
 
         android:fontFamily="@font/bangers"
         android:textSize="25dp"
-        android:text="Hurray!!"
+        android:text="@string/hurray"
         android:textColor="@color/black"
 
         />
@@ -50,7 +50,7 @@
         android:fontFamily="@font/antic"
 android:textSize="20dp"
         android:textStyle="bold"
-        android:text="Your request has been accepted" />
+        android:text="@string/yourreqisacc" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="200dp"
@@ -61,7 +61,7 @@ android:textSize="20dp"
         android:layout_marginTop="25dp"
         android:textColor="@color/white"
         android:id="@+id/btn_navigate"
-        android:text="Navigate to user"
+        android:text="@string/navigateuser"
         android:textStyle="bold"
         android:background="@drawable/custom_button"
         android:layout_gravity="center_horizontal"/>
@@ -72,8 +72,8 @@ android:textSize="20dp"
         android:textAllCaps="false"
 
         android:id="@+id/btn_already"
-android:layout_marginBottom="20dp"
-        android:text="Already exchanged"
+        android:layout_marginBottom="20dp"
+        android:text="@string/alreagyexchanged"
         android:textStyle="bold"
         android:textColor="@color/green"
         android:background="@drawable/custom_button3"

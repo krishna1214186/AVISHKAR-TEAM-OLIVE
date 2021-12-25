@@ -14,7 +14,7 @@
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/bangers"
         android:padding="5dp"
-        android:text="Please select the category of your item -"
+        android:text="@string/selectcategory"
         android:textAllCaps="true"
         android:textColor="@color/light_orange"
         android:textSize="30sp" />
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/antic"
-                        android:text="Car"
+                        android:text="@string/car"
                         android:layout_marginTop="10dp"
                         android:textAlignment="center"
                         android:textColor="@color/light_orange"
@@ -106,7 +106,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/antic"
-                        android:text="Motor bikes"
+                        android:text="@string/bike"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -146,7 +146,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cycle"
+                        android:text="@string/cycle"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -186,7 +186,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mobile"
+                        android:text="@string/mobile"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -226,7 +226,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Electronic Items"
+                        android:text="@string/eleitem"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -266,7 +266,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Tv"
+                        android:text="@string/tv"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -306,7 +306,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Laptop"
+                        android:text="@string/laptop"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -346,7 +346,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Furniture"
+                        android:text="@string/furniture"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -386,7 +386,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Books"
+                        android:text="@string/books"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"
@@ -426,7 +426,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Clothes"
+                        android:text="@string/clothes"
                         android:textAlignment="center"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/light_orange"

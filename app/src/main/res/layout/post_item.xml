@@ -56,7 +56,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="By-"
+                        android:text="@string/by"
                         android:fontFamily="@font/antic"
                         android:textColor="@color/black"/>
 
@@ -105,7 +105,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
                         android:background="@drawable/custom_background6"
-                        android:text="Checkout"
+                        android:text="@string/open"
                         android:textColor="@color/green" />
 
                     <ImageView

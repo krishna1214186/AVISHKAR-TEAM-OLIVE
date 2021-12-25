@@ -15,32 +15,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
        >
-
-<!--
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="match_parent"
-                    android:layout_height="320dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:id="@+id/animation_view"
-                    app:lottie_fileName="rating_animation.json"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"/>-->
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-                    android:fontFamily="@font/bangers"
-                    android:textSize="25dp"
-                    android:text="Rate User"
-                    android:textColor="@color/black"
-
-                    />
-=======
-
    <!--     <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
             android:layout_height="320dp"
@@ -56,29 +30,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-android:gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:fontFamily="@font/bangers"
             android:textSize="25dp"
-            android:text="Rate User"
+            android:text="@string/rateuser"
             android:textColor="@color/black"
-
             />
->>>>>>> krishna_new
-
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center_horizontal"
-            android:textSize="15dp"
-            android:fontFamily="@font/antic"
-            android:textStyle="bold"
-            android:text="Please provide your honest experience"
-            />
-
-
-
 
         <RatingBar
             android:id="@+id/rb_stars"
@@ -102,7 +59,7 @@ android:gravity="center_horizontal"
             android:layout_marginTop="25dp"
             android:textColor="@color/white"
             android:id="@+id/btn_next"
-            android:text="Save"
+            android:text="@string/save"
             android:textStyle="bold"
             android:background="@drawable/custom_button"
             android:layout_gravity="center_horizontal"/>

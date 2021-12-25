@@ -9,9 +9,9 @@
         android:id="@+id/menu_slogan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Best Exchanges !"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
-        android:layout_alignParentBottom="true"/>
+        android:text="@string/app_slogan" />
 
     <TextView
         android:id="@+id/app_name"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/menu_slogan"
         android:fontFamily="@font/bangers"
-        android:text="The Barter Shop"
+        android:text="@string/app_name"
         android:textColor="@color/black"
         android:textSize="24sp" />
 

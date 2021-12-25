@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bangers"
-        android:text="LAST STEP TO GOO...."
+        android:text="@string/laststep"
         android:textColor="@color/light_orange"
         android:textSize="30sp" />
 
@@ -33,7 +33,7 @@
         android:layout_marginTop="40dp"
         android:fontFamily="@font/antic"
         android:gravity="center"
-        android:text="Choose a cateogary for exchange -"
+        android:text="@string/chooseacategory"
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold" />
@@ -60,7 +60,7 @@
             android:layout_marginRight="80dp"
             android:background="@drawable/custom_background5"
             android:fontFamily="@font/antic"
-            android:text="Done"
+            android:text="@string/done"
             android:textColor="@color/green"
             android:textSize="18sp" />
 

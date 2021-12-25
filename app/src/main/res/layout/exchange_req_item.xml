@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="wants to exchange your, "
+                android:text="@string/wanttoexchange"
                 android:fontFamily="@font/antic"
                 android:textColor="@color/grey_light"
                 android:paddingLeft="20dp"
@@ -71,7 +71,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:id="@+id/btn_accept_exchange_req"
-                android:text="Accept"
+                android:text="@string/accept"
                 android:textStyle="bold"
                 android:background="@drawable/custom_button"
                 android:layout_gravity="center_horizontal"/>
@@ -83,7 +83,7 @@
                 android:layout_marginTop="6dp"
                 android:id="@+id/btn_decline_exchange_req"
                 android:textColor="#FF0000"
-                android:text="Decline"
+                android:text="@string/decline"
                 android:textStyle="bold"
                 android:background="@drawable/custom_button2"
                 android:layout_gravity="center_horizontal"/>

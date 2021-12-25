@@ -51,18 +51,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
-                android:background="@color/gold"
                 android:padding="5dp"
                 android:layout_height="match_parent">
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
-
                     android:fontFamily="@font/antic"
-                    android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="The Barter Shop, provides a platform to its users where they could exchange thier items which might be of less use to them but it might be useful to some other user. It helps them to post their product, to contact with the user through chat,notifies them if their exchange requirement matches,users can navigate to the person easily also users can provide their feedback.Besides these features the app shows the feed based on users search history, also it could be filtered on the basis of distance and rating. This app also has a unique feature of verifying the product alerting the user if the product is not valid."
+                    android:text="@string/aboutusdesc"
                     />
             </LinearLayout>
 
@@ -78,6 +75,46 @@
             android:gravity="center_horizontal"
             android:fontFamily="@font/bangers"
             android:textColor="@color/black"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:id="@id/search_image"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/man_1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="YASH A KABRA"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/antic"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email:yashakabra05@gmail.com"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="15dp"
+                    android:fontFamily="@font/antic"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,44 +145,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Email:krishnajalan1214@gmail.com"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:textSize="15dp"
-                    android:fontFamily="@font/antic"
-                    android:textStyle="bold"
-                    />
-            </LinearLayout>
-
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@id/search_image"
-                android:layout_marginLeft="15dp"
-                android:src="@drawable/man_1"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="YASH A KABRA"
-                    android:layout_marginLeft="10dp"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/antic"
-                    android:textStyle="bold"
-                    android:textSize="20dp"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Email:yashakabra05@gmail.com"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:textSize="15dp"
