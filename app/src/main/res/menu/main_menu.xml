@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home"
+            android:title="@string/home"
+            android:icon="@drawable/drawable_home"/>
+        <item
+            android:id="@+id/nav_myAdds"
+            android:title="@string/myadds"
+            android:icon="@drawable/my_adds"
+            />
+
+        <item
+            android:id="@+id/nav_history"
+            android:title="@string/history"
+            android:icon="@drawable/history"/>
+        <item
+            android:id="@+id/nav_exchangeRequests"
+            android:title="@string/exchangereq"
+            android:icon="@drawable/exchange_requests"/>
+        <item
+            android:id="@+id/nav_savedPosts"
+            android:title="@string/savedposts"
+            android:icon="@drawable/saved_posts"/>
+    </group>
+
+    <item android:title="@string/ourapp">
+        <menu>
+            <group android:checkableBehavior="none">
+                <item android:id="@+id/nav_help"
+                    android:title="@string/help"
+                    android:icon="@drawable/information"/>
+
+                <item android:id="@+id/nav_feedback"
+                    android:title="@string/feedback"
+                    android:icon="@drawable/feedback"/>
+                <item android:id="@+id/nav_aboutUs"
+                    android:title="@string/aboutus"
+                    android:icon="@drawable/info"/>
+                <item android:id="@+id/nav_setting"
+                    android:title="@string/settings"
+                    android:icon="@drawable/settings"/>
+                <item android:id="@+id/nav_logOut"
+                    android:title="@string/logout"
+                    android:icon="@drawable/logout_a"/>
+            </group>
+        </menu>
+    </item>
+</menu>

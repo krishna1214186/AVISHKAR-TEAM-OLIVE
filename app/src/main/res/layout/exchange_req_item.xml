@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/man"
+            android:layout_marginLeft="7dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:id="@+id/tv_custumer_name"
+                android:fontFamily="@font/antic"
+                android:textColor="@color/black"
+                android:paddingLeft="20dp"
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/wanttoexchange"
+                android:fontFamily="@font/antic"
+                android:textColor="@color/grey_light"
+                android:paddingLeft="20dp"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Item name"
+                android:fontFamily="@font/antic"
+                android:id="@+id/tv_item_name_exchange_req"
+                android:textColor="@color/grey_light"
+                android:paddingLeft="20dp"
+                android:textSize="18sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="7dp"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="6dp"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:id="@+id/btn_accept_exchange_req"
+                android:text="@string/accept"
+                android:textStyle="bold"
+                android:background="@drawable/custom_button"
+                android:layout_gravity="center_horizontal"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:textAllCaps="false"
+                android:layout_marginTop="6dp"
+                android:id="@+id/btn_decline_exchange_req"
+                android:textColor="#FF0000"
+                android:text="@string/decline"
+                android:textStyle="bold"
+                android:background="@drawable/custom_button2"
+                android:layout_gravity="center_horizontal"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.7dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:background="@color/grey_light"/>
+
+</LinearLayout>
