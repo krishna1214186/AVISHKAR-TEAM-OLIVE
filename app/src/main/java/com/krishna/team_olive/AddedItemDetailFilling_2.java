@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -50,7 +49,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class AddedItemDetailFilling_2 extends AppCompatActivity {
@@ -58,7 +56,7 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
     VideoView vv_upload;
     RecyclerView rv_img;
     FloatingActionButton fac_img;
-    AddedItemDescriptionModel model;
+    AddedItemDescriptionModel modelPost;
     Button btn_next;
 
     Uri vdo_uri = null;
@@ -88,9 +86,9 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_added_item_detail_filling2);
 
-        model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
-        postid = model.getPostid();
-        category = model.getCateogary();
+        modelPost = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
+        postid = modelPost.getPostid();
+        category = modelPost.getCateogary();
 
 
         fac_img = findViewById(R.id.fac_add);
@@ -136,9 +134,11 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
 
                 if(i==0){
                     Toast.makeText(AddedItemDetailFilling_2.this, "Upload atleast 1 image in your post", Toast.LENGTH_LONG).show();
-                }else{
+                }else if(j==0)
+                    Toast.makeText(AddedItemDetailFilling_2.this, "Upload atleast 1 video in your post", Toast.LENGTH_LONG).show();
+                else{
                     Intent intent = new Intent(AddedItemDetailFilling_2.this, AddedItemDetailFilling_3.class);
-                    intent.putExtra("model",model);
+                    intent.putExtra("model", modelPost);
                     intent.putExtra("postid",postid);
                     startActivity(intent);
                     finish();
@@ -306,13 +306,9 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Uri uri) {
 
-                                        if(i==1){
-                                            database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
-                                        }
-
-                                        database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
-
-                                        Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+                                        if(modelPost.getTypeOfExchange().equals("Y"))
+                                            updateImagesForNGO(uri);
+                                        else updateImagesFornonNGO(uri);
 
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
@@ -363,12 +359,10 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Uri uri) {
 
-                                                if(i==1){
-                                                    database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
-                                                }
+                                                if(modelPost.getTypeOfExchange().equals("Y"))
+                                                    updateImagesForNGO(uri);
+                                                else updateImagesFornonNGO(uri);
 
-                                                database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
-                                                Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
                                             }
                                         }).addOnFailureListener(new OnFailureListener() {
                                             @Override
@@ -509,13 +503,9 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
 
-                                    if(i==1){
-                                        database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
-                                    }
-
-                                    database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
-
-                                    Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+                                    if(modelPost.getTypeOfExchange().equals("Y"))
+                                        updateImagesForNGO(uri);
+                                    else updateImagesFornonNGO(uri);
 
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -580,12 +570,10 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Uri uri) {
 
-                                            if(i==1){
-                                                database.getReference().child("allpostswithoutuser").child(postid).child("imageurl").setValue(uri.toString());
-                                            }
+                                            if(modelPost.getTypeOfExchange().equals("Y"))
+                                                updateImagesForNGO(uri);
+                                            else updateImagesFornonNGO(uri);
 
-                                            database.getReference().child("post_files").child(postid).push().setValue(uri.toString());
-                                            Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
                                         }
                                     }).addOnFailureListener(new OnFailureListener() {
                                         @Override
@@ -741,5 +729,28 @@ public class AddedItemDetailFilling_2 extends AppCompatActivity {
         String path = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
     }
+
+
+    public void updateImagesForNGO(Uri uri) {
+        if(i==1){
+            database.getReference().child("Current NGO posts").child(postid).child("imageurl").setValue(uri.toString());
+        }
+
+        database.getReference().child("post_files").child(postid).child("images").push().setValue(uri.toString());
+
+        Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+    }
+
+    public void updateImagesFornonNGO(Uri uri) {
+        if(i==1){
+            database.getReference().child("Current non NGO posts").child(postid).child("imageurl").setValue(uri.toString());
+        }
+
+        database.getReference().child("post_files").child(postid).child("images").push().setValue(uri.toString());
+
+        Toast.makeText(AddedItemDetailFilling_2.this, "IMAGE SUCESSFULLY ADDED", Toast.LENGTH_SHORT).show();
+    }
+
+
 
 }

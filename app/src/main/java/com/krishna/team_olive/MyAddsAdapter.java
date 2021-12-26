@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 public class MyAddsAdapter extends RecyclerView.Adapter<MyAddsAdapter.ViewHolder> {
@@ -50,6 +52,9 @@ public class MyAddsAdapter extends RecyclerView.Adapter<MyAddsAdapter.ViewHolder
         holder.tv_product_name.setText(list.get(position).getName());
 
         holder.tv_exchanged_cateogary.setText(list.get(position).getCateogary());
+
+        if (list.get(position).getPost_img() != null)
+            Picasso.get().load(list.get(position).getPost_img()).placeholder(R.drawable.ic_ads).into(holder.iv_product_photo);
 
     }
 

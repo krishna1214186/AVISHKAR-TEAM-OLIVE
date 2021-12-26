@@ -19,10 +19,10 @@ import java.util.List;
 
 public class ExchangeHistory extends AppCompatActivity {
     RecyclerView rv_history;
-FirebaseDatabase db;
-Exchange_history_Adapter adapter;
-List<AddedItemDescriptionModel> list;
-List<AddedItemDescriptionModel> list2;
+    FirebaseDatabase db;
+    Exchange_history_Adapter adapter;
+    List<AddedItemDescriptionModel> list;
+    List<AddedItemDescriptionModel> list2;
 
 
     @Override
@@ -38,7 +38,7 @@ List<AddedItemDescriptionModel> list2;
         rv_history.setLayoutManager(new LinearLayoutManager(this));
         adapter=new Exchange_history_Adapter(ExchangeHistory.this,list2);
         rv_history.setAdapter(adapter);
-        FirebaseDatabase.getInstance().getReference().child("Myexchanges").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("My Exchanges").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //String postid;
@@ -46,53 +46,41 @@ List<AddedItemDescriptionModel> list2;
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
                     postid.add(dataSnapshot.getValue(String.class));
-                   // Toast.makeText(ExchangeHistory.this,dataSnapshot.getValue(String.class) , Toast.LENGTH_SHORT).show();
+                    // Toast.makeText(ExchangeHistory.this,dataSnapshot.getValue(String.class) , Toast.LENGTH_SHORT).show();
                 }
 
 //
-FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
-    @Override
-    public void onDataChange(@NonNull DataSnapshot snapshot) {
-        list.clear();
-        for(DataSnapshot dataSnapshot:snapshot.getChildren())
-        {
+                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        list.clear();
+                        for(DataSnapshot dataSnapshot:snapshot.getChildren()) {
 
-                AddedItemDescriptionModel am=dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                list.add(am);
+                            AddedItemDescriptionModel am=dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                            list.add(am);
+                        }
+                        list2.clear();
+                        for(int i=0;i<postid.size();i++) {
+                            String id=postid.get(i);
+                            for(int j=0;j<list.size();j++) {
+                                if (list.get(j).getPostid().equals(id)) {
+                                    list2.add(list.get(j));
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-        }
-        list2.clear();
-        for(int i=0;i<postid.size();i++)
-        {
-            String id=postid.get(i);
-            for(int j=0;j<list.size();j++)
-            {
-                if (list.get(j).getPostid().equals(id)) {
-                    list2.add(list.get(j));
-
-                }
+                    }
+                });
             }
-
-        }
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onCancelled(@NonNull DatabaseError error) {
-
-    }
-});
-
-            }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
-
-
-
     }
 }

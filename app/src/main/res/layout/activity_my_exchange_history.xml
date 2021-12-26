@@ -10,22 +10,35 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:id="@+id/back_btn"
+            android:clickable="true"
+            android:layout_height="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/back1"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/exchangehistory"
-            android:layout_marginLeft="10dp"
-            android:textSize="27sp"
             android:fontFamily="@font/bangers"
-            android:textColor="@color/black"/>
+            android:gravity="center_horizontal"
+            android:text="@string/exchangehistory"
+            android:paddingRight="20dp"
+            android:textColor="@color/light_orange"
+            android:textSize="30sp" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:layout_height="0.7dp"
-            android:background="@color/grey_light"/>
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_height="0.5dp"
+        android:background="@color/grey_light"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

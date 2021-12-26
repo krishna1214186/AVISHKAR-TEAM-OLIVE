@@ -249,7 +249,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                                 }
                             });
                         }
-                    },4000);
+                    },1000);
                 }else{
                     Toast.makeText(getContext(), "Complete data loaded!!", Toast.LENGTH_SHORT).show();
                 }
@@ -577,7 +577,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                 startActivity(new Intent(getContext(),MyAdds.class));
                 break;
             case R.id.nav_history:
-                startActivity(new Intent(getContext(),History.class));
+                startActivity(new Intent(getContext(),MyExchangeHistory.class));
                 break;
             case R.id.nav_exchangeRequests:
                 startActivity(new Intent(getContext(),ExchangeRequest.class));
@@ -646,7 +646,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     }
 
     private void showcatlistnonNGO(String cate){
-        FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Current non NGO posts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedItemDescriptionModelArrayList2.clear();
@@ -673,7 +673,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
     }
 
     private void showcatlistNGO(String cate){
-        FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("Current NGO posts").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 addedItemDescriptionModelArrayList2.clear();
@@ -709,7 +709,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                     cat.add(dataSnapshot.getKey());
                 }
 
-                FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("Current non NGO posts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
                         int end = 1;
@@ -721,15 +721,15 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                             addedItemDescriptionModelArrayList.add(object);
                         }
                         addedItemDescriptionModelArrayList2.clear();
-                        for (int a = 0; a < cat.size(); a++) {
+                        for (int a = cat.size()-1; a >=0; a--) {
                             String x = cat.get(a);
 
                             for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
                                 if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
-                                    if(i == end) {
-                                        break;
-                                    }
-                                    i++;
+                                    //if(i == end) {
+                                     //   break;
+                                    //}
+                                    //i++;
                                     addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
                                 }
                             }
@@ -784,7 +784,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                     cat.add(dataSnapshot.getKey());
                 }
 
-                FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("Current NGO posts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
                         int i=0;
@@ -795,15 +795,15 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
                             addedItemDescriptionModelArrayList.add(object);
                         }
                         addedItemDescriptionModelArrayList2.clear();
-                        for (int a = 0; a < cat.size(); a++) {
+                        for (int a = cat.size()-1; a >=0; a--) {
                             String x = cat.get(a);
 
                             for (int j = 0; j < addedItemDescriptionModelArrayList.size(); j++) {
                                 if (addedItemDescriptionModelArrayList.get(j).getCateogary().equals(x)) {
-                                    if(i == 1) {
-                                        break;
-                                    }
-                                    i++;
+                                    //if(i == 1) {
+                                    //    break;
+                                    //}
+                                    //i++;
                                     addedItemDescriptionModelArrayList2.add(addedItemDescriptionModelArrayList.get(j));
                                 }
                             }
@@ -858,7 +858,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
                 }
 
-                FirebaseDatabase.getInstance().getReference().child("nonNGOposts").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("Current non NGO posts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
                         int i=0;
@@ -953,7 +953,7 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
 
                 }
 
-                FirebaseDatabase.getInstance().getReference().child("NGOposts").addValueEventListener(new ValueEventListener() {
+                FirebaseDatabase.getInstance().getReference().child("Current NGO posts").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot2) {
                         int i=0;
@@ -1039,8 +1039,5 @@ public class FragmentHome extends Fragment implements NavigationView.OnNavigatio
         String refreshToken= FirebaseInstanceId.getInstance().getToken();
         Token token= new Token(refreshToken);
         FirebaseDatabase.getInstance().getReference("Tokens").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(token);
-
     }
 }
-
-

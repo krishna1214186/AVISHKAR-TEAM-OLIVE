@@ -65,7 +65,7 @@ public class ItemDetailActivity extends AppCompatActivity implements Animation.A
 
     PostPhotoAdapter postPhotoAdapter;
     RecyclerView rv_post_photo;
-//MapView mapView;
+    //MapView mapView;
     ArrayList<String> list_photo;
 
 
@@ -117,8 +117,8 @@ public class ItemDetailActivity extends AppCompatActivity implements Animation.A
         setContentView(R.layout.activity_item_detail);
 
 //mapView =findViewById(R.id.mapView);
-       // mapView.onCreate(savedInstanceState);
-fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentmap);
+        // mapView.onCreate(savedInstanceState);
+        fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.fragmentmap);
 
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -129,7 +129,7 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
 //        options.position(new LatLng(26.850000,80.949997));
 //        mapboxMap.addMarker(options);
 //    }
- //});
+        //});
         list_photo = new ArrayList<>();
         sim_model_list = new ArrayList<>();
 
@@ -176,6 +176,7 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
         apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         post_id = getIntent().getStringExtra("postid");
+
         check = getIntent().getIntExtra("check",0);
         model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
 
@@ -195,8 +196,8 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
 //                rb_post.setIsIndicator(true);
 //                location = object.getAdress1()+", "+object.getAdress2();
 
-               // setImageforCategory(object.getCateogary(), iv_category);
-              // setImageforCategory(object.getExchangeCateogary(), iv_ex_category);
+                // setImageforCategory(object.getCateogary(), iv_category);
+                // setImageforCategory(object.getExchangeCateogary(), iv_ex_category);
                 List<Address>[] addressList=new List[]{new ArrayList<Address>()};
                 fragment_map.getMapAsync(new OnMapReadyCallback() {
                     @Override
@@ -212,19 +213,19 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
 //                                e.printStackTrace();
 //                            }
 
-                            //Address address = (Address) addressList[0].get(0);
+                        //Address address = (Address) addressList[0].get(0);
 
-                          // double latfield = address.getLatitude();
-                          //  double longfieldc = address.getLongitude();
-                            double latfield=26.850000;
-                            double longfield=80.949997;
+                        // double latfield = address.getLatitude();
+                        //  double longfieldc = address.getLongitude();
+                        double latfield=26.850000;
+                        double longfield=80.949997;
 
-                            map.addMarker(new MarkerOptions().position(new LatLng(latfield, longfield)));
-                            map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latfield, longfield)));
-                            map.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(latfield, longfield)), 15.0f));
+                        map.addMarker(new MarkerOptions().position(new LatLng(latfield, longfield)));
+                        map.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(latfield, longfield)));
+                        map.animateCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(latfield, longfield)), 15.0f));
 
 
-                      //  }
+                        //  }
 
                     }
                 });
@@ -370,12 +371,13 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
                         }
                     });
                 }
+
                 client_uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 FirebaseDatabase.getInstance().getReference().child("users").child(client_uid).child("name").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         client_name = snapshot.getValue().toString();
-                        FirebaseDatabase.getInstance().getReference().child("postidwirhuserid").child(post_id).addValueEventListener(new ValueEventListener() {
+                        FirebaseDatabase.getInstance().getReference().child("posts with uid").child(post_id).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -397,10 +399,7 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
                                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                                                         user_name = snapshot.getValue().toString();
                                                         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(user_uid).push();
-                                                        ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, post_id, "");
-                                                        String req_id = databaseReference.getKey().toString();
-                                                        exchangeModel.setRequest_uid(req_id);
-                                                        databaseReference.setValue(exchangeModel);
+                                                        ExchangeModel exchangeModel = new ExchangeModel(user_name, client_name, user_uid, client_uid, item_name, post_id, post_id);
 
                                                         FirebaseDatabase.getInstance().getReference().child("Tokens").
                                                                 child(user_uid).child("token").addValueEventListener(new ValueEventListener() {
@@ -1004,20 +1003,20 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
         iv_user_review_detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    if(isClose%2==0) {
-                        Togetheraniamtion = AnimationUtils.loadAnimation(getApplicationContext(),
-                                R.anim.image_rotation);
+                if(isClose%2==0) {
+                    Togetheraniamtion = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.image_rotation);
 
-                        Togetheraniamtion.setAnimationListener(ItemDetailActivity.this);
-                        iv_user_review_detail.startAnimation(Togetheraniamtion);
-                    }
-                    else{
-                        Togetheraniamtion = AnimationUtils.loadAnimation(getApplicationContext(),
-                                R.anim.rev_image_rotation);
+                    Togetheraniamtion.setAnimationListener(ItemDetailActivity.this);
+                    iv_user_review_detail.startAnimation(Togetheraniamtion);
+                }
+                else{
+                    Togetheraniamtion = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.rev_image_rotation);
 
-                        Togetheraniamtion.setAnimationListener(ItemDetailActivity.this);
-                        iv_user_review_detail.startAnimation(Togetheraniamtion);
-                    }
+                    Togetheraniamtion.setAnimationListener(ItemDetailActivity.this);
+                    iv_user_review_detail.startAnimation(Togetheraniamtion);
+                }
             }
         });
 
@@ -1157,6 +1156,4 @@ fragment_map= (SupportMapFragment) getSupportFragmentManager().findFragmentById(
             }
         });
          */
-
-
 }

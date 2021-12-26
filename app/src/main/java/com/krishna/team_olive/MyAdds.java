@@ -16,28 +16,36 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class MyAdds extends AppCompatActivity {
+
     ArrayList<MyAddModel> al;
     RecyclerView rvMyAdd;
     MyAddsAdapter myAddsAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_adds);
+
         rvMyAdd=findViewById(R.id.recyclerview_my_adds);
+
         al=new ArrayList<MyAddModel>();
         LinearLayoutManager lm=new LinearLayoutManager(this);
         rvMyAdd.setLayoutManager(lm);
+
         rvMyAdd.setHasFixedSize(true);
+
         MyAddsAdapter m=new MyAddsAdapter(this,al);
+
         rvMyAdd.setAdapter(m);
-        FirebaseDatabase.getInstance().getReference().child("mypostswithuser").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+
+        FirebaseDatabase.getInstance().getReference().child("posts with uid").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 al.clear();
                 for(DataSnapshot dataSnapshot: snapshot.getChildren())
                 {
                     AddedItemDescriptionModel am=dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                    MyAddModel mam=new MyAddModel(am.getName(),am.getExchangeCateogary(),null);
+                    MyAddModel mam=new MyAddModel(am.getName(),am.getExchangeCateogary(),am.getImageurl());
                     al.add(mam);
                     m.notifyDataSetChanged();
                 }

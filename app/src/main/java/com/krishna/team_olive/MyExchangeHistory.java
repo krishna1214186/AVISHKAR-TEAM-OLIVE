@@ -1,12 +1,15 @@
 package com.krishna.team_olive;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -18,13 +21,23 @@ import java.util.ArrayList;
 
 
 public class MyExchangeHistory extends AppCompatActivity {
-ArrayList<MyexchangeHistoryModel> al;
-RecyclerView rvHistory;
-MyexchangeHistoryAdapter myexchangeHistoryAdapter;
+    ArrayList<MyexchangeHistoryModel> al;
+    RecyclerView rvHistory;
+    MyexchangeHistoryAdapter myexchangeHistoryAdapter;
+    ImageView back_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_exchange_history);
+
+        back_btn = findViewById(R.id.back_btn);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MyExchangeHistory.this, MainActivity.class));
+            }
+        });
         rvHistory=findViewById(R.id.recyclerview_exchange_history);
         al=new ArrayList<MyexchangeHistoryModel>();
         LinearLayoutManager lm=new LinearLayoutManager(this);

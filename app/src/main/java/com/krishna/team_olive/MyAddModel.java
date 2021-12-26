@@ -5,12 +5,20 @@ import android.net.Uri;
 public class MyAddModel {
     private String name;
     private String cateogary;
-    private Uri uri;
+    private String post_img;
 
-    public MyAddModel(String name, String cateogary, Uri uri) {
+    public MyAddModel(String name, String cateogary, String post_img) {
         this.name = name;
         this.cateogary = cateogary;
-        this.uri = uri;
+        this.post_img = post_img;
+    }
+
+    public String getPost_img() {
+        return post_img;
+    }
+
+    public void setPost_img(String post_img) {
+        this.post_img = post_img;
     }
 
     public String getName() {
@@ -29,11 +37,4 @@ public class MyAddModel {
         this.cateogary = cateogary;
     }
 
-    public Uri getUri() {
-        return uri;
-    }
-
-    public void setUri(Uri uri) {
-        this.uri = uri;
-    }
 }

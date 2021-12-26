@@ -102,16 +102,41 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
                 tv_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("Myexchanges").child(object_exc_req.getClient_uid()).push();
+                        DatabaseReference firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("My Exchanges").child(object_exc_req.getClient_uid()).push();
                         firebaseDatabase.setValue(object_exc_req.getPostid());
+
+                        DatabaseReference firebaseDatabase1 = FirebaseDatabase.getInstance().getReference().child("My Exchanges").child(object_exc_req.getUser_uid()).push();
+                        firebaseDatabase1.setValue(object_exc_req.getPostid());
 
                         DatabaseReference firebaseDatabase2 = FirebaseDatabase.getInstance().getReference().child("Notifications").child(object_exc_req.getClient_uid());
                         NotificationsModel notificationsModel = new NotificationsModel(object_exc_req.getUser_uid(), "accepted your request", object_exc_req.getPostid(), 2);
                         firebaseDatabase2.push().setValue(notificationsModel);
 
-                        FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
+                        FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getPostid()).removeValue();
+
+                        FirebaseDatabase.getInstance().getReference().child("Current non NGO posts").child(object_exc_req.getPostid()).removeValue();
+                        FirebaseDatabase.getInstance().getReference().child("Current NGO posts").child(object_exc_req.getPostid()).removeValue();
 
                         String client_uid = object_exc_req.getClient_uid();
+
+                        FirebaseDatabase.getInstance().getReference().child("My Likes").addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                                    if(snapshot1.getValue(String.class).equals(object_exc_req.getPostid())){
+                                        FirebaseDatabase.getInstance().getReference().child("My Likes").child(snapshot.toString())
+                                                .child(snapshot1.toString()).removeValue();
+                                    }
+                                }
+                            }
+
+
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
 
                         FirebaseDatabase.getInstance().getReference().child("Tokens").child(client_uid).child("token").addValueEventListener(new ValueEventListener() {
                             @Override
@@ -146,7 +171,8 @@ public class ExchangeRequestAdapter extends RecyclerView.Adapter<ExchangeRequest
                 tv_yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getRequest_uid()).removeValue();
+                        FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(object_exc_req.getPostid()).removeValue();
+
                         dialog.dismiss();
                         ////DELETE bhi krna h !!!!!!!!!!!
                     }

@@ -1,4 +1,3 @@
-
 package com.krishna.team_olive;
 
 import androidx.annotation.NonNull;
@@ -60,6 +59,8 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     private Dialog dialog;
     private Button btn_done;
 
+    LinearLayout ll_complete, ll_btnDone;
+
     private SpinnerItemAdapter spinnerItemAdapter;
 
     @Override
@@ -70,13 +71,14 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         Spinner mySpinner = findViewById(R.id.spinner_1);
 
         btn_ok = findViewById(R.id.btn_ok);
-        btn_ok.setVisibility(View.GONE);
         tv = findViewById(R.id.tv_cateogary);
         dialog = new Dialog(this);
         dialog.setContentView(R.layout.congrats_donate);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+
+        ll_complete = findViewById(R.id.ll_complete);
 
         btn_done = dialog.findViewById(R.id.btn_done);
+        ll_btnDone = dialog.findViewById(R.id.ll_btnDone);
 
         postid2 = getIntent().getStringExtra("postid");
         model = (AddedItemDescriptionModel) getIntent().getSerializableExtra("model");
@@ -92,6 +94,7 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
 
         if(model.getTypeOfExchange().equals("Y")){
             uploadData(model);
+            ll_complete.setVisibility(View.GONE);
             alertMessage();
         }
 
@@ -127,7 +130,6 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
         text=parent.getItemAtPosition(position).toString();
         model.setExchangeCateogary(text);
         uploadData(model);
-        btn_ok.setVisibility(View.VISIBLE);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ExchangeNotif").child(model.getCateogary()+model.getExchangeCateogary()).push();
         NotifExchangeModel notifExchangeModel = new NotifExchangeModel(postid2,FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -206,13 +208,14 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
             }
         });
         */
-        dataRefrence.child("allpostswithoutuser").child(postid2).setValue(model);
-        dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(model);
+
+
+        dataRefrence.child("posts with uid").child(auth.getCurrentUser().getUid()).child(postid2).setValue(model);
 
         if(model.getTypeOfExchange().equals("Y"))
-            dataRefrence.child("NGOposts").child(postid2).setValue(model);
+            dataRefrence.child("Current non NGO posts").child(postid2).setValue(model);
         else
-            dataRefrence.child("nonNGOposts").child(postid2).setValue(model);
+            dataRefrence.child("Current NGO posts").child(postid2).setValue(model);
     }
 
     @Override
@@ -220,13 +223,15 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     }
 
     public void uploadData(AddedItemDescriptionModel m) {
+//        dataRefrence.child("Current NGO posts").child(postid2).setValue(m);
+        dataRefrence.child("posts with uid").child(auth.getCurrentUser().getUid()).child(postid2).setValue(m);
         dataRefrence.child("allpostswithoutuser").child(postid2).setValue(m);
-        dataRefrence.child("mypostswithuser").child(auth.getCurrentUser().getUid()).child(postid2).setValue(m);
+
 
         if(model.getTypeOfExchange().equals("Y"))
-            dataRefrence.child("NGOposts").child(postid2).setValue(model);
+            dataRefrence.child("Current non NGO posts").child(postid2).setValue(model);
         else
-            dataRefrence.child("nonNGOposts").child(postid2).setValue(model);
+            dataRefrence.child("Current NGO posts").child(postid2).setValue(model);
     }
 
     public void sendNotifications(String usertoken, String title, String message) {

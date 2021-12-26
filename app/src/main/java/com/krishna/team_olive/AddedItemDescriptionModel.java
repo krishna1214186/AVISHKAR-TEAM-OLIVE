@@ -22,6 +22,27 @@ public class AddedItemDescriptionModel implements Serializable {
     String extension;
     String postid;
     private String uid;
+    String name_lowercase;
+
+
+    public AddedItemDescriptionModel(String cateogary, String name, String ageOfProduct, String description, String adress1, String adress2, String imageurl, String pincode, String typeOfExchange, String exchangeCateogary, String ratings, String extension, String postid, String uid, String name_lowercase) {
+        this.cateogary = cateogary;
+        this.name = name;
+        this.ageOfProduct = ageOfProduct;
+        this.description = description;
+        this.adress1 = adress1;
+        this.adress2 = adress2;
+        this.imageurl = imageurl;
+        this.pincode = pincode;
+        this.typeOfExchange = typeOfExchange;
+        this.exchangeCateogary = exchangeCateogary;
+        this.ratings = ratings;
+        this.extension = extension;
+        this.postid = postid;
+        this.uid = uid;
+        this.name_lowercase = name_lowercase;
+    }
+
     public AddedItemDescriptionModel()
     {}
 

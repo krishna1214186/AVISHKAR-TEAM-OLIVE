@@ -18,31 +18,31 @@ import java.util.List;
 
 public class ExchangeRequest extends AppCompatActivity {
 
-    private RecyclerView recyclerView_echange_req;
+    private RecyclerView recyclerView_exchange_req;
     ExchangeRequestAdapter exchangeRequestAdapter;
-    List<ExchangeModel> mlist;
+    List<ExchangeModel> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_request);
 
-        recyclerView_echange_req = findViewById(R.id.recyclerview_exchange_req);
+        recyclerView_exchange_req = findViewById(R.id.recyclerview_exchange_req);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        recyclerView_echange_req.setLayoutManager(linearLayoutManager);
+        recyclerView_exchange_req.setLayoutManager(linearLayoutManager);
 
-        mlist = new ArrayList<>();
+        list = new ArrayList<>();
 
-        exchangeRequestAdapter = new ExchangeRequestAdapter(this,mlist);
-        recyclerView_echange_req.setAdapter(exchangeRequestAdapter);
+        exchangeRequestAdapter = new ExchangeRequestAdapter(this, list);
+        recyclerView_exchange_req.setAdapter(exchangeRequestAdapter);
 
         FirebaseDatabase.getInstance().getReference().child("Exchange Requests").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                mlist.clear();
+                list.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren()){
                     ExchangeModel exchangeModel = dataSnapshot.getValue(ExchangeModel.class);
-                    mlist.add(exchangeModel);
+                    list.add(exchangeModel);
                 }
                 exchangeRequestAdapter.notifyDataSetChanged();
             }

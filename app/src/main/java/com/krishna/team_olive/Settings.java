@@ -51,25 +51,14 @@ public class Settings extends AppCompatActivity {
         eng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLanguage(Settings.this,"en");
             }
         });
 
         hindi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setLanguage(Settings.this,"hi");
             }
         });
 
-    }
-
-    public void setLanguage(Activity activity, String language){
-        Locale locale = new Locale(language);
-        Resources resources = activity.getResources();
-        Configuration config = resources.getConfiguration();
-        config.setLocale(locale);
-        resources.updateConfiguration(config,resources.getDisplayMetrics());
-        dialog.dismiss();
     }
 }

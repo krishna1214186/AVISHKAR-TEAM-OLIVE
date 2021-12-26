@@ -122,13 +122,13 @@ public class SearchActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser().getUid()).child("isNGO").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot) {
-                        isNGO = snapshot.getValue().toString();
-                        if(isNGO.equals("Y")){
-                            searchNGOposts();
-                        }else{
-                            searchnonNGOposts();
-                        }
-                    }
+                isNGO = snapshot.getValue().toString();
+                if(isNGO.equals("Yes")){
+                    searchNGOposts();
+                }else{
+                    searchnonNGOposts();
+                }
+            }
             @Override
             public void onCancelled( DatabaseError error) {
                 Toast.makeText(SearchActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
@@ -147,10 +147,10 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange( DataSnapshot snapshot) {
                         isNGO = snapshot.getValue().toString();
-                        if(isNGO.equals("Y")){
-                            searchdetailNGO(s.toString());
+                        if(isNGO.equals("Yes")){
+                            searchdetailNGO(s.toString().toLowerCase());
                         }else{
-                            searchdetailnonNGO(s.toString());
+                            searchdetailnonNGO(s.toString().toLowerCase());
                         }
                     }
                     @Override
@@ -195,10 +195,10 @@ public class SearchActivity extends AppCompatActivity {
         });
 
 
-       locationRequest = LocationRequest.create();
+        locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-       locationRequest.setInterval(5000);
-       locationRequest.setFastestInterval(2000);
+        locationRequest.setInterval(5000);
+        locationRequest.setFastestInterval(2000);
 
 
         check_distance.setOnClickListener(new View.OnClickListener() {
@@ -231,31 +231,60 @@ public class SearchActivity extends AppCompatActivity {
 
 
                 distance_sort.clear();
-                FirebaseDatabase.getInstance().getReference().child("allpostswithoutuser").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            AddedItemDescriptionModel add_obj = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                            distance_sort.add(add_obj);
-                        }
-                        search_list.clear();
-                        for(Map.Entry<Double, String> entry : map.entrySet()){
-                            for(int i=0; i<distance_sort.size(); i++){
-                                if(distance_sort.get(i).getPostid().equals(entry.getValue())){
-                                    search_list.add(distance_sort.get(i));
+
+                if(isNGO.equals("Yes")) {
+
+                    FirebaseDatabase.getInstance().getReference().child("Current NGO posts").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                AddedItemDescriptionModel add_obj = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                                distance_sort.add(add_obj);
+                            }
+                            search_list.clear();
+                            for (Map.Entry<Double, String> entry : map.entrySet()) {
+                                for (int i = 0; i < distance_sort.size(); i++) {
+                                    if (distance_sort.get(i).getPostid().equals(entry.getValue())) {
+                                        search_list.add(distance_sort.get(i));
+                                    }
                                 }
                             }
+                            searchAdapter.notifyDataSetChanged();
                         }
-                        searchAdapter.notifyDataSetChanged();
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
 
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+                else{
+                    FirebaseDatabase.getInstance().getReference().child("Current non NGO posts").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                AddedItemDescriptionModel add_obj = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                                distance_sort.add(add_obj);
+                            }
+                            search_list.clear();
+                            for (Map.Entry<Double, String> entry : map.entrySet()) {
+                                for (int i = 0; i < distance_sort.size(); i++) {
+                                    if (distance_sort.get(i).getPostid().equals(entry.getValue())) {
+                                        search_list.add(distance_sort.get(i));
+                                    }
+                                }
+                            }
+                            searchAdapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                }
+
                 for (Map.Entry<Double, String> entry : map.entrySet()) {
-
-
                     searchAdapter.notifyDataSetChanged();
                 }
                 //Toast.makeText(SearchActivity.this, Integer.toString(search_list.size()), Toast.LENGTH_SHORT).show();
@@ -286,7 +315,7 @@ public class SearchActivity extends AppCompatActivity {
         return Math.sqrt(distance);
     }
 
-   @Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
@@ -408,83 +437,85 @@ public class SearchActivity extends AppCompatActivity {
 
     }
 
-        private void searchdetailnonNGO(String s){
-            Query query = FirebaseDatabase.getInstance().getReference().child("nonNGOposts").orderByChild("name").startAt(s).endAt(s + "\uf8ff");
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    search_list.clear();
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        AddedItemDescriptionModel objes = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                        search_list.add(objes);
-                    }
-                    searchAdapter.notifyDataSetChanged();
+    private void searchdetailnonNGO(String s){
+        Query query = FirebaseDatabase.getInstance().getReference().child("Current non NGO posts").orderByChild("search_title").startAt(s).endAt(s + "\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                search_list.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    AddedItemDescriptionModel objes = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    search_list.add(objes);
                 }
+                searchAdapter.notifyDataSetChanged();
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    private void searchdetailNGO(String s){
+        Query query = FirebaseDatabase.getInstance().getReference().child("Current NGO posts").orderByChild("search_title").startAt(s).endAt(s + "\uf8ff");
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                search_list.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    AddedItemDescriptionModel objes = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    search_list.add(objes);
                 }
-            });
-        }
+                searchAdapter.notifyDataSetChanged();
+            }
 
-        private void searchdetailNGO(String s){
-            Query query = FirebaseDatabase.getInstance().getReference().child("NGOposts").orderByChild("name").startAt(s).endAt(s + "\uf8ff");
-            query.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    search_list.clear();
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        AddedItemDescriptionModel objes = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                        search_list.add(objes);
-                    }
-                    searchAdapter.notifyDataSetChanged();
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void searchnonNGOposts() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Current non NGO posts");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                search_list.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    AddedItemDescriptionModel obje = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    search_list.add(obje);
                 }
+                searchAdapter.notifyDataSetChanged();
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+    }
+
+    private void searchNGOposts() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Current NGO posts");
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                search_list.clear();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                    AddedItemDescriptionModel obje = dataSnapshot.getValue(AddedItemDescriptionModel.class);
+                    search_list.add(obje);
                 }
-            });
-        }
+                searchAdapter.notifyDataSetChanged();
+            }
 
-        private void searchnonNGOposts() {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("nonNGOposts");
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    search_list.clear();
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        AddedItemDescriptionModel obje = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                        search_list.add(obje);
-                    }
-                    searchAdapter.notifyDataSetChanged();
-                }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+    }
 
-                }
-            });
-        }
 
-        private void searchNGOposts() {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("NGOposts");
-            ref.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    search_list.clear();
-                    for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                        AddedItemDescriptionModel obje = dataSnapshot.getValue(AddedItemDescriptionModel.class);
-                        search_list.add(obje);
-                    }
-                    searchAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        }
 }

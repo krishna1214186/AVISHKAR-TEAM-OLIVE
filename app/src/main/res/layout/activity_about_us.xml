@@ -14,8 +14,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="About Us"
-            android:textSize="27sp"
+            android:text="@string/aboutus"
+            android:textSize="30sp"
             android:gravity="center_horizontal"
             android:fontFamily="@font/bangers"
             android:textColor="@color/light_orange"/>
@@ -30,10 +30,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/slogan"
-            android:textSize="27sp"
+            android:textSize="24sp"
             android:layout_marginTop="10dp"
             android:gravity="center_horizontal"
-            android:fontFamily="@font/bangers"
+            android:fontFamily="@font/antic"
+            android:textStyle="bold"
             android:textColor="@color/black"/>
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"

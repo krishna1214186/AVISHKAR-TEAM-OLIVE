@@ -22,7 +22,7 @@ public class Splash extends AppCompatActivity {
     Animation topAnim,bottomAnim;
     ImageView iv_logo;
     TextView tv_name,tv_slogan;
-    private static int X=5000;
+    private static int X=1500;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -43,8 +43,6 @@ public class Exchange_history_Adapter  extends RecyclerView.Adapter<Exchange_his
                 intent.putExtra("ud",uid);
                 context.startActivity(intent);
 
-
-
             }
         });
 
