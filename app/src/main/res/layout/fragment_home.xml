@@ -1,0 +1,1232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:itemIconTint="@color/light_orange"
+        app:itemTextColor="@color/black"
+        android:background="@color/white"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/menu_header"
+        app:menu="@menu/main_menu" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/app_name">
+
+                <ImageView
+                    android:id="@+id/iv_navigationDrawer"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:layout_toStartOf="@+id/appName"
+                    android:src="@drawable/nav_icon" />
+
+                <TextView
+                    android:id="@+id/appName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/bangers"
+                    android:gravity="center_horizontal"
+                    android:text="@string/app_name"
+                    android:textColor="@color/light_orange"
+                    android:textSize="28sp">
+                </TextView>
+
+                <ImageView
+                    android:id="@+id/iv_profileButton"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_margin="5dp"
+                    android:src="@drawable/profile_icon" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/appbar"
+                android:fitsSystemWindows="true"
+                android:backgroundTint="@color/white"
+                >
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|snap"
+                    android:id="@+id/collapsing_toolbar"
+                    >
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_categories"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/bangers"
+                            android:text="@string/categories"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"></TextView>
+
+                        <HorizontalScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/view">
+
+                            <GridLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:columnCount="5"
+                                android:rowCount="2">
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_car"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="0"
+                                    android:layout_column="0"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/car2" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/antic"
+                                            android:text="@string/car"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold"/>
+                                    </LinearLayout>
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_mobile"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="1"
+                                    android:layout_column="0"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/motorcycle" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/antic"
+                                            android:text="@string/bike"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold"/>
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_cycle"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="0"
+                                    android:layout_column="1"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/bicycle" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/cycle"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_bike"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="1"
+                                    android:layout_column="1"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/mobile" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/mobile"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold"/>
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_eleitems"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="0"
+                                    android:layout_column="2"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/electronicitems" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/ele"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold"/>
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_tv"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="1"
+                                    android:layout_column="2"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/tv1" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/tv"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold"/>
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_laptop"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="0"
+                                    android:layout_column="3"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/laptop" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/laptop"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold"/>
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_furniture"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="1"
+                                    android:layout_column="3"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="8dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/furniture" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/furniture"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_books"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="0"
+                                    android:layout_column="4"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/books1" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/books"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                                <com.google.android.material.card.MaterialCardView
+                                    android:id="@+id/cat_accecories"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_row="1"
+                                    android:layout_column="4"
+                                    android:layout_columnWeight="1"
+                                    android:layout_gravity="fill"
+                                    android:layout_margin="8dp"
+                                    app:cardCornerRadius="5dp"
+                                    app:cardElevation="8dp">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:gravity="center"
+                                        android:orientation="vertical">
+
+                                        <ImageView
+                                            android:layout_width="60dp"
+                                            android:layout_height="60dp"
+                                            android:src="@drawable/clothes1" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="@string/clothes"
+                                            android:textAlignment="center"
+                                            android:textColor="@color/black"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold"/>
+                                    </LinearLayout>
+
+
+                                </com.google.android.material.card.MaterialCardView>
+
+                            </GridLayout>
+
+                        </HorizontalScrollView>
+                    </LinearLayout>
+
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <com.getbase.floatingactionbutton.FloatingActionsMenu
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fam_home"
+                android:clickable="true"
+                android:layout_alignParentBottom="true"
+                app:fab_colorNormal="@color/yellow"
+                app:fab_colorPressed="@color/yellow_pressed"
+                app:fab_icon="@color/white"
+                app:fab_labelStyle="@style/custom_fab"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="right|bottom"
+                android:elevation="1dp">
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/floatingActionButton2"
+                    app:fab_colorNormal="@color/white"
+                    app:fab_colorPressed="@color/white_pressed"
+                    app:fab_icon="@drawable/fab_add"
+                    app:fab_size="mini"
+                    app:fab_title="Donate"
+                    />
+
+                <com.getbase.floatingactionbutton.FloatingActionButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/floatingActionButton3"
+                    app:fab_colorNormal="@color/white"
+                    app:fab_colorPressed="@color/white_pressed"
+                    app:fab_icon="@drawable/fab_add"
+                    app:fab_size="mini"
+                    app:fab_title="Exchange"
+                    />
+
+            </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/black"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginRight="10dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/tv_posts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:fontFamily="@font/bangers"
+                            android:text="@string/posts"
+                            android:textAllCaps="true"
+                            android:textColor="@color/black"
+                            android:textSize="20sp"></TextView>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_below="@+id/tv_posts"
+                            android:layout_height="match_parent">
+
+                            <com.facebook.shimmer.ShimmerFrameLayout
+                                android:id="@+id/shimmerFrameLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:orientation="vertical">
+
+                                <!-- Adding 15 rows of placeholders -->
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+
+                                    <include layout="@layout/shimmer_placeholder_layout" />
+                                </LinearLayout>
+                            </com.facebook.shimmer.ShimmerFrameLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recyclerview_posts"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>
+                            <!--                    android:layout_below="@+id/tv_posts"-->
+
+                        </RelativeLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>
+
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.drawerlayout.widget.DrawerLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:id="@+id/drawer_layout"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:background="@color/white"-->
+<!--    tools:context=".MainActivity">-->
+
+<!--    <com.google.android.material.navigation.NavigationView-->
+<!--        android:id="@+id/navigation_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        app:itemIconTint="@color/drawer_item"-->
+<!--        app:itemTextColor="@color/drawer_item"-->
+<!--        android:background="@color/white"-->
+<!--        android:layout_gravity="start"-->
+<!--        app:headerLayout="@layout/menu_header"-->
+<!--        app:menu="@menu/main_menu" />-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:id="@+id/content"-->
+<!--        android:orientation="vertical">-->
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/app_name">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_navigationDrawer"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:layout_toStartOf="@+id/appName"-->
+<!--                    android:src="@drawable/nav_icon" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/appName"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="3"-->
+<!--                    android:layout_centerHorizontal="true"-->
+<!--                    android:fontFamily="@font/bangers"-->
+<!--                    android:gravity="center_horizontal"-->
+<!--                    android:text="@string/app_name"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="28sp">-->
+<!--                </TextView>-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/iv_profileButton"-->
+<!--                    android:layout_width="40dp"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:layout_margin="5dp"-->
+<!--                    android:src="@drawable/profile_icon" />-->
+
+<!--            </LinearLayout>-->
+
+<!--        </RelativeLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:orientation="vertical">-->
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:orientation="vertical">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_categories"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/bangers"-->
+<!--                    android:text="@string/categories"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"></TextView>-->
+
+<!--                <HorizontalScrollView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_below="@+id/view">-->
+
+<!--                    <GridLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:columnCount="5"-->
+<!--                        android:rowCount="2">-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_car"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="0"-->
+<!--                            android:layout_column="0"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/car2" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/antic"-->
+<!--                                    android:text="@string/car"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold"/>-->
+<!--                            </LinearLayout>-->
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_mobile"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="1"-->
+<!--                            android:layout_column="0"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/motorcycle" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:fontFamily="@font/antic"-->
+<!--                                    android:text="@string/bike"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold"/>-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_cycle"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="0"-->
+<!--                            android:layout_column="1"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/bicycle" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/cycle"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold" />-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_bike"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="1"-->
+<!--                            android:layout_column="1"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/mobile" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/mobile"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold"/>-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_eleitems"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="0"-->
+<!--                            android:layout_column="2"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/electronicitems" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/ele"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold"/>-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_tv"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="1"-->
+<!--                            android:layout_column="2"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/tv1" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/tv"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold"/>-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_laptop"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="0"-->
+<!--                            android:layout_column="3"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/laptop" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/laptop"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold"/>-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_furniture"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="1"-->
+<!--                            android:layout_column="3"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="8dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/furniture" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/furniture"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold" />-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_books"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="0"-->
+<!--                            android:layout_column="4"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/books1" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/books"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold" />-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                        <com.google.android.material.card.MaterialCardView-->
+<!--                            android:id="@+id/cat_accecories"-->
+<!--                            android:layout_width="90dp"-->
+<!--                            android:layout_height="90dp"-->
+<!--                            android:layout_row="1"-->
+<!--                            android:layout_column="4"-->
+<!--                            android:layout_columnWeight="1"-->
+<!--                            android:layout_gravity="fill"-->
+<!--                            android:layout_margin="8dp"-->
+<!--                            app:cardCornerRadius="5dp"-->
+<!--                            app:cardElevation="8dp">-->
+
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center_vertical|center_horizontal"-->
+<!--                                android:gravity="center"-->
+<!--                                android:orientation="vertical">-->
+
+<!--                                <ImageView-->
+<!--                                    android:layout_width="60dp"-->
+<!--                                    android:layout_height="60dp"-->
+<!--                                    android:src="@drawable/clothes1" />-->
+
+<!--                                <TextView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="@string/clothes"-->
+<!--                                    android:textAlignment="center"-->
+<!--                                    android:textColor="@color/black"-->
+<!--                                    android:textSize="14sp"-->
+<!--                                    android:textStyle="bold"/>-->
+<!--                            </LinearLayout>-->
+
+
+<!--                        </com.google.android.material.card.MaterialCardView>-->
+
+<!--                    </GridLayout>-->
+
+<!--                </HorizontalScrollView>-->
+<!--            </LinearLayout>-->
+
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_height="match_parent">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_posts"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:fontFamily="@font/bangers"-->
+<!--                    android:text="@string/posts"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:textAllCaps="true"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="20sp"></TextView>-->
+
+<!--                <RelativeLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_below="@+id/tv_posts"-->
+<!--                    android:layout_height="match_parent">-->
+
+<!--                    <com.facebook.shimmer.ShimmerFrameLayout-->
+<!--                        android:id="@+id/shimmerFrameLayout"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:orientation="vertical">-->
+
+<!--                        &lt;!&ndash; Adding 15 rows of placeholders &ndash;&gt;-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+
+<!--                            <include layout="@layout/shimmer_placeholder_layout" />-->
+<!--                        </LinearLayout>-->
+<!--                    </com.facebook.shimmer.ShimmerFrameLayout>-->
+
+<!--                    <androidx.recyclerview.widget.RecyclerView-->
+<!--                        android:id="@+id/recyclerview_posts"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginTop="10dp"></androidx.recyclerview.widget.RecyclerView>-->
+<!--                    &lt;!&ndash;                    android:layout_below="@+id/tv_posts"&ndash;&gt;-->
+
+<!--                </RelativeLayout>-->
+
+<!--                <com.getbase.floatingactionbutton.FloatingActionsMenu-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:id="@+id/fam_home"-->
+<!--                    android:clickable="true"-->
+<!--                    android:layout_alignParentBottom="true"-->
+<!--                    app:fab_colorNormal="@color/yellow"-->
+<!--                    app:fab_colorPressed="@color/yellow_pressed"-->
+<!--                    app:fab_icon="@color/white"-->
+<!--                    app:fab_labelStyle="@style/custom_fab"-->
+<!--                    android:layout_alignParentEnd="true">-->
+
+<!--                    <com.getbase.floatingactionbutton.FloatingActionButton-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/floatingActionButton2"-->
+<!--                        app:fab_colorNormal="@color/white"-->
+<!--                        app:fab_colorPressed="@color/white_pressed"-->
+<!--                        app:fab_icon="@drawable/fab_add"-->
+<!--                        app:fab_size="mini"-->
+<!--                        app:fab_title="Donate"/>-->
+
+<!--                    <com.getbase.floatingactionbutton.FloatingActionButton-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:id="@+id/floatingActionButton3"-->
+<!--                        app:fab_colorNormal="@color/white"-->
+<!--                        app:fab_colorPressed="@color/white_pressed"-->
+<!--                        app:fab_icon="@drawable/fab_add"-->
+<!--                        app:fab_size="mini"-->
+<!--                        app:fab_title="Exchange"/>-->
+
+<!--                </com.getbase.floatingactionbutton.FloatingActionsMenu>-->
+
+<!--            </RelativeLayout>-->
+
+<!--        </LinearLayout>-->
+<!--    </LinearLayout>-->
+<!--</androidx.drawerlayout.widget.DrawerLayout>-->

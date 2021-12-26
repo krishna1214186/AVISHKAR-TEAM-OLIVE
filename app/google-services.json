@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "79218744716",
+    "project_id": "team-olive-29eea",
+    "storage_bucket": "team-olive-29eea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:79218744716:android:5ce25f907b58a33276caa9",
+        "android_client_info": {
+          "package_name": "com.krishna.team_olive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "79218744716-gbiaaaesepprn6n64c2ligu92o6uqb9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGc9tLRuEpu2vQc-YcWIl5upzPYFxF6jQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "79218744716-gbiaaaesepprn6n64c2ligu92o6uqb9k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
