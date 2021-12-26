@@ -175,7 +175,12 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             FirebaseDatabase.getInstance().getReference().child("Ratings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("number").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    itemViewHolder.tv_reviews.setText(snapshot.getValue().toString());
+                    if(snapshot.getKey().toString()==null){
+                        itemViewHolder.tv_reviews.setText("0");
+                    }else{
+//                        itemViewHolder.tv_reviews.setText(snapshot.getValue().toString());
+                    }
+
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
@@ -186,7 +191,7 @@ public class PostAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
             FirebaseDatabase.getInstance().getReference().child("Ratings").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("rating").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    itemViewHolder.tv_rating.setText(snapshot.getValue().toString());
+     //               itemViewHolder.tv_rating.setText(snapshot.getValue().toString());
                 }
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {

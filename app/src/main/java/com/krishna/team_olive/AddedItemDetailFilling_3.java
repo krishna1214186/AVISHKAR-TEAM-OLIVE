@@ -129,6 +129,7 @@ public class AddedItemDetailFilling_3 extends AppCompatActivity implements Adapt
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         text=parent.getItemAtPosition(position).toString();
         model.setExchangeCateogary(text);
+        model.setUid(FirebaseAuth.getInstance().getCurrentUser().getUid());
         uploadData(model);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("ExchangeNotif").child(model.getCateogary()+model.getExchangeCateogary()).push();

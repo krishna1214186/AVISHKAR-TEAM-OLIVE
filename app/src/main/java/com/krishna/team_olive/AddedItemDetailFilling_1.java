@@ -68,11 +68,8 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
                 }
                 else {
                     AddedItemDescriptionModel model = new AddedItemDescriptionModel(cateogary, name, age, description, adress, landmark, "", pincode,
-                            donate,"","2","",auth.getCurrentUser().getUid(),name.toLowerCase(),"");
-                    if(donate.equals("Y"))
-                        uploadDataforNGO(model);
-                    else
-                        uploadDatafornonNGO(model);
+                            donate,"","2","","",FirebaseAuth.getInstance().getCurrentUser().getUid(),name.toLowerCase());
+                    uploadData(model);
 
                     Intent intent = new Intent(AddedItemDetailFilling_1.this, AddedItemDetailFilling_2.class);
                     intent.putExtra("postid",postid2);
@@ -87,28 +84,11 @@ public class AddedItemDetailFilling_1 extends AppCompatActivity {
 
     }
 
-
-    public void uploadDataforNGO(AddedItemDescriptionModel m) {
-        DatabaseReference dataRefrence2 = dataRefrence.child("Current NGO posts").push();
-        dataRefrence2.setValue(m);
-        postid2 = dataRefrence2.getKey().toString();
-        dataRefrence2.child("postid").setValue(postid2);
-        m.setPostid(postid2);
-
-//        dataRefrence.child("postidwithuserid").child(auth.getCurrentUser().getUid()).child(postid2).setValue(m);
+    private void uploadData(AddedItemDescriptionModel model) {
 
     }
 
-    public void uploadDatafornonNGO(AddedItemDescriptionModel m) {
-        DatabaseReference dataRefrence2 = dataRefrence.child("Current non NGO posts").push();
-        dataRefrence2.setValue(m);
-        postid2 = dataRefrence2.getKey().toString();
-        dataRefrence2.child("postid").setValue(postid2);
-        m.setPostid(postid2);
 
-//        dataRefrence.child("postidwithuserid").child(auth.getCurrentUser().getUid()).child(postid2).setValue(m);
-
-    }
 
 
 }
