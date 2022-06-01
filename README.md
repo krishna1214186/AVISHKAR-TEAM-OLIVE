@@ -1,5 +1,5 @@
 # THE-BARTER-SHOP
-Fianlist in Avishkar-2021.
+Finalist in Avishkar-2021.
 "A major problem nowadays is the growing pile ofwaste items that people throw because of their
 change of needs."
 Our solution to this problem is-
