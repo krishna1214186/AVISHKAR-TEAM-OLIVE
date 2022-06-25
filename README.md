@@ -16,7 +16,7 @@ generation.
 -People can easily donate to NGO's, if provided right
 platform.
 Hense this platform allows us to exchange our goods or donate them without throwing them to waste.
-
+<!-- 
 ## Process flow
 1. User can register on the app and choose communities he/she wants to be a member of.
 2. Users can post articles which may contain image, text, gif, video embedded.
@@ -60,5 +60,5 @@ Displaying larger datasets with minimising memory usage.
 For displaying circular image view.
 
 ## Class Diagram
-![image](https://user-images.githubusercontent.com/81455514/175766129-bb465a2a-7c9d-48b9-9357-ccb27daf6aac.png)
+![image](https://user-images.githubusercontent.com/81455514/175766129-bb465a2a-7c9d-48b9-9357-ccb27daf6aac.png) -->
 
